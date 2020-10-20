@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ComplexState.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/Edge.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/Edge.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.obj"
+  "C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/Network.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/Network.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/Node.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/Node.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj"

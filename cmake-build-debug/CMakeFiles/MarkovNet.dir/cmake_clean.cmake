@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/MarkovNet.dir/ComplexState.cpp.obj"
   "CMakeFiles/MarkovNet.dir/Edge.cpp.obj"
   "CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.obj"
+  "CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj"
   "CMakeFiles/MarkovNet.dir/Network.cpp.obj"
   "CMakeFiles/MarkovNet.dir/Node.cpp.obj"
   "CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj"

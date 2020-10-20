@@ -223,6 +223,33 @@ ExponentialDistribution.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.s
 .PHONY : ExponentialDistribution.cpp.s
 
+ModelInstance.obj: ModelInstance.cpp.obj
+
+.PHONY : ModelInstance.obj
+
+# target to build an object file
+ModelInstance.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj
+.PHONY : ModelInstance.cpp.obj
+
+ModelInstance.i: ModelInstance.cpp.i
+
+.PHONY : ModelInstance.i
+
+# target to preprocess a source file
+ModelInstance.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ModelInstance.cpp.i
+.PHONY : ModelInstance.cpp.i
+
+ModelInstance.s: ModelInstance.cpp.s
+
+.PHONY : ModelInstance.s
+
+# target to generate assembly for a file
+ModelInstance.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ModelInstance.cpp.s
+.PHONY : ModelInstance.cpp.s
+
 Network.obj: Network.cpp.obj
 
 .PHONY : Network.obj
@@ -349,6 +376,9 @@ help:
 	@echo ... ExponentialDistribution.obj
 	@echo ... ExponentialDistribution.i
 	@echo ... ExponentialDistribution.s
+	@echo ... ModelInstance.obj
+	@echo ... ModelInstance.i
+	@echo ... ModelInstance.s
 	@echo ... Network.obj
 	@echo ... Network.i
 	@echo ... Network.s

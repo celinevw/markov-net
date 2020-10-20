@@ -98,6 +98,12 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h">
 			<Option target="MarkovNet"/>
 		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h">
+			<Option target="MarkovNet"/>
+		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Network.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
