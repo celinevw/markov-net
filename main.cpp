@@ -6,28 +6,43 @@
 #include "ExponentialDistribution.h"
 
 void writeEdges(){
+	double dt = 0.1;			// seconds
+	double S_on = 4.40e7;		// per M per second
+	double L_on = 1.27e7;		// per M per second
+	double H_on = 1e7;			// per M per second
+	double S_change = 0.44; 	// per second
+	double L_change = 1/8.0;	// per second
+	double S_off = 1/32.2;		// per second
+	double Sa_off = 1/683.0;	// per second
+	double SL_off = 1/32.0;		// per second
+	double SLa_off = 1/851.0;	// per second
+	double SLH_off = 1/197.0;	// per second
+	double conc = 1e-9;			// M
+
+
 	std::ofstream outfile;
 	outfile.open("edges.txt");
 	int numstates = 6;
-	double nextstate[] = {0.1, 0.03, 0.25, 0.75, 0.04};
+	double nextstate[] = {S_on * conc * dt, S_change * dt, L_on * conc * dt,
+					   L_change * dt, H_on * conc * dt};
 
-	for(int i=0; i<numstates; i++) {
+	for (int i = 0; i < numstates; i++) {
+
 		for (int j = 0; j < numstates - 1; j++) {
-			/*
+
 			// state1 goes to the next state
-			if (i * 6 + j != 7 && i * 6 + (j + 1) != 7) { // Si-Si cannot be reached, so don't add edges to/from node 7
-				outfile << i * 6 + j << " " << i * 6 + (j + 1) << " " << nextstate[j] * (1-nextstate[i]) << std::endl;
+			if (i * numstates + j != 7 && i * numstates + (j + 1) != 7) { // Si-Si cannot be reached, so don't add edges to/from node 7
+				outfile << i * numstates + j << " " << i * numstates + (j + 1) << " " << nextstate[j] << std::endl;
 			}
 			//state2 goes to the next state
-			if (i + j * 6 != 7 && i + (j + 1) * 6 != 7) { // Si-Si cannot be reached, so don't add edges to/from node 7
-				outfile << i + j * 6 << " " << i + (j + 1) * 6 << " " << nextstate[j] * (1 - nextstate[i]) << std::endl;
-			}*/
-			//both states go to the next state
-			if (i * 6 + j != 7 && (i + 1) * 6 + (j + 1) != 7) {
-				outfile << i * 6 + j << " " << (i + 1) * 6 + (j + 1) << " " << nextstate[j] * nextstate[i] << std::endl;
+			if (i + j * numstates != 7 && i + (j + 1) * numstates != 7) { // Si-Si cannot be reached, so don't add edges to/from node 7
+				outfile << i + j * numstates << " " << i + (j + 1) * numstates << " " << nextstate[j] << std::endl;
 			}
 
 		}
+	}
+	for (int i = 0; i < numstates-1; i++) {
+		outfile << nextstate[i] << " " ;
 	}
 	outfile.close();
 }
@@ -35,12 +50,12 @@ void writeEdges(){
 Network makeNet(){
 	// Create states
 	std::vector<ComplexState> states;
-	states.emplace_back("none", 0.0); //create ComplexState and immediatly add to end
-	states.emplace_back("Si", 0.0);
-	states.emplace_back("Sa", 0.01);
-	states.emplace_back("SLi", 0.01);
-	states.emplace_back("SLa", 0.01);
-	states.emplace_back("SLH", 0.01);
+	states.emplace_back("none", 0.0); 	// create ComplexState instance and immediatly add to end
+	states.emplace_back("Si", 0.0);	// diffusion constant in micrometer^2/s
+	states.emplace_back("Sa", 43000);
+	states.emplace_back("SLi", 5000);
+	states.emplace_back("SLa", 5000);
+	states.emplace_back("SLH", 5000);
 
 	//Create nodes
 	std::vector <Node> nodes;
@@ -69,9 +84,10 @@ Network makeNet(){
 }
 
 int main() {
-	writeEdges(); //make sure all edges are in the file
+	writeEdges(); 				//make sure all edges are in the file
+	//Network MMR_net = makeNet();	// Set up the network
 
-	//Network MMR_net = makeNet();
+
 
 
 

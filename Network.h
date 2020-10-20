@@ -21,6 +21,8 @@ public:
 	Network(std::vector<Node> nd);
 	Network();
 	std::vector <Node> getNodes();
+	std::vector <std::vector<Edge>> getEdges();
+	std::vector<Edge> getEdgesOfNode(int i);
 	void addNode(Node n);
 	void addEdge(Node n1, Node n2, double p);
 	void printNet();

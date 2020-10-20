@@ -8,11 +8,17 @@
 Node::Node(ComplexState A, ComplexState B) {
 	complexA = A;
 	complexB = B;
+
+	//only one complex, that one determines diffusion
 	if(A.getStateName().std::string::compare("none") == 0){
 		this->D = B.getStateD();
 	}
 	else if (B.getStateName().std::string::compare("none") == 0){
 		this->D = A.getStateD();
+	}
+	// if one complex is Si, stationary at mismatch so no diffusion
+	else if(A.getStateName().std::string::compare("Si") == 0 || B.getStateName().std::string::compare("Si") == 0){
+		this->D = 0;
 	}
 	else{
 		this->D = pow(pow(A.getStateD(), -1) + pow(B.getStateD(), -1), -1);
