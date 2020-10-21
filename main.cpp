@@ -1,12 +1,8 @@
 #include <fstream>
 #include <cmath>
-#include <algorithm>
 #include <array>
-#include <list>
 #include "ModelInstance.h"
-#include "NormalDistribution.h"
-#include "ExponentialDistribution.h"
-#include "UniformDistribution.h"
+#include "TestingDistributions.h"
 
 double RateToProbability(double x, double dt){
 	return 1 - std::pow(1 - x, dt);
@@ -65,7 +61,7 @@ void writeEdges(){
 }
 
 void writeSmallNet(){
-	double dt = 0.1;			// seconds
+	double dt = 0.01;			// seconds
 	double S_on = 4.40e7;		// per M per second
 	double L_on = 1.27e7;		// per M per second
 	double H_on = 1e7;			// per M per second
@@ -82,8 +78,8 @@ void writeSmallNet(){
 	std::ofstream outfile;
 	outfile.open("edges.txt");
 	int numstates = 6;
-	double nextstate[] = {S_on * conc * dt, S_change * dt, L_on * conc * dt,
-						  L_change * dt, H_on * conc * dt};
+	double nextstate[] = {S_on * conc * dt, RateToProbability(S_change, dt), L_on * conc * dt,
+						  RateToProbability(L_change, dt), H_on * conc * dt};
 	double unbinding[] = {RateToProbability(S_off, dt), RateToProbability(Sa_off, dt), RateToProbability(SL_off, dt),
 						  RateToProbability(SLa_off, dt), RateToProbability(SLH_off, dt)};
 
@@ -93,11 +89,13 @@ void writeSmallNet(){
 
 			// state1 goes to the next state
 			if ((i != 0 || j != 0) && i * numstates + j != 7 && i * numstates + (j + 1) != 7) { // Si-Si cannot be reached, so don't add edges to/from node 7
-				outfile << i * numstates + j << " " << i * numstates + (j + 1) << " " << nextstate[j] << std::endl;
+				outfile << i * numstates + j << " " << i * numstates + (j + 1) << " " <<
+				nextstate[j] * (1 - nextstate[i]) << std::endl;
 			}
 			//state2 goes to the next state
 			if ((i != 0 || j != 0) && i + j * numstates != 7 && i + (j + 1) * numstates != 7) { // Si-Si cannot be reached, so don't add edges to/from node 7
-				outfile << i + j * numstates << " " << i + (j + 1) * numstates << " " << nextstate[j] << std::endl;
+				outfile << i + j * numstates << " " << i + (j + 1) * numstates << " " <<
+				nextstate[j] * (1 - nextstate[i]) << std::endl;
 			}
 
 		}
@@ -157,26 +155,56 @@ Network makeNet(){
 }
 
 int main() {
-	//smallNet(); 					//make sure all edges are in the file
+	writeSmallNet(); 					//make sure all edges are in the file
 	Network MMR_net = makeNet();	// Set up the network
-	int timesteps = 3;
+	const int timesteps = 500;
+	const int num_sims = 10;
+	const int length_DNA = 100;
 
 	UniformDistribution unif(0,1);
-	std::array<float,200> myarr{};
-	for (int i=0; i<200; i++){
+	std::array<float,num_sims*(2*timesteps+1)> myarr{};
+	for (int i=0; i<num_sims*(2*timesteps+1); i++){
 		myarr.at(i) = unif.getRandomNumber();
 	}
+
+	std::array<std::array<int, timesteps+1>, num_sims>  position{};
+	std::array<std::array<int, timesteps+1>, num_sims>  state{};
+
 	auto it1 = myarr.begin();
-	ModelInstance myInstance(MMR_net, 100, *it1++ );
-
-
-	for (int i = 0; i < timesteps; i++){
-		myInstance.setStep(*it1++);
-		myInstance.transition(*it1++);
-		std::cout << myInstance.getState() << std::endl;
+	std::vector<ModelInstance> sims;
+	for(int i = 0; i < num_sims; i++){
+		sims.emplace_back(MMR_net, length_DNA, *it1++);
 	}
 
+#pragma omp parallel
+	{
+#pragma omp for
+		for (size_t i = 0; i < num_sims; i++){
+			for (int j = 0; j < timesteps; j++){
+				position[i][j] = sims[i].getPosition();
+				state[i][j] = sims[i].getState();
+				sims[i].transition(*it1++);
+				sims[i].setStep(*it1++);
+			}
 
+			position[i][timesteps] = sims[i].getPosition();
+			state[i][timesteps] = sims[i].getState();
+
+		}
+	}
+
+	std::ofstream out_pos;
+	std::ofstream out_state;
+	out_pos.open ("position.txt");
+	out_state.open ("state.txt");
+	for (int i = 0; i < timesteps+1; i++){
+		for (int j=0; j < num_sims; j++) {
+			out_pos << position[j][i] << "\t";
+			out_state << state[j][i] << "\t";
+		}
+		out_pos << std::endl;
+		out_state << std::endl;
+	}
 
 	return 0;
 }

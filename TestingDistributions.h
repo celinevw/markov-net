@@ -7,6 +7,7 @@
 
 #include "ExponentialDistribution.h"
 #include "NormalDistribution.h"
+#include "UniformDistribution.h"
 
 void testExpDist();
 void testNormalDist();

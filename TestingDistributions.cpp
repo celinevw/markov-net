@@ -3,7 +3,6 @@
 //
 
 #include "TestingDistributions.h"
-#include "UniformDistribution.h"
 
 void ExponentialDistribution::testExpDist(){
 	std::ofstream outfile;
