@@ -22,7 +22,6 @@ public:
 	float getRandomNumber();
 	float getMu();
 	float getSigma();
-	static void testNormalDist();
 };
 
 #endif //MARKOVNET_NORMALDISTRIBUTION_H

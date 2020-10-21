@@ -38,21 +38,3 @@ float NormalDistribution::getMu() {
 float NormalDistribution::getSigma() {
 	return sigma;
 }
-
-void NormalDistribution::testNormalDist(){
-	std::ofstream outfile;
-	outfile.open ("normal.txt");
-	int num = 2500;
-	float mu = 2;
-	float sigma = 5;
-	NormalDistribution myNormal(mu, sigma);
-	outfile << mu << std::endl << sigma << std::endl << num << std::endl;
-
-#pragma omp parallel
-	{
-#pragma omp for
-		for(size_t i=0; i<num; i++) {
-			outfile << myNormal.getRandomNumber() << std::endl;
-		}
-	}
-}

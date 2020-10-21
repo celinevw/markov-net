@@ -32,6 +32,11 @@ CMakeFiles/MarkovNet.dir/Node.cpp.obj
 CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.cpp
  C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
+CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj
+ C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
+ C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
+ C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp
+ C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
  C:/Users/Celly/CLionProjects/MarkovNet/Edge.h

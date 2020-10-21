@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/MarkovNet.dir/Network.cpp.obj"
   "CMakeFiles/MarkovNet.dir/Node.cpp.obj"
   "CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj"
+  "CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj"
   "CMakeFiles/MarkovNet.dir/main.cpp.obj"
   "MarkovNet.exe"
   "MarkovNet.exe.manifest"

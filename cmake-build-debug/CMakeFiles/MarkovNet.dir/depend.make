@@ -32,6 +32,11 @@ CMakeFiles/MarkovNet.dir/Node.cpp.obj: ../Node.h
 CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj: ../NormalDistribution.cpp
 CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj: ../NormalDistribution.h
 
+CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj: ../ExponentialDistribution.h
+CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj: ../NormalDistribution.h
+CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj: ../TestingDistributions.cpp
+CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj: ../TestingDistributions.h
+
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ComplexState.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../Edge.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ExponentialDistribution.h

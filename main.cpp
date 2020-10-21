@@ -7,7 +7,6 @@
 #include "NormalDistribution.h"
 #include "ExponentialDistribution.h"
 
-
 double RateToProbability(double x, double dt){
 	return 1 - std::pow(1 - x, dt);
 }
@@ -168,6 +167,7 @@ int main() {
 	}
 	auto it1 = myarr.begin();
 	ModelInstance myInstance(MMR_net, 100, *it1++ );
+
 
 	for (int i = 0; i < timesteps; i++){
 		myInstance.transition(*it1++);

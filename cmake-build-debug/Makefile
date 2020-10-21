@@ -331,6 +331,33 @@ NormalDistribution.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.s
 .PHONY : NormalDistribution.cpp.s
 
+TestingDistributions.obj: TestingDistributions.cpp.obj
+
+.PHONY : TestingDistributions.obj
+
+# target to build an object file
+TestingDistributions.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj
+.PHONY : TestingDistributions.cpp.obj
+
+TestingDistributions.i: TestingDistributions.cpp.i
+
+.PHONY : TestingDistributions.i
+
+# target to preprocess a source file
+TestingDistributions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.i
+.PHONY : TestingDistributions.cpp.i
+
+TestingDistributions.s: TestingDistributions.cpp.s
+
+.PHONY : TestingDistributions.s
+
+# target to generate assembly for a file
+TestingDistributions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.s
+.PHONY : TestingDistributions.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -388,6 +415,9 @@ help:
 	@echo ... NormalDistribution.obj
 	@echo ... NormalDistribution.i
 	@echo ... NormalDistribution.s
+	@echo ... TestingDistributions.obj
+	@echo ... TestingDistributions.i
+	@echo ... TestingDistributions.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

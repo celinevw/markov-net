@@ -122,6 +122,12 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h">
 			<Option target="MarkovNet"/>
 		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h">
+			<Option target="MarkovNet"/>
+		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/main.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
