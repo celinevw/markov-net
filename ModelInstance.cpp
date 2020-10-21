@@ -26,9 +26,11 @@ int ModelInstance::getPosition() {
 }
 
 void ModelInstance::setStep(float x) {
-	//TODO: find step size per type of complex;
-	int direction;
+	//TODO: find step size per type of complex
 	int stepsize = 2;
+
+	// Choose direction
+	int direction;
 	if(x<0){
 		direction = - 1;
 	}
@@ -36,28 +38,27 @@ void ModelInstance::setStep(float x) {
 		direction = 1;
 	}
 
+	// If not stepping off DNA, add step to position
 	if(position + direction * stepsize >= 0 && position + direction * stepsize < length){
-		position += direction;
+		position += direction * stepsize;
 	}
 
 }
 
-void ModelInstance::transition(float x1, float x2) {
-	std::cout << x1 << " " << x2 << std::endl;
+void ModelInstance::transition(float x) {
+	std::cout << x << std::endl;
 
+	// No outgoing edges, then stay in this state
 	if (network.getEdgesOfNode(state).empty()){
 		return;
 	}
 
+	// Iterate over outgoing edges, find the one to take depending on the random number x
 	float threshold = 0;
 	for (Edge e:network.getEdgesOfNode(state)){
 		threshold += e.getP();
-		if (x1< threshold) {
-			Node newstate = e.getEndNode(); //TODO: find problem in std::find newstate
-			auto it1 = std::find(network.getNodes().begin(), network.getNodes().end(), newstate);
-			if (it1 != network.getNodes().end()) {
-				int stateindex = std::distance(network.getNodes().begin(), it1);
-			}
+		if (x < threshold) {
+			this->state = e.getEndNode();
 			break;
 		}
 	}

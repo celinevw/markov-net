@@ -19,6 +19,6 @@ public:
 	int getState();
 	int getPosition();
 	void setStep(float x);
-	void transition(float x1, float x2);
+	void transition(float x1);
 };
 #endif //MARKOVNET_MODELINSTANCE_H
