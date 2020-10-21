@@ -28,5 +28,5 @@ double Edge::getP() {
 }
 
 bool operator==(Edge e1, Edge e2){
-	return (e1.getStartNode()==e2.getStartNode() && e1.getEndNode()==e2.getEndNode() && e1.getP()==e2.getP());
+	return (e1.getStartNode()==e2.getStartNode() && e1.getEndNode()==e2.getEndNode());
 }

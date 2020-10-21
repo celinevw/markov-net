@@ -23,5 +23,5 @@ std::string ComplexState::getStateName(){
 }
 
 bool operator==(ComplexState s1, ComplexState s2){
-	return(s1.getStateName()==s2.getStateName() && s1.getStateD()==s2.getStateD());
+	return(s1.getStateName().std::string::compare(s2.getStateName()) == 0);
 }

@@ -44,5 +44,5 @@ double Node::getNodeD() {
 }
 
 bool operator==(Node n1, Node n2){
-	return (n1.getStateA() == n2.getStateA() && n1.getStateB() == n2.getStateB() && n1.getNodeD() == n2.getNodeD());
+	return (n1.getStateA() == n2.getStateA() && n1.getStateB() == n2.getStateB());
 }

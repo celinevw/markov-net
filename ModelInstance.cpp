@@ -53,7 +53,7 @@ void ModelInstance::transition(float x1, float x2) {
 	for (Edge e:network.getEdgesOfNode(state)){
 		threshold += e.getP();
 		if (x1< threshold) {
-			Node newstate = e.getEndNode();
+			Node newstate = e.getEndNode(); //TODO: find problem in std::find newstate
 			auto it1 = std::find(network.getNodes().begin(), network.getNodes().end(), newstate);
 			if (it1 != network.getNodes().end()) {
 				int stateindex = std::distance(network.getNodes().begin(), it1);

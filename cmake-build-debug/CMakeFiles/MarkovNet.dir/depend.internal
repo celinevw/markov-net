@@ -12,6 +12,13 @@ CMakeFiles/MarkovNet.dir/Edge.cpp.obj
 CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.cpp
  C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj
+ C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
+ C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
+ C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
+ C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
+ C:/Users/Celly/CLionProjects/MarkovNet/Network.h
+ C:/Users/Celly/CLionProjects/MarkovNet/Node.h
 CMakeFiles/MarkovNet.dir/Network.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
  C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
@@ -29,6 +36,7 @@ CMakeFiles/MarkovNet.dir/main.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
  C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
  C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
+ C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
  C:/Users/Celly/CLionProjects/MarkovNet/Network.h
  C:/Users/Celly/CLionProjects/MarkovNet/Node.h
  C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h

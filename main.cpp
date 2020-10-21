@@ -159,7 +159,7 @@ Network makeNet(){
 int main() {
 	//smallNet(); 					//make sure all edges are in the file
 	Network MMR_net = makeNet();	// Set up the network
-	int timesteps = 50;
+	int timesteps = 3;
 
 	NormalDistribution norm(0,2);
 	std::array<float,200> myarr;

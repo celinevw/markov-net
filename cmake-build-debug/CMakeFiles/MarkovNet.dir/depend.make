@@ -12,6 +12,13 @@ CMakeFiles/MarkovNet.dir/Edge.cpp.obj: ../Node.h
 CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.obj: ../ExponentialDistribution.cpp
 CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.obj: ../ExponentialDistribution.h
 
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../ComplexState.h
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../Edge.h
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../ModelInstance.cpp
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../ModelInstance.h
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../Network.h
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../Node.h
+
 CMakeFiles/MarkovNet.dir/Network.cpp.obj: ../ComplexState.h
 CMakeFiles/MarkovNet.dir/Network.cpp.obj: ../Edge.h
 CMakeFiles/MarkovNet.dir/Network.cpp.obj: ../Network.cpp
@@ -28,6 +35,7 @@ CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj: ../NormalDistribution.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ComplexState.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../Edge.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ExponentialDistribution.h
+CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ModelInstance.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../Network.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../Node.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../NormalDistribution.h
