@@ -8,8 +8,11 @@ ModelInstance::ModelInstance(Network net, int len, float x) {
 	this->position = 10;
 	this->length = len;
 	this->network = net;
+	this->stepsize = 1;
+	this->mismatch = this->position;
+	this->nickingsite = 80;
 
-	if (x < 0){
+	if (x < 0.5){
 		this->state = 1;
 	}
 	else {
@@ -27,12 +30,11 @@ int ModelInstance::getPosition() {
 
 void ModelInstance::setStep(float x) {
 	//TODO: find step size per type of complex
-	int stepsize = 2;
 
 	// Choose direction
 	int direction;
-	if(x<0){
-		direction = - 1;
+	if(x<0.5){
+		direction = -1;
 	}
 	else{
 		direction = 1;
@@ -40,13 +42,12 @@ void ModelInstance::setStep(float x) {
 
 	// If not stepping off DNA, add step to position
 	if(position + direction * stepsize >= 0 && position + direction * stepsize < length){
-		position += direction * stepsize;
+		position += (direction * stepsize);
 	}
 
 }
 
 void ModelInstance::transition(float x) {
-	std::cout << x << std::endl;
 
 	// No outgoing edges, then stay in this state
 	if (network.getEdgesOfNode(state).empty()){
@@ -58,10 +59,16 @@ void ModelInstance::transition(float x) {
 	for (Edge e:network.getEdgesOfNode(state)){
 		threshold += e.getP();
 		if (x < threshold) {
-			this->state = e.getEndNode();
+			//It is not one of transitions to Si-Sa
+			if (!((this->state == 2 && e.getEndNode() == 8) || (this->state == 12 and e.getEndNode() == 13))){ //ToDo: make general for all initial states
+				this->state = e.getEndNode();
+			}
+			//if close enough to mm to bind Si){
+			else if(std::abs(this->position - this->mismatch) < 5*this->stepsize){
+				this->state = e.getEndNode();
+			}
 			break;
 		}
 	}
-
 }
 

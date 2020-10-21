@@ -13,6 +13,9 @@ private:
 	int state;
 	int length;
 	int position;
+	int mismatch;
+	int stepsize;
+	int nickingsite;
 	Network network;
 public:
 	ModelInstance(Network net, int len, float x);
