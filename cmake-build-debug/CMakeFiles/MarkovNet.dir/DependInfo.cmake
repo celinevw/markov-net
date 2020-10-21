@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Celly/CLionProjects/MarkovNet/Node.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/Node.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj"
+  "C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/main.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

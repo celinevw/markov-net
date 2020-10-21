@@ -10,5 +10,6 @@
 
 void testExpDist();
 void testNormalDist();
+void testUniformDist();
 
 #endif //MARKOVNET_TESTINGDISTRIBUTIONS_H

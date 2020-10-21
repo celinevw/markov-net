@@ -37,6 +37,10 @@ CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
  C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp
  C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
+ C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
+CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.obj
+ C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.cpp
+ C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
  C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
@@ -45,4 +49,5 @@ CMakeFiles/MarkovNet.dir/main.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/Network.h
  C:/Users/Celly/CLionProjects/MarkovNet/Node.h
  C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
+ C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
  C:/Users/Celly/CLionProjects/MarkovNet/main.cpp

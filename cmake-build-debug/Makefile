@@ -358,6 +358,33 @@ TestingDistributions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.s
 .PHONY : TestingDistributions.cpp.s
 
+UniformDistribution.obj: UniformDistribution.cpp.obj
+
+.PHONY : UniformDistribution.obj
+
+# target to build an object file
+UniformDistribution.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.obj
+.PHONY : UniformDistribution.cpp.obj
+
+UniformDistribution.i: UniformDistribution.cpp.i
+
+.PHONY : UniformDistribution.i
+
+# target to preprocess a source file
+UniformDistribution.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.i
+.PHONY : UniformDistribution.cpp.i
+
+UniformDistribution.s: UniformDistribution.cpp.s
+
+.PHONY : UniformDistribution.s
+
+# target to generate assembly for a file
+UniformDistribution.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.s
+.PHONY : UniformDistribution.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -418,6 +445,9 @@ help:
 	@echo ... TestingDistributions.obj
 	@echo ... TestingDistributions.i
 	@echo ... TestingDistributions.s
+	@echo ... UniformDistribution.obj
+	@echo ... UniformDistribution.i
+	@echo ... UniformDistribution.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

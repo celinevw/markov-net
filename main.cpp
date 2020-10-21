@@ -6,6 +6,7 @@
 #include "ModelInstance.h"
 #include "NormalDistribution.h"
 #include "ExponentialDistribution.h"
+#include "UniformDistribution.h"
 
 double RateToProbability(double x, double dt){
 	return 1 - std::pow(1 - x, dt);
@@ -160,18 +161,18 @@ int main() {
 	Network MMR_net = makeNet();	// Set up the network
 	int timesteps = 3;
 
-	NormalDistribution norm(0,2);
+	UniformDistribution unif(0,1);
 	std::array<float,200> myarr{};
 	for (int i=0; i<200; i++){
-		myarr.at(i) = norm.getRandomNumber();
+		myarr.at(i) = unif.getRandomNumber();
 	}
 	auto it1 = myarr.begin();
 	ModelInstance myInstance(MMR_net, 100, *it1++ );
 
 
 	for (int i = 0; i < timesteps; i++){
-		myInstance.transition(*it1++);
 		myInstance.setStep(*it1++);
+		myInstance.transition(*it1++);
 		std::cout << myInstance.getState() << std::endl;
 	}
 

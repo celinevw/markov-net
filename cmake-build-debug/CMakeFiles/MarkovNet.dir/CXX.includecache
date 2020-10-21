@@ -14,10 +14,6 @@ C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
 Node.h
 C:/Users/Celly/CLionProjects/MarkovNet/Node.h
 
-C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.cpp
-ExponentialDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
 random
 -
@@ -52,10 +48,6 @@ string
 list
 -
 
-C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.cpp
-NormalDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
 iostream
 -
@@ -66,15 +58,15 @@ random
 cmath
 -
 
-C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp
-TestingDistributions.h
-C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
-
-C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
-ExponentialDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
-NormalDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
+iostream
+-
+fstream
+-
+random
+-
+cmath
+-
 
 C:/Users/Celly/CLionProjects/MarkovNet/main.cpp
 fstream
@@ -93,4 +85,6 @@ NormalDistribution.h
 C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
 ExponentialDistribution.h
 C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
+UniformDistribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
 
