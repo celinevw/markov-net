@@ -24,7 +24,7 @@ public:
 	std::vector <std::vector<Edge>> getEdges();
 	std::vector<Edge> getEdgesOfNode(int i);
 	void addNode(Node n);
-	void addEdge(Node n1, Node n2, double p);
+	void addEdge(int n1, int n2, double p);
 	void printNet();
 
 };

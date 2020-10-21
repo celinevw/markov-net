@@ -4,22 +4,27 @@
 
 #include "Edge.h"
 
-Edge::Edge(Node s, Node e, double probability){
-	startNode = s;
-	endNode = e;
-	p = probability;
+Edge::Edge(int s, int e, double probability){
+	if (s != e) {
+		startNode = s;
+		endNode = e;
+		p = probability;
+	}
+	else{
+		Edge();
+	}
 }
 
 Edge::Edge(){
-	startNode = Node();
-	endNode = Node();
+	startNode = -1;
+	endNode = -1;
 }
 
-Node Edge::getStartNode() {
+int Edge::getStartNode() {
 	return this->startNode;
 }
 
-Node Edge::getEndNode() {
+int Edge::getEndNode() {
 	return this->endNode;
 }
 

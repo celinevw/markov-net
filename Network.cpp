@@ -23,9 +23,7 @@ std::vector<std::vector<Edge>> Network::getEdges() {
 }
 
 std::vector<Edge> Network::getEdgesOfNode(int i) {
-	if (i < edges.size()) {
-		return this->edges.at(i);
-	}
+	return this->edges.at(i);
 }
 
 void Network::addNode(Node n) {
@@ -33,12 +31,10 @@ void Network::addNode(Node n) {
 	edges.push_back(std::vector<Edge>());
 }
 
-void Network::addEdge(Node n1, Node n2, double p) {
-	auto it1 = std::find(nodes.begin(), nodes.end(), n1);
-	int index = std::distance(nodes.begin(), it1);
+void Network::addEdge(int n1, int n2, double p) {
 	Edge to_add(n1, n2, p);
-	if (std::find(edges.at(index).begin(), edges.at(index).end(), to_add) == edges.at(index).end()) {
-		edges.at(index).push_back(to_add);
+	if (std::find(edges.at(n1).begin(), edges.at(n1).end(), to_add) == edges.at(n1).end()) {
+		edges.at(n1).push_back(to_add);
 	}
 }
 
@@ -46,8 +42,8 @@ void Network::printNet() {
 	for (int i = 0; i < nodes.size(); i++) {
 		std::cout << "\n Vertex" << i << ": ";
 		for (auto e : edges.at(i)) {
-			std::cout << e.getEndNode().getStateA().getStateName() << "&" << e.getEndNode().getStateB().getStateName()
-					  << std::endl;
+			std::cout << nodes.at(e.getEndNode()).getStateA().getStateName() << "&"
+					  << nodes.at(e.getEndNode()).getStateB().getStateName() << std::endl;
 		}
 	}
 }

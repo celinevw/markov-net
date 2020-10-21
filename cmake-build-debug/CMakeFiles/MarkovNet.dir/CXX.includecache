@@ -6,11 +6,43 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.cpp
-ComplexState.h
-C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
 string
+-
+
+C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
+Node.h
+C:/Users/Celly/CLionProjects/MarkovNet/Node.h
+
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
+ModelInstance.h
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
+
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
+Network.h
+C:/Users/Celly/CLionProjects/MarkovNet/Network.h
+random
+-
+
+C:/Users/Celly/CLionProjects/MarkovNet/Network.h
+vector
+-
+algorithm
+-
+iostream
+-
+fstream
+-
+iterator
+-
+Edge.h
+C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
+
+C:/Users/Celly/CLionProjects/MarkovNet/Node.h
+ComplexState.h
+C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
+string
+-
+list
 -
 

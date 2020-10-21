@@ -9,14 +9,14 @@
 
 class Edge{
 private:
-	Node startNode;
-	Node endNode;
+	int startNode;
+	int endNode;
 	double p; // probability of transition
 public:
-	Edge(Node startNode, Node endNode, double probability);
+	Edge(int startNode, int endNode, double probability);
 	Edge();
-	Node getStartNode();
-	Node getEndNode();
+	int getStartNode();
+	int getEndNode();
 	double getP();
 
 	friend bool operator==(Edge e1, Edge e2);

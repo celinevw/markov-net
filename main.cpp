@@ -64,7 +64,7 @@ void writeEdges(){
 	outfile.close();
 }
 
-void smallNet(){
+void writeSmallNet(){
 	double dt = 0.1;			// seconds
 	double S_on = 4.40e7;		// per M per second
 	double L_on = 1.27e7;		// per M per second
@@ -149,7 +149,7 @@ Network makeNet(){
 		infile >> n1;
 		infile >> n2;
 		infile >> p;
-		MMR_net.addEdge(nodes.at(n1), nodes.at(n2), p);
+		MMR_net.addEdge(n1, n2, p);
 	}
 	infile.close();
 
@@ -162,7 +162,7 @@ int main() {
 	int timesteps = 3;
 
 	NormalDistribution norm(0,2);
-	std::array<float,200> myarr;
+	std::array<float,200> myarr{};
 	for (int i=0; i<200; i++){
 		myarr.at(i) = norm.getRandomNumber();
 	}
@@ -170,7 +170,7 @@ int main() {
 	ModelInstance myInstance(MMR_net, 100, *it1++ );
 
 	for (int i = 0; i < timesteps; i++){
-		myInstance.transition(*it1++, *it1++);
+		myInstance.transition(*it1++);
 		myInstance.setStep(*it1++);
 		std::cout << myInstance.getState() << std::endl;
 	}
