@@ -32,6 +32,8 @@ double Edge::getP() {
 	return this->p;
 }
 
+/* Return true if startnodes and endnodes are equal
+ */
 bool operator==(Edge e1, Edge e2){
 	return (e1.getStartNode()==e2.getStartNode() && e1.getEndNode()==e2.getEndNode());
 }

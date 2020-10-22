@@ -43,6 +43,8 @@ double Node::getNodeD() {
 	return this->D;
 }
 
+/* Return true of the nodes have the same two states, in the same order.
+ */
 bool operator==(Node n1, Node n2){
 	return (n1.getStateA() == n2.getStateA() && n1.getStateB() == n2.getStateB());
 }

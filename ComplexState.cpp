@@ -22,6 +22,8 @@ std::string ComplexState::getStateName(){
 	return name;
 }
 
+/* Return true if both state names are equal
+ */
 bool operator==(ComplexState s1, ComplexState s2){
 	return(s1.getStateName().std::string::compare(s2.getStateName()) == 0);
 }

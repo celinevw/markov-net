@@ -17,6 +17,8 @@ float ExponentialDistribution::getLambda() {
 	return this->lambda;
 }
 
+/* Smirnov transform to get an exponential distribution
+ */
 float ExponentialDistribution::getRandomNumber() {
 	float u = distrib(gen);
 	float x = -1 / lambda * log(1 - u);

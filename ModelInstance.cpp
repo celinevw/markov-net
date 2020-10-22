@@ -28,6 +28,9 @@ int ModelInstance::getPosition() {
 	return position;
 }
 
+/* Randomly decide direction. Check whether new position lies within boundaries
+ * If so, update step, else don't.
+ */
 void ModelInstance::setStep(float x) {
 	//TODO: find step size per type of complex
 
@@ -47,6 +50,8 @@ void ModelInstance::setStep(float x) {
 
 }
 
+/* Choose transition to follow based on random number x.
+ */
 void ModelInstance::transition(float x) {
 
 	// No outgoing edges, then stay in this state

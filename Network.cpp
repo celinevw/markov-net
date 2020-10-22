@@ -27,10 +27,12 @@ std::vector<Edge> Network::getEdgesOfNode(int i) {
 }
 
 void Network::addNode(Node n) {
-	nodes.push_back(n);
-	edges.push_back(std::vector<Edge>());
+	this->nodes.push_back(n);
+	this->edges.push_back(std::vector<Edge>());
 }
 
+/* Add edge to the right vector.
+ */
 void Network::addEdge(int n1, int n2, double p) {
 	Edge to_add(n1, n2, p);
 	if (std::find(edges.at(n1).begin(), edges.at(n1).end(), to_add) == edges.at(n1).end()) {
@@ -38,6 +40,8 @@ void Network::addEdge(int n1, int n2, double p) {
 	}
 }
 
+/* For each node, print edges.
+ */
 void Network::printNet() {
 	for (int i = 0; i < nodes.size(); i++) {
 		std::cout << "\n Vertex" << i << ": ";

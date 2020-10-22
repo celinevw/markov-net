@@ -9,7 +9,8 @@ double RateToProbability(double x, double dt){
 }
 
 void writeEdges(){
-	//TODO: check all probabilities, combined with falling off
+	//TODO: check all probabilities of edges, combined with falling off
+	//ToDo: make 1 method without writing to file
 	double dt = 0.1;			// seconds
 	double S_on = 4.40e7;		// per M per second
 	double L_on = 1.27e7;		// per M per second
