@@ -158,20 +158,20 @@ Network makeNet(){
 int main() {
 	writeSmallNet(); 					//make sure all edges are in the file
 	Network MMR_net = makeNet();	// Set up the network
-	const int timesteps = 500;
+	const int timesteps = 5000;
 	const int num_sims = 10;
 	const int length_DNA = 100;
 
 	UniformDistribution unif(0,1);
-	std::array<float,num_sims*(2*timesteps+1)> myarr{};
+	auto *myarr_ptr = new std::array<float,num_sims*(2*timesteps+1)>;
 	for (int i=0; i<num_sims*(2*timesteps+1); i++){
-		myarr.at(i) = unif.getRandomNumber();
+		myarr_ptr->at(i) = unif.getRandomNumber();
 	}
 
-	std::array<std::array<int, timesteps+1>, num_sims>  position{};
-	std::array<std::array<int, timesteps+1>, num_sims>  state{};
+	auto *position_ptr = new std::array<std::array<int, timesteps+1>, num_sims>;
+	auto *state_ptr = new std::array<std::array<int, timesteps+1>, num_sims>;
 
-	auto it1 = myarr.begin();
+	auto it1 = myarr_ptr->begin();
 	std::vector<ModelInstance> sims;
 	for(int i = 0; i < num_sims; i++){
 		sims.emplace_back(MMR_net, length_DNA, *it1++);
@@ -182,14 +182,14 @@ int main() {
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
 			for (int j = 0; j < timesteps; j++){
-				position[i][j] = sims[i].getPosition();
-				state[i][j] = sims[i].getState();
+				position_ptr->at(i)[j] = sims[i].getPosition();
+				state_ptr->at(i)[j] = sims[i].getState();
 				sims[i].transition(*it1++);
 				sims[i].setStep(*it1++);
 			}
 
-			position[i][timesteps] = sims[i].getPosition();
-			state[i][timesteps] = sims[i].getState();
+			position_ptr->at(i)[timesteps] = sims[i].getPosition();
+			state_ptr->at(i)[timesteps] = sims[i].getState();
 
 		}
 	}
@@ -200,8 +200,8 @@ int main() {
 	out_state.open ("state.txt");
 	for (int i = 0; i < timesteps+1; i++){
 		for (int j=0; j < num_sims; j++) {
-			out_pos << position[j][i] << "\t";
-			out_state << state[j][i] << "\t";
+			out_pos << position_ptr->at(j)[i] << "\t";
+			out_state << state_ptr->at(j)[i] << "\t";
 		}
 		out_pos << std::endl;
 		out_state << std::endl;
