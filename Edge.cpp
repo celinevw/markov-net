@@ -5,6 +5,7 @@
 #include "Edge.h"
 
 Edge::Edge(int s, int e, double probability){
+        // Is double probability really necessary? Check accuracy needed...
 	if (s != e) {
 		startNode = s;
 		endNode = e;

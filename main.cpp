@@ -5,7 +5,7 @@
 #include "TestingDistributions.h"
 
 double RateToProbability(double x, double dt){
-	return 1 - std::pow(1 - x, dt);
+	return 1 - std::pow(1 - x, dt); // CCC Sorry for handing you the old version of the document, unbinding rates are also just f*dt
 }
 
 void writeEdges(){
@@ -26,12 +26,12 @@ void writeEdges(){
 
 
 	std::ofstream outfile;
-	outfile.open("edges.txt");
+	outfile.open("edges.txt"); // CCC Pass the path as a variable, or pass the outstream by reference
 	int numstates = 6;
 	double nextstate[] = {S_on * conc * dt, S_change * dt, L_on * conc * dt,
-					   L_change * dt, H_on * conc * dt};
+					   L_change * dt, H_on * conc * dt}; // CCC Why bare array and not std::array
 	double unbinding[] = {RateToProbability(S_off, dt), RateToProbability(Sa_off, dt), RateToProbability(SL_off, dt),
-						  RateToProbability(SLa_off, dt), RateToProbability(SLH_off, dt)};
+						  RateToProbability(SLa_off, dt), RateToProbability(SLH_off, dt)}; // CCC Why bare array and not std::array
 
 	for (int i = 0; i < numstates; i++) {
 
@@ -73,7 +73,7 @@ void writeSmallNet(){
 	double SL_off = 1/32.0;		// per second
 	double SLa_off = 1/851.0;	// per second
 	double SLH_off = 1/197.0;	// per second
-	double conc = 1e-9;			// M
+	double conc = 1e-9;			// CCC Concentration of what?? MutS I assume
 
 
 	std::ofstream outfile;
@@ -82,8 +82,9 @@ void writeSmallNet(){
 	double nextstate[] = {S_on * conc * dt, RateToProbability(S_change, dt), L_on * conc * dt,
 						  RateToProbability(L_change, dt), H_on * conc * dt};
 	double unbinding[] = {RateToProbability(S_off, dt), RateToProbability(Sa_off, dt), RateToProbability(SL_off, dt),
-						  RateToProbability(SLa_off, dt), RateToProbability(SLH_off, dt)};
+						  RateToProbability(SLa_off, dt), RateToProbability(SLH_off, dt)}; // CCC Don't use bare arrays, those are usually not std::algorithm friendly
 
+        // CCC You could use a single loop if you say i = I/3 and j = I%3
 	for (int i = 0; i < 3; i++) {
 
 		for (int j = 0; j < 3 - 1; j++) {
@@ -133,7 +134,7 @@ Network makeNet(){
 	std::vector <Node> nodes;
 	for(const ComplexState& state1 : states){
 		for(const ComplexState& state2 : states){
-			nodes.emplace_back(state2, state1);
+			nodes.emplace_back(state2, state1); // CCC I did not know this function, neat, I'll use it myself more often :)
 		}
 	}
 	Network MMR_net(nodes);
@@ -165,13 +166,13 @@ int main() {
 	UniformDistribution unif(0,1);
 	auto *myarr_ptr = new std::array<float,num_sims*(2*timesteps+1)>;
 	for (int i=0; i<num_sims*(2*timesteps+1); i++){
-		myarr_ptr->at(i) = unif.getRandomNumber();
+		myarr_ptr->at(i) = unif.getRandomNumber(); // CCC Neat use of the .at method, could probably be done even more neatly using a std::foreach but this is fine as is
 	}
 
 	auto *position_ptr = new std::array<std::array<int, timesteps+1>, num_sims>;
 	auto *state_ptr = new std::array<std::array<int, timesteps+1>, num_sims>;
 
-	auto it1 = myarr_ptr->begin();
+	auto it1 = myarr_ptr->begin(); // CCC WARNING this can get out of bounds if num_sims << myarr_ptr->size(). Just do for(auto itr = myarr_ptr->begin(); itr != myarr_ptr->end(); itr++) since you're never using i. Even a range-based for-loop will suffice here
 	std::vector<ModelInstance> sims;
 	for(int i = 0; i < num_sims; i++){
 		sims.emplace_back(MMR_net, length_DNA, *it1++);
@@ -184,7 +185,7 @@ int main() {
 			for (int j = 0; j < timesteps; j++){
 				position_ptr->at(i)[j] = sims[i].getPosition();
 				state_ptr->at(i)[j] = sims[i].getState();
-				sims[i].transition(*it1++);
+				sims[i].transition(*it1++); // CCC Again, watch out for out-of-bounds issues. Don't use this technique often. Is it even necessary to have everything on the heap? If you just keep your ModelIteration object on the heap, stack size should not be an issue
 				sims[i].setStep(*it1++);
 			}
 
@@ -200,7 +201,7 @@ int main() {
 	out_state.open ("state.txt");
 	for (int i = 0; i < timesteps+1; i++){
 		for (int j=0; j < num_sims; j++) {
-			out_pos << position_ptr->at(j)[i] << "\t";
+			out_pos << position_ptr->at(j)[i] << "\t"; /// CCC Good to know the file is tab-delimited. You can also self-annotate the file by saving it as a .tsv (tab-separated value, related to the .csv file format)
 			out_state << state_ptr->at(j)[i] << "\t";
 		}
 		out_pos << std::endl;

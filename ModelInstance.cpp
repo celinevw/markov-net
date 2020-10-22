@@ -62,7 +62,7 @@ void ModelInstance::transition(float x) {
 	// Iterate over outgoing edges, find the one to take depending on the random number x
 	float threshold = 0;
 	for (Edge e:network.getEdgesOfNode(state)){
-		threshold += e.getP();
+		threshold += e.getP(); // CCC Is this a way to deal with cumulative sums...?
 		if (x < threshold) {
 			//It is not one of transitions where Si binds the mismatch
 			bool attachingSi = (this->state < 6 && e.getEndNode() == this->state + 6) ||
