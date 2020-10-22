@@ -31,7 +31,7 @@ void Network::addNode(Node n) {
 	this->edges.push_back(std::vector<Edge>());
 }
 
-/* Add edge to the right vector.
+/* Add edge to the correct vector.
  */
 void Network::addEdge(int n1, int n2, double p) {
 	Edge to_add(n1, n2, p);

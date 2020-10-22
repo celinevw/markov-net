@@ -5,11 +5,11 @@
 #include "ModelInstance.h"
 
 ModelInstance::ModelInstance(Network net, int len, float x) {
-	this->position = 10;
+	this->position = 10; // starting position and mismatch position must be the same
+	this->mismatch = 10;
 	this->length = len;
 	this->network = net;
 	this->stepsize = 1;
-	this->mismatch = this->position;
 	this->nickingsite = 80;
 
 	if (x < 0.5){
@@ -64,12 +64,14 @@ void ModelInstance::transition(float x) {
 	for (Edge e:network.getEdgesOfNode(state)){
 		threshold += e.getP();
 		if (x < threshold) {
-			//It is not one of transitions to Si-Sa
-			if (!((this->state == 2 && e.getEndNode() == 8) || (this->state == 12 and e.getEndNode() == 13))){ //ToDo: make general for all initial states
+			//It is not one of transitions where Si binds the mismatch
+			bool attachingSi = (this->state < 6 && e.getEndNode() == this->state + 6) ||
+					(this->state % 6 == 0 && e.getEndNode() == this->state + 1);
+			if (!attachingSi){ // if not adding Si, position does not matter
 				this->state = e.getEndNode();
 			}
-			//if close enough to mm to bind Si){
-			else if(std::abs(this->position - this->mismatch) < 5*this->stepsize){
+			// else make sure it is close enough or do nothing
+			else if(std::abs(this->position - this->mismatch) < 2*this->stepsize){
 				this->state = e.getEndNode();
 			}
 			break;
