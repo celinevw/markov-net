@@ -5,7 +5,7 @@
 #include "ExponentialDistribution.h"
 
 ExponentialDistribution::ExponentialDistribution(float l) {
-	this->lambda = l;
+	this->lambda = l; // CCC Redundant use of this->, the compiler figures it out itself
 
 	std::random_device rd;  //Will be used to obtain a seed for the random number engine
 	gen = std::mt19937 (rd()); //Standard mersenne_twister_engine seeded with rd()

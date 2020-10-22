@@ -4,6 +4,7 @@
 
 #include "ComplexState.h"
 
+// CCC Should just be a struct
 ComplexState::ComplexState(std::string nm, double diff) {
 	name = nm;
 	D = diff;
