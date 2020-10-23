@@ -6,9 +6,14 @@
 #define MARKOVNET_TESTINGDISTRIBUTIONS_H
 
 #include "Distribution.h"
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <tuple>
 
-void testExpDist();
-void testNormalDist();
-void testUniformDist();
+bool testDist(NormalDistribution norm);
+bool testDist(ExponentialDistribution exp);
+bool testDist(UniformDistribution uni);
+std::tuple<float, float> getMoments (std::vector <float> results);
 
 #endif //MARKOVNET_TESTINGDISTRIBUTIONS_H

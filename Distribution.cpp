@@ -14,6 +14,10 @@ ExponentialDistribution::ExponentialDistribution(float l) : Distribution(){
 	lambda = l;
 }
 
+ExponentialDistribution::ExponentialDistribution() : Distribution(){
+	lambda = 1;
+}
+
 /* Smirnov transform to get an exponential distribution
  */
 float ExponentialDistribution::getRandomNumber() {
@@ -22,9 +26,18 @@ float ExponentialDistribution::getRandomNumber() {
 	return x;
 }
 
+float ExponentialDistribution::getLambda() {
+	return lambda;
+}
+
 NormalDistribution::NormalDistribution(float m, float s) : Distribution(){
 	mu = m;
 	sigma = s;
+}
+
+NormalDistribution::NormalDistribution() : Distribution(){
+	mu = 0;
+	sigma = 1;
 }
 
 float NormalDistribution::getRandomNumber() {
@@ -46,11 +59,32 @@ float NormalDistribution::getRandomNumber() {
 	else return -sigma*log(u1)+mu;
 }
 
+float NormalDistribution::getMu() {
+	return mu;
+}
+
+float NormalDistribution::getSigma() {
+	return sigma;
+}
+
 UniformDistribution::UniformDistribution(float l, float h) : Distribution() {
 	low = l;
 	high = h;
 }
 
+UniformDistribution::UniformDistribution() : Distribution() {
+	low = 0;
+	high = 1;
+}
+
 float UniformDistribution::getRandomNumber() {
 	return distrib(gen);
+}
+
+float UniformDistribution::getLow() {
+	return low;
+}
+
+float UniformDistribution::getHigh() {
+	return high;
 }
