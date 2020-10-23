@@ -4,19 +4,16 @@
 
 #include "ModelInstance.h"
 
-ModelInstance::ModelInstance(Network net, int len, float x) {
-	this->position = 10; // starting position and mismatch position must be the same
-	this->mismatch = 10;
-	this->length = len;
-	this->network = net;
-	this->stepsize = 1;
-	this->nickingsite = 80;
+ModelInstance::ModelInstance(NetworkArray net, float x) {
+	position = net.mismatchsite; // starting position and mismatch position must be the same
+	network = net;
+	stepsize = 1;
 
 	if (x < 0.5){
-		this->state = 1;
+		state = 1;
 	}
 	else {
-		this->state = 6;
+		state = 6;
 	}
 }
 
@@ -44,7 +41,7 @@ void ModelInstance::setStep(float x) {
 	}
 
 	// If not stepping off DNA, add step to position
-	if(position + direction * stepsize >= 0 && position + direction * stepsize < length){
+	if(position + direction * stepsize >= 0 && position + direction * stepsize < network.length){
 		position += (direction * stepsize);
 	}
 
@@ -55,27 +52,29 @@ void ModelInstance::setStep(float x) {
 void ModelInstance::transition(float x) {
 
 	// No outgoing edges, then stay in this state
-	if (network.getEdgesOfNode(state).empty()){
+	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
 		return;
 	}
 
 	// Iterate over outgoing edges, find the one to take depending on the random number x
-	float threshold = 0;
-	for (Edge e:network.getEdgesOfNode(state)){
-		threshold += e.getP(); // CCC Is this a way to deal with cumulative sums...?
-		if (x < threshold) {
+	std::array<float, 36> cumulative{};
+	std::partial_sum(network.transitions.at(state).begin(), network.transitions.at(state).end(), cumulative.begin());
+	int index = 0;
+	for (float threshold : cumulative){
+		if (x < threshold){
 			//It is not one of transitions where Si binds the mismatch
-			bool attachingSi = (this->state < 6 && e.getEndNode() == this->state + 6) ||
-					(this->state % 6 == 0 && e.getEndNode() == this->state + 1);
+			bool attachingSi = (state < 6 && index == state + 6) ||
+							   (state % 6 == 0 && index == state + 1);
 			if (!attachingSi){ // if not adding Si, position does not matter
-				this->state = e.getEndNode();
+				state = index;
 			}
 			// else make sure it is close enough or do nothing
-			else if(std::abs(this->position - this->mismatch) < 2*this->stepsize){
-				this->state = e.getEndNode();
+			else if(std::abs(position - network.mismatchsite) < 2 * stepsize){
+				state = index;
 			}
 			break;
 		}
+		index++;
 	}
 }
 

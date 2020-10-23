@@ -86,16 +86,16 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h">
 			<Option target="MarkovNet"/>
 		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Distribution.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h">
+			<Option target="MarkovNet"/>
+		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Edge.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Edge.h">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp">
@@ -104,10 +104,16 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h">
 			<Option target="MarkovNet"/>
 		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Network.cpp">
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Network.h">
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkObj.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkObj.h">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Node.cpp">
@@ -116,22 +122,10 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Node.h">
 			<Option target="MarkovNet"/>
 		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h">
-			<Option target="MarkovNet"/>
-		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/main.cpp">

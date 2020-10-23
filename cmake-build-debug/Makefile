@@ -169,6 +169,33 @@ ComplexState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ComplexState.cpp.s
 .PHONY : ComplexState.cpp.s
 
+Distribution.obj: Distribution.cpp.obj
+
+.PHONY : Distribution.obj
+
+# target to build an object file
+Distribution.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Distribution.cpp.obj
+.PHONY : Distribution.cpp.obj
+
+Distribution.i: Distribution.cpp.i
+
+.PHONY : Distribution.i
+
+# target to preprocess a source file
+Distribution.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Distribution.cpp.i
+.PHONY : Distribution.cpp.i
+
+Distribution.s: Distribution.cpp.s
+
+.PHONY : Distribution.s
+
+# target to generate assembly for a file
+Distribution.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Distribution.cpp.s
+.PHONY : Distribution.cpp.s
+
 Edge.obj: Edge.cpp.obj
 
 .PHONY : Edge.obj
@@ -195,33 +222,6 @@ Edge.s: Edge.cpp.s
 Edge.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Edge.cpp.s
 .PHONY : Edge.cpp.s
-
-ExponentialDistribution.obj: ExponentialDistribution.cpp.obj
-
-.PHONY : ExponentialDistribution.obj
-
-# target to build an object file
-ExponentialDistribution.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.obj
-.PHONY : ExponentialDistribution.cpp.obj
-
-ExponentialDistribution.i: ExponentialDistribution.cpp.i
-
-.PHONY : ExponentialDistribution.i
-
-# target to preprocess a source file
-ExponentialDistribution.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.i
-.PHONY : ExponentialDistribution.cpp.i
-
-ExponentialDistribution.s: ExponentialDistribution.cpp.s
-
-.PHONY : ExponentialDistribution.s
-
-# target to generate assembly for a file
-ExponentialDistribution.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ExponentialDistribution.cpp.s
-.PHONY : ExponentialDistribution.cpp.s
 
 ModelInstance.obj: ModelInstance.cpp.obj
 
@@ -250,32 +250,59 @@ ModelInstance.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ModelInstance.cpp.s
 .PHONY : ModelInstance.cpp.s
 
-Network.obj: Network.cpp.obj
+NetworkArray.obj: NetworkArray.cpp.obj
 
-.PHONY : Network.obj
+.PHONY : NetworkArray.obj
 
 # target to build an object file
-Network.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Network.cpp.obj
-.PHONY : Network.cpp.obj
+NetworkArray.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj
+.PHONY : NetworkArray.cpp.obj
 
-Network.i: Network.cpp.i
+NetworkArray.i: NetworkArray.cpp.i
 
-.PHONY : Network.i
+.PHONY : NetworkArray.i
 
 # target to preprocess a source file
-Network.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Network.cpp.i
-.PHONY : Network.cpp.i
+NetworkArray.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkArray.cpp.i
+.PHONY : NetworkArray.cpp.i
 
-Network.s: Network.cpp.s
+NetworkArray.s: NetworkArray.cpp.s
 
-.PHONY : Network.s
+.PHONY : NetworkArray.s
 
 # target to generate assembly for a file
-Network.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Network.cpp.s
-.PHONY : Network.cpp.s
+NetworkArray.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkArray.cpp.s
+.PHONY : NetworkArray.cpp.s
+
+NetworkObj.obj: NetworkObj.cpp.obj
+
+.PHONY : NetworkObj.obj
+
+# target to build an object file
+NetworkObj.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkObj.cpp.obj
+.PHONY : NetworkObj.cpp.obj
+
+NetworkObj.i: NetworkObj.cpp.i
+
+.PHONY : NetworkObj.i
+
+# target to preprocess a source file
+NetworkObj.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkObj.cpp.i
+.PHONY : NetworkObj.cpp.i
+
+NetworkObj.s: NetworkObj.cpp.s
+
+.PHONY : NetworkObj.s
+
+# target to generate assembly for a file
+NetworkObj.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkObj.cpp.s
+.PHONY : NetworkObj.cpp.s
 
 Node.obj: Node.cpp.obj
 
@@ -304,33 +331,6 @@ Node.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Node.cpp.s
 .PHONY : Node.cpp.s
 
-NormalDistribution.obj: NormalDistribution.cpp.obj
-
-.PHONY : NormalDistribution.obj
-
-# target to build an object file
-NormalDistribution.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.obj
-.PHONY : NormalDistribution.cpp.obj
-
-NormalDistribution.i: NormalDistribution.cpp.i
-
-.PHONY : NormalDistribution.i
-
-# target to preprocess a source file
-NormalDistribution.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.i
-.PHONY : NormalDistribution.cpp.i
-
-NormalDistribution.s: NormalDistribution.cpp.s
-
-.PHONY : NormalDistribution.s
-
-# target to generate assembly for a file
-NormalDistribution.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NormalDistribution.cpp.s
-.PHONY : NormalDistribution.cpp.s
-
 TestingDistributions.obj: TestingDistributions.cpp.obj
 
 .PHONY : TestingDistributions.obj
@@ -357,33 +357,6 @@ TestingDistributions.s: TestingDistributions.cpp.s
 TestingDistributions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.s
 .PHONY : TestingDistributions.cpp.s
-
-UniformDistribution.obj: UniformDistribution.cpp.obj
-
-.PHONY : UniformDistribution.obj
-
-# target to build an object file
-UniformDistribution.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.obj
-.PHONY : UniformDistribution.cpp.obj
-
-UniformDistribution.i: UniformDistribution.cpp.i
-
-.PHONY : UniformDistribution.i
-
-# target to preprocess a source file
-UniformDistribution.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.i
-.PHONY : UniformDistribution.cpp.i
-
-UniformDistribution.s: UniformDistribution.cpp.s
-
-.PHONY : UniformDistribution.s
-
-# target to generate assembly for a file
-UniformDistribution.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/UniformDistribution.cpp.s
-.PHONY : UniformDistribution.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -424,30 +397,27 @@ help:
 	@echo ... ComplexState.obj
 	@echo ... ComplexState.i
 	@echo ... ComplexState.s
+	@echo ... Distribution.obj
+	@echo ... Distribution.i
+	@echo ... Distribution.s
 	@echo ... Edge.obj
 	@echo ... Edge.i
 	@echo ... Edge.s
-	@echo ... ExponentialDistribution.obj
-	@echo ... ExponentialDistribution.i
-	@echo ... ExponentialDistribution.s
 	@echo ... ModelInstance.obj
 	@echo ... ModelInstance.i
 	@echo ... ModelInstance.s
-	@echo ... Network.obj
-	@echo ... Network.i
-	@echo ... Network.s
+	@echo ... NetworkArray.obj
+	@echo ... NetworkArray.i
+	@echo ... NetworkArray.s
+	@echo ... NetworkObj.obj
+	@echo ... NetworkObj.i
+	@echo ... NetworkObj.s
 	@echo ... Node.obj
 	@echo ... Node.i
 	@echo ... Node.s
-	@echo ... NormalDistribution.obj
-	@echo ... NormalDistribution.i
-	@echo ... NormalDistribution.s
 	@echo ... TestingDistributions.obj
 	@echo ... TestingDistributions.i
 	@echo ... TestingDistributions.s
-	@echo ... UniformDistribution.obj
-	@echo ... UniformDistribution.i
-	@echo ... UniformDistribution.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

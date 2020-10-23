@@ -2,8 +2,8 @@
 // Created by Celly on 08/10/2020.
 //
 
-#ifndef MARKOVNET_NETWORK_H
-#define MARKOVNET_NETWORK_H
+#ifndef MARKOVNET_NETWORKOBJ_H
+#define MARKOVNET_NETWORKOBJ_H
 
 #include <vector>
 #include <algorithm>
@@ -12,14 +12,14 @@
 #include <iterator>
 #include "Edge.h"
 
-class Network{
+class NetworkObj{
 private:
 	std::vector <Node> nodes;
 	std::vector <std::vector<Edge>> edges;
 
 public:
-	Network(std::vector<Node> nd);
-	Network();
+	NetworkObj(std::vector<Node> nd);
+	NetworkObj();
 	std::vector <Node> getNodes();
 	std::vector <std::vector<Edge>> getEdges();
 	std::vector<Edge> getEdgesOfNode(int i);
@@ -29,4 +29,4 @@ public:
 
 };
 
-#endif //MARKOVNET_NETWORK_H
+#endif //MARKOVNET_NETWORKOBJ_H
