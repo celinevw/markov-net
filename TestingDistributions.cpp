@@ -19,7 +19,8 @@ std::tuple<float, float> getMoments (std::vector <float> results){
 	return std::make_tuple(mean, variance);
 }
 
-bool testDist(ExponentialDistribution myExp){
+bool testDistExp(){
+	ExponentialDistribution myExp(3);
 	const int num = 2500;
 	std::vector<float> results;
 	for(size_t i=0; i<num; i++) {
@@ -37,7 +38,8 @@ bool testDist(ExponentialDistribution myExp){
 }
 
 
-bool testNormalDist(NormalDistribution myNorm) {
+bool testDistNorm() {
+	NormalDistribution myNorm(2,1);
 	const int num = 2500;
 	std::vector<float> results;
 	for (size_t i = 0; i < num; i++) {
@@ -54,7 +56,8 @@ bool testNormalDist(NormalDistribution myNorm) {
 	else return false;
 }
 
-bool testUniformDist(UniformDistribution myUni){
+bool testDistUni(){
+	UniformDistribution myUni(3,5);
 	const int num = 2500;
 	std::vector<float> results;
 	for (size_t i = 0; i < num; i++) {

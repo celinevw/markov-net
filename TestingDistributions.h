@@ -11,9 +11,9 @@
 #include <algorithm>
 #include <tuple>
 
-bool testDist(NormalDistribution norm);
-bool testDist(ExponentialDistribution exp);
-bool testDist(UniformDistribution uni);
+bool testDistNorm();
+bool testDistExp();
+bool testDistUni();
 std::tuple<float, float> getMoments (std::vector <float> results);
 
 #endif //MARKOVNET_TESTINGDISTRIBUTIONS_H
