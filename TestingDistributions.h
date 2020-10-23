@@ -5,9 +5,7 @@
 #ifndef MARKOVNET_TESTINGDISTRIBUTIONS_H
 #define MARKOVNET_TESTINGDISTRIBUTIONS_H
 
-#include "ExponentialDistribution.h"
-#include "NormalDistribution.h"
-#include "UniformDistribution.h"
+#include "Distribution.h"
 
 void testExpDist();
 void testNormalDist();

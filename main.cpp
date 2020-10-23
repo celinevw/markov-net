@@ -2,7 +2,6 @@
 #include <cmath>
 #include <array>
 #include "ModelInstance.h"
-#include "TestingDistributions.h"
 
 double RateToProbability(double x, double dt){
 	return 1 - std::pow(1 - x, dt); // CCC Sorry for handing you the old version of the document, unbinding rates are also just f*dt

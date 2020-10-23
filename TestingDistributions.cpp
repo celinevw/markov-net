@@ -6,7 +6,7 @@
 
 // CCC Please, please, please, make every test return type bool, where it denotes if the test is passed. Don't test stuff by eye, there's statistics to help you. Even simple stats, like the closed-form expression of the first 2 moments is often enough to spot major errors
 
-void ExponentialDistribution::testExpDist(){
+void testExpDist(){
 	std::ofstream outfile;
 	outfile.open ("exponential.txt");
 	int num = 2500;

@@ -6,13 +6,25 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.cpp
+ComplexState.h
+C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
+
 C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h
 string
 -
 
+C:/Users/Celly/CLionProjects/MarkovNet/Edge.cpp
+Edge.h
+C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
+
 C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
 Node.h
 C:/Users/Celly/CLionProjects/MarkovNet/Node.h
+
+C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.cpp
+ExponentialDistribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
 
 C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
 random
@@ -20,11 +32,19 @@ random
 fstream
 -
 
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
+ModelInstance.h
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
+
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 Network.h
 C:/Users/Celly/CLionProjects/MarkovNet/Network.h
 random
 -
+
+C:/Users/Celly/CLionProjects/MarkovNet/Network.cpp
+Network.h
+C:/Users/Celly/CLionProjects/MarkovNet/Network.h
 
 C:/Users/Celly/CLionProjects/MarkovNet/Network.h
 vector
@@ -39,6 +59,12 @@ iterator
 -
 Edge.h
 C:/Users/Celly/CLionProjects/MarkovNet/Edge.h
+
+C:/Users/Celly/CLionProjects/MarkovNet/Node.cpp
+Node.h
+C:/Users/Celly/CLionProjects/MarkovNet/Node.h
+cmath
+-
 
 C:/Users/Celly/CLionProjects/MarkovNet/Node.h
 ComplexState.h
@@ -58,6 +84,14 @@ random
 cmath
 -
 
+C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
+ExponentialDistribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
+NormalDistribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
+UniformDistribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
+
 C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
 iostream
 -
@@ -73,18 +107,10 @@ fstream
 -
 cmath
 -
-algorithm
--
 array
--
-list
 -
 ModelInstance.h
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
-NormalDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/NormalDistribution.h
-ExponentialDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/ExponentialDistribution.h
-UniformDistribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/UniformDistribution.h
+TestingDistributions.h
+C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
 
