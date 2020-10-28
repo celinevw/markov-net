@@ -15,6 +15,7 @@ public:
 	NetworkArray(int l, int mm, int n1, int n2);
 	NetworkArray();
 	std::array<std::array<float, 6>, 6> transitions;
+	std::array<float, 36> diffusion;
 	int length;
 	int mismatchsite;
 	int nickingsite1;
