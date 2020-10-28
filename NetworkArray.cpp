@@ -62,3 +62,7 @@ NetworkArray::NetworkArray(int l, int mm, int n1, int n2) {
 		}
 	}
 }
+
+NetworkArray::NetworkArray() {
+	NetworkArray(100, 50, 30, 90);
+}

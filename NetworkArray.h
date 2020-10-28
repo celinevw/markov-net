@@ -13,6 +13,7 @@ float RateToProbability(float x, float dt);
 class NetworkArray{
 public:
 	NetworkArray(int l, int mm, int n1, int n2);
+	NetworkArray();
 	std::array<std::array<float, 6>, 6> transitions;
 	int length;
 	int mismatchsite;

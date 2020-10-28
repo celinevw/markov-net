@@ -17,6 +17,10 @@ ModelInstance::ModelInstance(NetworkArray net, float x) {
 	}
 }
 
+ModelInstance::ModelInstance() {
+	ModelInstance(NetworkArray(),0.0);
+}
+
 int ModelInstance::getState() {
 	return this->state;
 }

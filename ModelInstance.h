@@ -19,6 +19,7 @@ private:
 	int nick2;	// number of times site 2 nicked
 public:
 	ModelInstance(NetworkArray net, float x);
+	ModelInstance();
 	int getState();
 	int getPosition();
 	void setStep(float x);
