@@ -13,6 +13,7 @@ class ModelInstance{
 private:
 	int state;
 	int position;
+	float diffusioncoefficient;
 	int stepsize;
 	NetworkArray network;
 	int nick1;	// number of times site 1 nicked

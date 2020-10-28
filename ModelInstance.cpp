@@ -15,6 +15,7 @@ ModelInstance::ModelInstance(NetworkArray net, float x) {
 	else {
 		state = 6;
 	}
+	diffusioncoefficient = net.diffusion.at(state);
 }
 
 ModelInstance::ModelInstance() {

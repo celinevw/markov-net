@@ -4,7 +4,8 @@
 
 #include "NetworkArray.h"
 
-//TODO: check all probabilities of edges, combined with falling off
+// TODO: check all probabilities of edges, combined with falling off
+// ToDo: nicking
 
 float RateToProbability(float x, float dt){
 	return 1 - std::pow(1 - x, dt);
@@ -30,6 +31,8 @@ NetworkArray::NetworkArray(int l, int mm, int n1, int n2) {
 	float S_conc = 1e-9;		// M
 	float L_conc = 1e-9;		// M
 	float H_conc = 1e-9;		// M
+
+	std::array<float, 6> single_diff {0, 0, 43.0, 5.0, 5.0, 5.0};
 
 	const int numstates = 6;
 	std::array<float,numstates-1> nextstate {S_on * S_conc * dt, RateToProbability(S_change, dt), L_on * L_conc * dt,
@@ -59,6 +62,19 @@ NetworkArray::NetworkArray(int l, int mm, int n1, int n2) {
 		}
 		if(i != 0) {
 			transitions.at(l).at(j) = unbinding.at(i-1);
+		}
+
+		if(i == 1 || j == 1) {
+			diffusion.at(l) = 0.0;
+		}
+		else if (single_diff.at(i) == 0){
+			diffusion.at(l) = single_diff.at(j);
+		}
+		else if (single_diff.at(j) == 0){
+			diffusion.at(l) = single_diff.at(i);
+		}
+		else{
+			diffusion.at(l) = pow(pow(single_diff.at(i), -1) + pow(single_diff.at(j), -1), -1);
 		}
 	}
 }
