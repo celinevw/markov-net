@@ -142,33 +142,6 @@ MarkovNet/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/build
 .PHONY : MarkovNet/fast
 
-ComplexState.obj: ComplexState.cpp.obj
-
-.PHONY : ComplexState.obj
-
-# target to build an object file
-ComplexState.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ComplexState.cpp.obj
-.PHONY : ComplexState.cpp.obj
-
-ComplexState.i: ComplexState.cpp.i
-
-.PHONY : ComplexState.i
-
-# target to preprocess a source file
-ComplexState.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ComplexState.cpp.i
-.PHONY : ComplexState.cpp.i
-
-ComplexState.s: ComplexState.cpp.s
-
-.PHONY : ComplexState.s
-
-# target to generate assembly for a file
-ComplexState.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ComplexState.cpp.s
-.PHONY : ComplexState.cpp.s
-
 Distribution.obj: Distribution.cpp.obj
 
 .PHONY : Distribution.obj
@@ -195,33 +168,6 @@ Distribution.s: Distribution.cpp.s
 Distribution.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Distribution.cpp.s
 .PHONY : Distribution.cpp.s
-
-Edge.obj: Edge.cpp.obj
-
-.PHONY : Edge.obj
-
-# target to build an object file
-Edge.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Edge.cpp.obj
-.PHONY : Edge.cpp.obj
-
-Edge.i: Edge.cpp.i
-
-.PHONY : Edge.i
-
-# target to preprocess a source file
-Edge.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Edge.cpp.i
-.PHONY : Edge.cpp.i
-
-Edge.s: Edge.cpp.s
-
-.PHONY : Edge.s
-
-# target to generate assembly for a file
-Edge.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Edge.cpp.s
-.PHONY : Edge.cpp.s
 
 ModelInstance.obj: ModelInstance.cpp.obj
 
@@ -277,60 +223,6 @@ NetworkArray.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkArray.cpp.s
 .PHONY : NetworkArray.cpp.s
 
-NetworkObj.obj: NetworkObj.cpp.obj
-
-.PHONY : NetworkObj.obj
-
-# target to build an object file
-NetworkObj.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkObj.cpp.obj
-.PHONY : NetworkObj.cpp.obj
-
-NetworkObj.i: NetworkObj.cpp.i
-
-.PHONY : NetworkObj.i
-
-# target to preprocess a source file
-NetworkObj.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkObj.cpp.i
-.PHONY : NetworkObj.cpp.i
-
-NetworkObj.s: NetworkObj.cpp.s
-
-.PHONY : NetworkObj.s
-
-# target to generate assembly for a file
-NetworkObj.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkObj.cpp.s
-.PHONY : NetworkObj.cpp.s
-
-Node.obj: Node.cpp.obj
-
-.PHONY : Node.obj
-
-# target to build an object file
-Node.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Node.cpp.obj
-.PHONY : Node.cpp.obj
-
-Node.i: Node.cpp.i
-
-.PHONY : Node.i
-
-# target to preprocess a source file
-Node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Node.cpp.i
-.PHONY : Node.cpp.i
-
-Node.s: Node.cpp.s
-
-.PHONY : Node.s
-
-# target to generate assembly for a file
-Node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Node.cpp.s
-.PHONY : Node.cpp.s
-
 TestingDistributions.obj: TestingDistributions.cpp.obj
 
 .PHONY : TestingDistributions.obj
@@ -385,6 +277,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+myIO.obj: myIO.cpp.obj
+
+.PHONY : myIO.obj
+
+# target to build an object file
+myIO.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/myIO.cpp.obj
+.PHONY : myIO.cpp.obj
+
+myIO.i: myIO.cpp.i
+
+.PHONY : myIO.i
+
+# target to preprocess a source file
+myIO.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/myIO.cpp.i
+.PHONY : myIO.cpp.i
+
+myIO.s: myIO.cpp.s
+
+.PHONY : myIO.s
+
+# target to generate assembly for a file
+myIO.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/myIO.cpp.s
+.PHONY : myIO.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -394,33 +313,24 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... MarkovNet
-	@echo ... ComplexState.obj
-	@echo ... ComplexState.i
-	@echo ... ComplexState.s
 	@echo ... Distribution.obj
 	@echo ... Distribution.i
 	@echo ... Distribution.s
-	@echo ... Edge.obj
-	@echo ... Edge.i
-	@echo ... Edge.s
 	@echo ... ModelInstance.obj
 	@echo ... ModelInstance.i
 	@echo ... ModelInstance.s
 	@echo ... NetworkArray.obj
 	@echo ... NetworkArray.i
 	@echo ... NetworkArray.s
-	@echo ... NetworkObj.obj
-	@echo ... NetworkObj.i
-	@echo ... NetworkObj.s
-	@echo ... Node.obj
-	@echo ... Node.i
-	@echo ... Node.s
 	@echo ... TestingDistributions.obj
 	@echo ... TestingDistributions.i
 	@echo ... TestingDistributions.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... myIO.obj
+	@echo ... myIO.i
+	@echo ... myIO.s
 .PHONY : help
 
 

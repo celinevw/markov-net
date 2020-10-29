@@ -80,22 +80,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ComplexState.h">
-			<Option target="MarkovNet"/>
-		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Distribution.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Edge.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Edge.h">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp">
@@ -110,18 +98,6 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h">
 			<Option target="MarkovNet"/>
 		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkObj.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkObj.h">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Node.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Node.h">
-			<Option target="MarkovNet"/>
-		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
@@ -129,6 +105,12 @@
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/main.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/myIO.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/myIO.h">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/CMakeLists.txt">

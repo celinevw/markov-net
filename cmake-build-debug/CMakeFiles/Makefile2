@@ -93,12 +93,12 @@ clean: CMakeFiles/MarkovNet.dir/clean
 CMakeFiles/MarkovNet.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target MarkovNet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target MarkovNet"
 .PHONY : CMakeFiles/MarkovNet.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MarkovNet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/MarkovNet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/MarkovNet.dir/rule

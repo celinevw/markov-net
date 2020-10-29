@@ -16,11 +16,12 @@ ModelInstance::ModelInstance(NetworkArray net, float x) {
 		state = 6;
 	}
 	diffusioncoefficient = net.diffusion.at(state);
+	nick1 = -1;
+	nick2 = -1;
+	currenttime = 0;
 }
 
-ModelInstance::ModelInstance() {
-	ModelInstance(NetworkArray(),0.0);
-}
+ModelInstance::ModelInstance() : ModelInstance(NetworkArray(),0.0){}
 
 int ModelInstance::getState() {
 	return this->state;
@@ -55,7 +56,6 @@ void ModelInstance::setStep(float x) {
 /* Choose transition to follow based on random number x.
  */
 void ModelInstance::transition(float x) {
-
 	// No outgoing edges, then stay in this state
 	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
 		return;
@@ -70,12 +70,10 @@ void ModelInstance::transition(float x) {
 			//It is not one of transitions where Si binds the mismatch
 			bool attachingSi = (state < 6 && index == state + 6) ||
 							   (state % 6 == 0 && index == state + 1);
-			if (!attachingSi){ // if not adding Si, position does not matter
+			if (!attachingSi || std::abs(position - network.mismatchsite) < 2 * stepsize){
+				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
-			}
-			// else make sure it is close enough or do nothing
-			else if(std::abs(position - network.mismatchsite) < 2 * stepsize){
-				state = index;
+				//update stepsize/diffusion coefficient
 			}
 			break;
 		}
@@ -83,3 +81,33 @@ void ModelInstance::transition(float x) {
 	}
 }
 
+void ModelInstance::nicking(){
+	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking
+		if (position - network.nickingsite1 < stepsize){
+			nick1 = currenttime;
+		}
+		if (position - network.nickingsite2 < stepsize){
+			nick2 = currenttime;
+		}
+	}
+}
+
+/* main method, one run of a model instance
+ */
+void ModelInstance::main() {
+	float shorttime = 0.001;
+	float longtime = 0.5;
+
+	//ToDo: way to iterate over random numbers
+	float x = 0.5;
+
+	for(int i=0; i < 300000; i++) { //ToDO: make general for other durations and time steps
+		setStep(x);
+
+		if(i % 500 == 0) {
+			currenttime = shorttime * i; //update only needed when time may be used
+			transition(x);
+			nicking();
+		}
+	}
+}
