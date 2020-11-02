@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h">
 			<Option target="MarkovNet"/>
 		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/IO.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/IO.h">
+			<Option target="MarkovNet"/>
+		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
@@ -98,6 +104,12 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h">
 			<Option target="MarkovNet"/>
 		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h">
+			<Option target="MarkovNet"/>
+		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>
@@ -105,12 +117,6 @@
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/main.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/myIO.cpp">
-			<Option target="MarkovNet"/>
-		</Unit>
-		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/myIO.h">
 			<Option target="MarkovNet"/>
 		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/CMakeLists.txt">

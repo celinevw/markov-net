@@ -5,11 +5,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Celly/CLionProjects/MarkovNet/Distribution.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/Distribution.cpp.obj"
+  "C:/Users/Celly/CLionProjects/MarkovNet/IO.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/IO.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj"
+  "C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/main.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/main.cpp.obj"
-  "C:/Users/Celly/CLionProjects/MarkovNet/myIO.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/myIO.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

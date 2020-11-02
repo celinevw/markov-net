@@ -141,18 +141,31 @@ CMakeFiles/MarkovNet.dir/NetworkArray.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkovNet.dir/NetworkArray.cpp.s"
 	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Celly\CLionProjects\MarkovNet\NetworkArray.cpp -o CMakeFiles\MarkovNet.dir\NetworkArray.cpp.s
 
-CMakeFiles/MarkovNet.dir/myIO.cpp.obj: CMakeFiles/MarkovNet.dir/flags.make
-CMakeFiles/MarkovNet.dir/myIO.cpp.obj: ../myIO.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MarkovNet.dir/myIO.cpp.obj"
-	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MarkovNet.dir\myIO.cpp.obj -c C:\Users\Celly\CLionProjects\MarkovNet\myIO.cpp
+CMakeFiles/MarkovNet.dir/IO.cpp.obj: CMakeFiles/MarkovNet.dir/flags.make
+CMakeFiles/MarkovNet.dir/IO.cpp.obj: ../IO.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MarkovNet.dir/IO.cpp.obj"
+	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MarkovNet.dir\IO.cpp.obj -c C:\Users\Celly\CLionProjects\MarkovNet\IO.cpp
 
-CMakeFiles/MarkovNet.dir/myIO.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MarkovNet.dir/myIO.cpp.i"
-	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Celly\CLionProjects\MarkovNet\myIO.cpp > CMakeFiles\MarkovNet.dir\myIO.cpp.i
+CMakeFiles/MarkovNet.dir/IO.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MarkovNet.dir/IO.cpp.i"
+	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Celly\CLionProjects\MarkovNet\IO.cpp > CMakeFiles\MarkovNet.dir\IO.cpp.i
 
-CMakeFiles/MarkovNet.dir/myIO.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkovNet.dir/myIO.cpp.s"
-	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Celly\CLionProjects\MarkovNet\myIO.cpp -o CMakeFiles\MarkovNet.dir\myIO.cpp.s
+CMakeFiles/MarkovNet.dir/IO.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkovNet.dir/IO.cpp.s"
+	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Celly\CLionProjects\MarkovNet\IO.cpp -o CMakeFiles\MarkovNet.dir\IO.cpp.s
+
+CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj: CMakeFiles/MarkovNet.dir/flags.make
+CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj: ../ParameterObj.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj"
+	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MarkovNet.dir\ParameterObj.cpp.obj -c C:\Users\Celly\CLionProjects\MarkovNet\ParameterObj.cpp
+
+CMakeFiles/MarkovNet.dir/ParameterObj.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MarkovNet.dir/ParameterObj.cpp.i"
+	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Celly\CLionProjects\MarkovNet\ParameterObj.cpp > CMakeFiles\MarkovNet.dir\ParameterObj.cpp.i
+
+CMakeFiles/MarkovNet.dir/ParameterObj.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkovNet.dir/ParameterObj.cpp.s"
+	C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Celly\CLionProjects\MarkovNet\ParameterObj.cpp -o CMakeFiles\MarkovNet.dir\ParameterObj.cpp.s
 
 # Object files for target MarkovNet
 MarkovNet_OBJECTS = \
@@ -161,7 +174,8 @@ MarkovNet_OBJECTS = \
 "CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj" \
 "CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj" \
 "CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj" \
-"CMakeFiles/MarkovNet.dir/myIO.cpp.obj"
+"CMakeFiles/MarkovNet.dir/IO.cpp.obj" \
+"CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj"
 
 # External object files for target MarkovNet
 MarkovNet_EXTERNAL_OBJECTS =
@@ -171,12 +185,13 @@ MarkovNet.exe: CMakeFiles/MarkovNet.dir/Distribution.cpp.obj
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj
-MarkovNet.exe: CMakeFiles/MarkovNet.dir/myIO.cpp.obj
+MarkovNet.exe: CMakeFiles/MarkovNet.dir/IO.cpp.obj
+MarkovNet.exe: CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/build.make
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/linklibs.rsp
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/objects1.rsp
 MarkovNet.exe: CMakeFiles/MarkovNet.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable MarkovNet.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Celly\CLionProjects\MarkovNet\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable MarkovNet.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\MarkovNet.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

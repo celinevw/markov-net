@@ -169,6 +169,33 @@ Distribution.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Distribution.cpp.s
 .PHONY : Distribution.cpp.s
 
+IO.obj: IO.cpp.obj
+
+.PHONY : IO.obj
+
+# target to build an object file
+IO.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/IO.cpp.obj
+.PHONY : IO.cpp.obj
+
+IO.i: IO.cpp.i
+
+.PHONY : IO.i
+
+# target to preprocess a source file
+IO.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/IO.cpp.i
+.PHONY : IO.cpp.i
+
+IO.s: IO.cpp.s
+
+.PHONY : IO.s
+
+# target to generate assembly for a file
+IO.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/IO.cpp.s
+.PHONY : IO.cpp.s
+
 ModelInstance.obj: ModelInstance.cpp.obj
 
 .PHONY : ModelInstance.obj
@@ -222,6 +249,33 @@ NetworkArray.s: NetworkArray.cpp.s
 NetworkArray.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/NetworkArray.cpp.s
 .PHONY : NetworkArray.cpp.s
+
+ParameterObj.obj: ParameterObj.cpp.obj
+
+.PHONY : ParameterObj.obj
+
+# target to build an object file
+ParameterObj.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj
+.PHONY : ParameterObj.cpp.obj
+
+ParameterObj.i: ParameterObj.cpp.i
+
+.PHONY : ParameterObj.i
+
+# target to preprocess a source file
+ParameterObj.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ParameterObj.cpp.i
+.PHONY : ParameterObj.cpp.i
+
+ParameterObj.s: ParameterObj.cpp.s
+
+.PHONY : ParameterObj.s
+
+# target to generate assembly for a file
+ParameterObj.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ParameterObj.cpp.s
+.PHONY : ParameterObj.cpp.s
 
 TestingDistributions.obj: TestingDistributions.cpp.obj
 
@@ -277,33 +331,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-myIO.obj: myIO.cpp.obj
-
-.PHONY : myIO.obj
-
-# target to build an object file
-myIO.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/myIO.cpp.obj
-.PHONY : myIO.cpp.obj
-
-myIO.i: myIO.cpp.i
-
-.PHONY : myIO.i
-
-# target to preprocess a source file
-myIO.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/myIO.cpp.i
-.PHONY : myIO.cpp.i
-
-myIO.s: myIO.cpp.s
-
-.PHONY : myIO.s
-
-# target to generate assembly for a file
-myIO.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/myIO.cpp.s
-.PHONY : myIO.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -316,21 +343,24 @@ help:
 	@echo ... Distribution.obj
 	@echo ... Distribution.i
 	@echo ... Distribution.s
+	@echo ... IO.obj
+	@echo ... IO.i
+	@echo ... IO.s
 	@echo ... ModelInstance.obj
 	@echo ... ModelInstance.i
 	@echo ... ModelInstance.s
 	@echo ... NetworkArray.obj
 	@echo ... NetworkArray.i
 	@echo ... NetworkArray.s
+	@echo ... ParameterObj.obj
+	@echo ... ParameterObj.i
+	@echo ... ParameterObj.s
 	@echo ... TestingDistributions.obj
 	@echo ... TestingDistributions.i
 	@echo ... TestingDistributions.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... myIO.obj
-	@echo ... myIO.i
-	@echo ... myIO.s
 .PHONY : help
 
 

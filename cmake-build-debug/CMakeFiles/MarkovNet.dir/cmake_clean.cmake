@@ -1,10 +1,11 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MarkovNet.dir/Distribution.cpp.obj"
+  "CMakeFiles/MarkovNet.dir/IO.cpp.obj"
   "CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj"
   "CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj"
+  "CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj"
   "CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj"
   "CMakeFiles/MarkovNet.dir/main.cpp.obj"
-  "CMakeFiles/MarkovNet.dir/myIO.cpp.obj"
   "MarkovNet.exe"
   "MarkovNet.exe.manifest"
   "MarkovNet.pdb"

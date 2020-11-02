@@ -45,6 +45,16 @@ void ModelInstance::setStep(float x) {
 	if(position + direction * stepsize >= 0 && position + direction * stepsize < network.length){
 		position += (direction * stepsize);
 	}
+	else if (topology == circular){
+		// go to the "other side"
+		position = (position + direction * stepsize) % network.length;
+	}
+	else if (topology == linear){
+		// fall off, go to none-none state
+		// ToDo: fall off completely or only one of the dimers?
+		state = 0;
+	}
+	// if endblocked, do not take a step.
 
 }
 
@@ -92,14 +102,15 @@ void ModelInstance::nicking(){
 void ModelInstance::main() {
 	float shorttime = 0.001;
 	float longtime = 0.5;
+	int stepsperreaction = (int)(longtime/shorttime);
 
 	//ToDo: way to iterate over random numbers
 	float x = 0.5;
 
-	for(int i=0; i < 300000; i++) { //ToDO: make general for other durations and time steps
+	for(int i=0; i < 300000; i++) {
 		setStep(x);
 
-		if(i % 500 == 0) {
+		if(i % stepsperreaction == 0) {
 			currenttime = shorttime * i; //update only needed when time may be used
 			transition(x);
 			nicking();
