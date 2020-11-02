@@ -87,11 +87,11 @@ void ModelInstance::transition(float x) {
 }
 
 void ModelInstance::nicking(){
-	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking
-		if (position - network.nickingsite1 < stepsize){
+	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking if not nicked yet
+		if (position - network.nickingsite1 < stepsize && nick1 < 0){
 			nick1 = currenttime;
 		}
-		if (position - network.nickingsite2 < stepsize){
+		if (position - network.nickingsite2 < stepsize && nick2 < 0){
 			nick2 = currenttime;
 		}
 	}
