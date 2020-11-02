@@ -11,11 +11,26 @@ float RateToProbability(float x, float dt){
 	return 1 - std::pow(1 - x, dt);
 }
 
-NetworkArray::NetworkArray(int l, int mm, int n1, int n2) {
-	length = l;
-	mismatchsite = mm;
-	nickingsite1 = n1;
-	nickingsite2 = n2;
+NetworkArray::NetworkArray(ParameterObj par) {
+	//ToDo: mismatch and nicking positions
+	if (par.subs == GT1A){
+		length = 3197;
+		mismatchsite = 0;
+		nickingsite1 = 0;
+		nickingsite2 = 0;
+	}
+	else if (par.subs == GT2A){
+		length = 3199;
+		mismatchsite = 0;
+		nickingsite1 = 0;
+		nickingsite2 = 0;
+	}
+	else if (par.subs == GT2B){
+		length = 3199;
+		mismatchsite = 0;
+		nickingsite1 = 0;
+		nickingsite2 = 0;
+	}
 
 	float dt = 0.01;			// seconds
 	float S_on = 4.40e7;		// per M per second
@@ -28,9 +43,9 @@ NetworkArray::NetworkArray(int l, int mm, int n1, int n2) {
 	float SL_off = 1/32.0;		// per second
 	float SLa_off = 1/851.0;	// per second
 	float SLH_off = 1/197.0;	// per second
-	float S_conc = 1e-9;		// M
-	float L_conc = 1e-9;		// M
-	float H_conc = 1e-9;		// M
+	float S_conc = par.S_conc;	// M
+	float L_conc = par.L_conc;	// M
+	float H_conc = par.H_conc;	// M
 
 	std::array<float, 6> single_diff {0, 0, 43.0, 5.0, 5.0, 5.0};
 
@@ -80,5 +95,5 @@ NetworkArray::NetworkArray(int l, int mm, int n1, int n2) {
 }
 
 NetworkArray::NetworkArray() {
-	NetworkArray(100, 50, 30, 90);
+	NetworkArray(ParameterObj());
 }

@@ -4,12 +4,12 @@
 
 #include "IO.h"
 
-std::vector<float> IO::read(int argc, char **arg) {
-	std::vector<float> argvec;
-	//Todo: usage message, dep on what arguments can be passed
-	for (int i = i; i<argc; i++){
-		argvec.push_back(std::atof(arg[i]));
-	}
+ParameterObj IO::read(int argc, char **arg) {
+	ParameterObj parameters;
+	parameters.S_conc = std::stof(arg[1]);
+	parameters.L_conc = std::stof(arg[2]);
+	parameters.H_conc = std::stof(arg[3]);
+	//ToDo: string to enum for topology, substrate
 }
 
 void IO::write(ModelInstance model, std::string filename) {

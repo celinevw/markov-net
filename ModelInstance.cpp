@@ -4,24 +4,19 @@
 
 #include "ModelInstance.h"
 
-ModelInstance::ModelInstance(NetworkArray net, float x) {
+ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, float x) {
 	position = net.mismatchsite; // starting position and mismatch position must be the same
 	network = net;
 	stepsize = 1;
-
-	if (x < 0.5){
-		state = 1;
-	}
-	else {
-		state = 6;
-	}
+	state = 1;					// graph is symmetric, so let all start in state 1
 	diffusioncoefficient = net.diffusion.at(state);
 	nick1 = -1;
 	nick2 = -1;
 	currenttime = 0;
+	topology = par.top;
 }
 
-ModelInstance::ModelInstance() : ModelInstance(NetworkArray(),0.0){}
+ModelInstance::ModelInstance() : ModelInstance(NetworkArray(), ParameterObj(), 0.0){}
 
 int ModelInstance::getState() {
 	return this->state;

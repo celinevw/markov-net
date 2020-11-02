@@ -6,6 +6,7 @@
 #define MARKOVNET_MODELINSTANCE_H
 
 #include "NetworkArray.h"
+#include "ParameterObj.h"
 #include <random>
 #include <vector>
 
@@ -19,10 +20,11 @@ private:
 	int stepsize;
 	float currenttime;
 	NetworkArray network;
+	enum topology topology;
 public:
 	int nick1;	// number of times site 1 nicked
 	int nick2;	// number of times site 2 nicked
-	ModelInstance(NetworkArray net, float x);
+	ModelInstance(NetworkArray net, ParameterObj par, float x);
 	ModelInstance();
 	int getState();
 	int getPosition();

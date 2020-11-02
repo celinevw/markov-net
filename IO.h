@@ -5,14 +5,15 @@
 #ifndef MARKOVNET_IO_H
 #define MARKOVNET_IO_H
 
-#include <string>
 #include <vector>
 #include <fstream>
+#include <iostream>
 #include "ModelInstance.h"
+#include "ParameterObj.h"
 
 class IO{
 public:
-	std::vector<float> read(int argc, char** arg);
+	ParameterObj read(int argc, char** arg);
 	void write(ModelInstance model, std::string filename);
 };
 
