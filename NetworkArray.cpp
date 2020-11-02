@@ -5,34 +5,30 @@
 #include "NetworkArray.h"
 
 // TODO: check all probabilities of edges, combined with falling off
-// ToDo: nicking
 
 float RateToProbability(float x, float dt){
 	return 1 - std::pow(1 - x, dt);
 }
 
 NetworkArray::NetworkArray(ParameterObj par) {
-	//ToDo: mismatch and nicking positions
+	length = 2770;
 	if (par.subs == GT1A){
-		length = 3197;
-		mismatchsite = 0;
-		nickingsite1 = 0;
-		nickingsite2 = 0;
+		mismatchsite = 1730;
+		nickingsite1 = 690;
+		nickingsite2 = -200;	//never reached
 	}
 	else if (par.subs == GT2A){
-		length = 3199;
-		mismatchsite = 0;
-		nickingsite1 = 0;
-		nickingsite2 = 0;
+		mismatchsite = 1730;
+		nickingsite1 = 690;
+		nickingsite2 = 1760;
 	}
 	else if (par.subs == GT2B){
-		length = 3199;
-		mismatchsite = 0;
-		nickingsite1 = 0;
-		nickingsite2 = 0;
+		mismatchsite = 750;
+		nickingsite1 = 690;
+		nickingsite2 = 1760;
 	}
 
-	float dt = 0.01;			// seconds
+	float dt = 0.5;				// seconds, Check with modelinstance!
 	float S_on = 4.40e7;		// per M per second
 	float L_on = 1.27e7;		// per M per second
 	float H_on = 1e7;			// per M per second
@@ -71,7 +67,7 @@ NetworkArray::NetworkArray(ParameterObj par) {
 			transitions.at(l).at(l+numstates) = nextstate.at(j) * (1 - nextstate.at(i));
 		}
 
-		// A complex cannot fall of if it is not attached yet
+		// A complex cannot fall off if it is not attached yet
 		if(j != 0) {
 			transitions.at(l).at(i) = unbinding.at(j-1);
 		}
