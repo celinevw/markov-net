@@ -5,11 +5,11 @@
 #include "ModelInstance.h"
 
 ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, float x) {
-	position = net.mismatchsite; // starting position and mismatch position must be the same
+	position = net.mismatchsite;	// starting position and mismatch position must be the same
 	network = net;
-	stepsize = 1;
-	state = 1;					// graph is symmetric, so let all start in state 1
-	diffusioncoefficient = net.diffusion.at(state);
+	state = 1;						// graph is symmetric, so let all start in state 1
+	dt = 0.5; 						// check dt with networkarray for probabilities
+	stepsize = sqrt(2*net.diffusion.at(state)*dt);
 	nick1 = -1;
 	nick2 = -1;
 	currenttime = 0;
@@ -30,8 +30,6 @@ int ModelInstance::getPosition() {
  * If so, update step, else don't.
  */
 void ModelInstance::setStep(float x) {
-	//TODO: find step size per type of complex
-
 	// Choose direction
 	int direction;
 	if(x<0.5){
@@ -53,6 +51,7 @@ void ModelInstance::setStep(float x) {
 		// fall off, go to none-none state
 		// ToDo: fall off completely or only one of the dimers?
 		state = 0;
+		stepsize = sqrt(2*network.diffusion.at(state)*dt);
 	}
 	// if endblocked, do not take a step.
 
@@ -78,6 +77,7 @@ void ModelInstance::transition(float x) {
 			if (!attachingSi || std::abs(position - network.mismatchsite) < 2 * stepsize){
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
+				stepsize = sqrt(2*network.diffusion.at(state)*dt);
 				//update stepsize/diffusion coefficient
 			}
 			break;
@@ -101,8 +101,7 @@ void ModelInstance::nicking(){
  */
 void ModelInstance::main() {
 	float shorttime = 0.001;
-	float longtime = 0.5;
-	int stepsperreaction = (int)(longtime/shorttime);
+	int stepsperreaction = (int)(dt/shorttime);
 
 	//ToDo: way to iterate over random numbers
 	float x = 0.5;

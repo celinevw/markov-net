@@ -16,14 +16,14 @@ class ModelInstance{
 private:
 	int state;
 	int position;
-	float diffusioncoefficient;
 	int stepsize;
+	float dt;
 	float currenttime;
 	NetworkArray network;
 	enum topology topology;
 public:
-	int nick1;	// number of times site 1 nicked
-	int nick2;	// number of times site 2 nicked
+	float nick1;	// time at which site 1 nicked
+	float nick2;	// time at which site 2 nicked
 	ModelInstance(NetworkArray net, ParameterObj par, float x);
 	ModelInstance();
 	int getState();
