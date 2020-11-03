@@ -22,6 +22,7 @@ ParameterObj IO::read(int argc, char **arg) {
 			{"GT1A", GT1A}, {"GT2A", GT2A}, {"GT2B", GT2B}
 	};
 	parameters.subs = str_enum_subs[arg[5]];
+	return parameters;
 }
 
 void IO::write(ModelInstance model, std::string filename) {

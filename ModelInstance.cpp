@@ -4,19 +4,19 @@
 
 #include "ModelInstance.h"
 
-ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, float x) {
-	position = net.mismatchsite;	// starting position and mismatch position must be the same
+ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
 	network = net;
+	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt = 0.5; 						// check dt with networkarray for probabilities
-	stepsize = sqrt(2*net.diffusion.at(state)*dt);
+	stepsize = sqrt(2*net.diffusion.at(state)*dt)/0.34; //in bp
 	nick1 = -1;
 	nick2 = -1;
 	currenttime = 0;
 	topology = par.top;
 }
 
-ModelInstance::ModelInstance() : ModelInstance(NetworkArray(), ParameterObj(), 0.0){}
+ModelInstance::ModelInstance() : ModelInstance(NetworkArray(), ParameterObj()) {}
 
 int ModelInstance::getState() {
 	return this->state;
@@ -51,7 +51,7 @@ void ModelInstance::setStep(float x) {
 		// fall off, go to none-none state
 		// ToDo: fall off completely or only one of the dimers?
 		state = 0;
-		stepsize = sqrt(2*network.diffusion.at(state)*dt);
+		stepsize = sqrt(2*network.diffusion.at(state)*dt)/0.34;
 	}
 	// if endblocked, do not take a step.
 
