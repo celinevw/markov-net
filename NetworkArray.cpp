@@ -10,7 +10,7 @@ float RateToProbability(float x, float dt){
 	return 1 - std::pow(1 - x, dt);
 }
 
-NetworkArray::NetworkArray(ParameterObj par) {
+void NetworkArray::assign(ParameterObj par) {
 	length = 2770;
 	if (par.subs == GT1A){
 		mismatchsite = 1730;
@@ -43,7 +43,7 @@ NetworkArray::NetworkArray(ParameterObj par) {
 	float L_conc = par.L_conc;	// M
 	float H_conc = par.H_conc;	// M
 
-	std::array<float, 6> single_diff {0, 0, 43.0, 5.0, 5.0, 5.0};
+	std::array<float, 6> single_diff {0, 0, 43000, 5000, 5000, 5000};
 
 	const int numstates = 6;
 	std::array<float,numstates-1> nextstate {S_on * S_conc * dt, RateToProbability(S_change, dt), L_on * L_conc * dt,
@@ -92,6 +92,10 @@ NetworkArray::NetworkArray(ParameterObj par) {
 	}
 }
 
+NetworkArray::NetworkArray(ParameterObj par) {
+	assign(par);
+}
 NetworkArray::NetworkArray() {
-	NetworkArray(ParameterObj);
+	ParameterObj myparameters;
+	assign(myparameters);
 }

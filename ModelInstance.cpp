@@ -4,7 +4,7 @@
 
 #include "ModelInstance.h"
 
-ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
+void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
@@ -16,7 +16,15 @@ ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
 	topology = par.top;
 }
 
-ModelInstance::ModelInstance() : ModelInstance(NetworkArray(), ParameterObj()) {}
+ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
+	assign(net, par);
+}
+
+ModelInstance::ModelInstance() {
+	NetworkArray myNet;
+	ParameterObj myPars;
+	assign(myNet, myPars);
+}
 
 int ModelInstance::getState() {
 	return this->state;

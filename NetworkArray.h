@@ -13,6 +13,7 @@ float RateToProbability(float x, float dt);
 
 class NetworkArray{
 public:
+	void assign(ParameterObj par);
 	NetworkArray(ParameterObj par);
 	NetworkArray();
 	std::array<std::array<float, 36>, 36> transitions;

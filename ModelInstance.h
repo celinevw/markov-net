@@ -24,6 +24,7 @@ private:
 public:
 	float nick1;	// time at which site 1 nicked
 	float nick2;	// time at which site 2 nicked
+	void assign(NetworkArray net, ParameterObj par);
 	ModelInstance(NetworkArray net, ParameterObj par);
 	ModelInstance();
 	int getState();
