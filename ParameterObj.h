@@ -10,13 +10,12 @@
 enum substrate {GT1A, GT2A, GT2B};
 enum topology {circular, linear, endblocked};
 
-struct ParameterObj{
-	float S_conc;
-	float L_conc;
-	float H_conc;
-	enum topology top;
-	enum substrate subs;
-	ParameterObj();
+struct ParameterObj {
+	float S_conc = 1e-9;
+	float L_conc = 1e-9;
+	float H_conc = 1e-9;
+	topology top = endblocked;
+	substrate subs = GT2A;
 };
 
 #endif //MARKOVNET_PARAMETEROBJ_H
