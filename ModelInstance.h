@@ -20,7 +20,7 @@ private:
 	float dt;
 	float currenttime;
 	NetworkArray network;
-	enum topology topology;
+	Topology topology;
 public:
 	float nick1;	// time at which site 1 nicked
 	float nick2;	// time at which site 2 nicked

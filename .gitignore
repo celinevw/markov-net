@@ -6,7 +6,6 @@
 *.lo
 *.o
 *.obj
-*.cpp.obj
 
 # Precompiled Headers
 *.gch
@@ -33,3 +32,5 @@
 *.app
 
 *.txt
+*.cpp.obj
+*.exe

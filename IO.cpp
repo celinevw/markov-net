@@ -13,12 +13,12 @@ ParameterObj IO::read(int argc, char **arg) {
 	parameters.L_conc = std::stof(arg[2]);
 	parameters.H_conc = std::stof(arg[3]);
 
-	std::map<std::string, enum topology> str_enum_top {
+	std::map<std::string, Topology> str_enum_top {
 			{"circular", circular}, {"linear", linear}, {"endblocked", endblocked}
 	};
 	parameters.top = str_enum_top[arg[4]];
 
-	std::map<std::string, enum substrate> str_enum_subs {
+	std::map<std::string, Substrate> str_enum_subs {
 			{"GT1A", GT1A}, {"GT2A", GT2A}, {"GT2B", GT2B}
 	};
 	parameters.subs = str_enum_subs[arg[5]];
