@@ -15,7 +15,7 @@ class NetworkArray{
 public:
 	NetworkArray(ParameterObj par);
 	NetworkArray();
-	std::array<std::array<float, 6>, 6> transitions;
+	std::array<std::array<float, 36>, 36> transitions;
 	std::array<float, 36> diffusion;
 	int length;			//bp
 	int mismatchsite;

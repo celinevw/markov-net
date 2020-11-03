@@ -51,6 +51,8 @@ NetworkArray::NetworkArray(ParameterObj par) {
 	std::array<float,numstates-1> unbinding {S_off * dt, Sa_off * dt,SL_off * dt,
 											 SLa_off * dt, SLH_off * dt};
 
+	// ToDo: check transitions
+	transitions.fill({0});
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {
 		i = l/numstates;
@@ -59,17 +61,17 @@ NetworkArray::NetworkArray(ParameterObj par) {
 		// state1 goes to the next state
 		if (l != 0 && j < numstates - 2 && l != 7 && l+1 != 7) {
 			// Si-Si cannot be reached, so don't add edges to/from node 7
-			transitions.at(l).at(l+1) = nextstate.at(j) * (1 - nextstate.at(i));
+			transitions.at(l).at(l+1) = nextstate.at(j);
 		}
 		//state2 goes to the next state
 		if (l != 0 && i < numstates - 2 && l != 7 && l + numstates != 7) {
 			// Si-Si cannot be reached, so don't add edges to/from node 7
-			transitions.at(l).at(l+numstates) = nextstate.at(j) * (1 - nextstate.at(i));
+			transitions.at(l).at(l+numstates) = nextstate.at(i);
 		}
 
 		// A complex cannot fall off if it is not attached yet
 		if(j != 0) {
-			transitions.at(l).at(i) = unbinding.at(j-1);
+			transitions.at(l).at(i*numstates) = unbinding.at(j-1);
 		}
 		if(i != 0) {
 			transitions.at(l).at(j) = unbinding.at(i-1);
@@ -91,5 +93,5 @@ NetworkArray::NetworkArray(ParameterObj par) {
 }
 
 NetworkArray::NetworkArray() {
-	NetworkArray(ParameterObj());
+	NetworkArray(ParameterObj);
 }
