@@ -9,6 +9,7 @@
 #include "ParameterObj.h"
 #include <random>
 #include <vector>
+#include <cmath>
 
 //ToDo: use diffusion coefficient or directly calculate stepsize when entering new state
 
@@ -18,6 +19,7 @@ private:
 	int position;
 	int stepsize;
 	float dt;
+	float dt_diff;
 	float currenttime;
 	NetworkArray network;
 	Topology topology;
@@ -32,6 +34,7 @@ public:
 	void setStep(float x);
 	void transition(float x);
 	void nicking();
-	void main();
+	void updateStep();
+	void main(std::vector<float> *numbers_ptr);
 };
 #endif //MARKOVNET_MODELINSTANCE_H

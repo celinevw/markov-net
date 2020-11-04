@@ -8,8 +8,9 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
-	dt = 0.5; 						// check dt with networkarray for probabilities
-	stepsize = sqrt(2*net.diffusion.at(state)*dt)/0.34; //in bp
+	dt = 0.5; 						// for reaction, check dt with networkarray for probabilities
+	dt_diff = 100e-6;				// for diffusion
+	updateStep();
 	nick1 = -1;
 	nick2 = -1;
 	currenttime = 0;
@@ -59,7 +60,7 @@ void ModelInstance::setStep(float x) {
 		// fall off, go to none-none state
 		// ToDo: fall off completely or only one of the dimers?
 		state = 0;
-		stepsize = sqrt(2*network.diffusion.at(state)*dt)/0.34;
+		updateStep();
 	}
 	// if endblocked, do not take a step.
 
@@ -85,8 +86,7 @@ void ModelInstance::transition(float x) {
 			if (!attachingSi || std::abs(position - network.mismatchsite) < 2 * stepsize){
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
-				stepsize = sqrt(2*network.diffusion.at(state)*dt);
-				//update stepsize/diffusion coefficient
+				updateStep();
 			}
 			break;
 		}
@@ -105,22 +105,27 @@ void ModelInstance::nicking(){
 	}
 }
 
+void ModelInstance::updateStep() {
+	stepsize = round(std::sqrt(2*network.diffusion.at(state)*dt_diff)*10000/3.4); //micrometer->armstrong->bp
+}
+
 /* main method, one run of a model instance
  */
-void ModelInstance::main() {
-	float shorttime = 0.001;
-	int stepsperreaction = (int)(dt/shorttime);
+void ModelInstance::main(std::vector<float> *numbers_ptr) {
+	int stepsperreaction = roundf(dt / dt_diff);
 
 	//ToDo: way to iterate over random numbers
-	float x = 0.5;
+	auto it = numbers_ptr->begin();
+	int i=0;
 
-	for(int i=0; i < 300000; i++) {
-		setStep(x);
+	while (currenttime <= 600 && (nick1<0 || nick2<0)) {
+		currenttime = dt_diff * i; //update only needed when time may be used
+		setStep(*(it++));
+		nicking();
 
 		if(i % stepsperreaction == 0) {
-			currenttime = shorttime * i; //update only needed when time may be used
-			transition(x);
-			nicking();
+			transition(*(it++));
 		}
+		i++;
 	}
 }
