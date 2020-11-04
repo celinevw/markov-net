@@ -33,7 +33,7 @@ public:
 	int getPosition();
 	void setStep(float x);
 	void transition(float x);
-	void nicking();
+	void nicking(float x);
 	void updateStep();
 	void main(std::vector<float> *numbers_ptr);
 };

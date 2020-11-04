@@ -94,12 +94,13 @@ void ModelInstance::transition(float x) {
 	}
 }
 
-void ModelInstance::nicking(){
+void ModelInstance::nicking(float x){
 	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking if not nicked yet
-		if (position - network.nickingsite1 < stepsize && nick1 < 0){
+		float p_nick = 0.5; //ToDo: get value p_nick
+		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
 			nick1 = currenttime;
 		}
-		if (position - network.nickingsite2 < stepsize && nick2 < 0){
+		if (std::abs((position - network.nickingsite2)) < stepsize && nick2 < 0 && x < p_nick){
 			nick2 = currenttime;
 		}
 	}
@@ -121,7 +122,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	while (currenttime <= 600 && (nick1<0 || nick2<0)) {
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
-		nicking();
+		nicking(*(it++));
 
 		if(i % stepsperreaction == 0) {
 			transition(*(it++));

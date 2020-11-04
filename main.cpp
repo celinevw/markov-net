@@ -1,5 +1,3 @@
-#include <fstream>
-#include <cmath>
 #include <array>
 #include "IO.h"
 #include "Distribution.h"
@@ -17,7 +15,7 @@ int main(int argc, char ** arg) {
 	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < 650.0*(1/0.5 + 1/(100e-6)); i++) {
+		for (int i = 0; i < 650.0*(1/0.5 + 2/(100e-6)); i++) {
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
