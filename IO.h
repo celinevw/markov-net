@@ -16,6 +16,7 @@ class IO{
 public:
 	ParameterObj read(int argc, char** arg);
 	void write(ModelInstance model, std::string filename);
+	void writeTransitions(NetworkArray net);
 };
 
 #endif //MARKOVNET_IO_H

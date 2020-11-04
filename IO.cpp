@@ -31,3 +31,15 @@ void IO::write(ModelInstance model, std::string filename) {
 	output << model.nick1 << "\t" << model.nick2 << std::endl;
 	output.close();
 }
+
+void IO::writeTransitions(NetworkArray net){
+	std::ofstream output;
+	output.open("transitions.tsv");
+	for(auto state_from: net.transitions){
+		for (auto state_to: state_from){
+			output << state_to << "\t";
+		}
+		output << std::endl;
+	}
+	output.close();
+}
