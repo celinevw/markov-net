@@ -43,7 +43,8 @@ void NetworkArray::assign(ParameterObj par) {
 	float L_conc = par.L_conc;	// M
 	float H_conc = par.H_conc;	// M
 
-	std::array<float, 6> single_diff {0, 0, 43000, 5000, 5000, 5000};
+	//D in micrometer^2/s
+	std::array<float, 6> single_diff {0, 0, 0.043, 0.005, 0.005, 0.005};
 
 	const int numstates = 6;
 	std::array<float,numstates-1> nextstate {S_on * S_conc * dt, RateToProbability(S_change, dt), L_on * L_conc * dt,
@@ -59,12 +60,12 @@ void NetworkArray::assign(ParameterObj par) {
 		j = l%numstates;
 
 		// state1 goes to the next state
-		if (l != 0 && j < numstates - 2 && l != 7 && l+1 != 7) {
+		if (l != 0 && j < numstates - 1 && l != 7 && l+1 != 7) {
 			// Si-Si cannot be reached, so don't add edges to/from node 7
 			transitions.at(l).at(l+1) = nextstate.at(j);
 		}
 		//state2 goes to the next state
-		if (l != 0 && i < numstates - 2 && l != 7 && l + numstates != 7) {
+		if (l != 0 && i < numstates - 1 && l != 7 && l + numstates != 7) {
 			// Si-Si cannot be reached, so don't add edges to/from node 7
 			transitions.at(l).at(l+numstates) = nextstate.at(i);
 		}
