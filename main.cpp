@@ -10,16 +10,20 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters;
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 10;
+	const int num_sims = 2;
 
 	UniformDistribution unif(0,1);
-	auto *myarr_ptr = new std::array<float,num_sims>;
-	for (int i=0; i<num_sims; i++){
-		myarr_ptr->at(i) = unif.getRandomNumber(); // CCC Neat use of the .at method, could probably be done even more neatly using a std::foreach but this is fine as is
+	std::array<std::vector<float>*, num_sims> arr_per_sim{};
+	//ToDo: get right amount of random numbers
+	for (auto & it : arr_per_sim) {
+		auto *myarr_ptr = new std::vector<float>;
+		for (int i = 0; i < 650.0*(1/0.5 + 1/(100e-6)); i++) {
+			myarr_ptr->push_back(unif.getRandomNumber());
+		}
+		it = myarr_ptr;
 	}
 
-	ModelInstance myModel(network, myparameters);
-/*	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
+	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
 		sims.push_back(new ModelInstance(network, myparameters));
 	}
@@ -28,7 +32,7 @@ int main(int argc, char ** arg) {
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
-			sims.at(i)->main();
+			sims.at(i)->main(arr_per_sim.at(i));
 		}
 	}
 
@@ -38,7 +42,7 @@ int main(int argc, char ** arg) {
 	out.close();
 	for (ModelInstance* model: sims){
 		myIO.write(*model, filepath);
-	}*/
+	}
 
 	return 0;
 }
