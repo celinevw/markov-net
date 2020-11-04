@@ -35,7 +35,7 @@ int main(int argc, char ** arg) {
 	std::string filepath = "modelOut.tsv";
 	std::ofstream out;
 	out.open(filepath);
-	out << "output" << std::endl;
+	out.close();
 	for (ModelInstance* model: sims){
 		myIO.write(*model, filepath);
 	}*/

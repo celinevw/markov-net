@@ -27,7 +27,7 @@ ParameterObj IO::read(int argc, char **arg) {
 
 void IO::write(ModelInstance model, std::string filename) {
 	std::ofstream output;
-	output.open(filename);
+	output.open(filename, std::ios::app);
 	output << model.nick1 << "\t" << model.nick2 << std::endl;
 	output.close();
 }
