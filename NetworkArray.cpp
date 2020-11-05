@@ -53,23 +53,32 @@ void NetworkArray::assign(ParameterObj par) {
 											 SLa_off * dt, SLH_off * dt};
 
 	transitions.fill({0});
+	float i_next, i_unbind, j_next, j_unbind;
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {
 		i = l/numstates;
 		j = l%numstates;
 
+		i_next = i < numstates - 1 ? (1 - nextstate.at(i)) : 1;	// if not at SLH, p of not going to the next state
+		i_unbind = i > 0 && i < numstates ? (1 - unbinding.at(i - 1)) : 1;	// if not 'none', p of falling off
+		j_next = j < numstates - 1 ? (1 - nextstate.at(j)) : 1;
+		j_unbind = j > 0 && j < numstates? (1 - unbinding.at(j - 1)) : 1;
+
 		// state1 goes to the next state
 		if (l != 0 && j < numstates - 1 && l != 7 && l+1 != 7) {
-			// Si-Si cannot be reached, so don't add edges to/from node 7
-			transitions.at(l).at(l+1) = nextstate.at(j);
+			transitions.at(l).at(l+1) = nextstate.at(j) * i_next * i_unbind * j_unbind;
 		}
 		//state2 goes to the next state
 		if (l != 0 && i < numstates - 1 && l != 7 && l + numstates != 7) {
-			// Si-Si cannot be reached, so don't add edges to/from node 7
-			transitions.at(l).at(l+numstates) = nextstate.at(i);
+			transitions.at(l).at(l+numstates) = nextstate.at(i) * j_next * i_unbind * j_unbind;
 		}
 
-		// A complex cannot fall off if it is not attached yet
+		/* Si-Si cannot be reached, so don't add edges to/from node 7.
+		 * Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
+		 * Binding or conformational change only occurs if the complex does not fall off.
+		 * A complex cannot fall off if it is not attached yet
+		 */
+
 		if(j != 0) {
 			transitions.at(l).at(i*numstates) = unbinding.at(j-1);
 		}

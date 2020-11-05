@@ -115,7 +115,6 @@ void ModelInstance::updateStep() {
 void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	int stepsperreaction = roundf(dt / dt_diff);
 
-	//ToDo: way to iterate over random numbers
 	auto it = numbers_ptr->begin();
 	int i=0;
 
