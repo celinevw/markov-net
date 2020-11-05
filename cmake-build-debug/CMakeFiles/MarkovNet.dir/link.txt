@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2020.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\MarkovNet.dir/objects.a
-C:\PROGRA~1\MinGW\mingw64\bin\ar.exe cr CMakeFiles\MarkovNet.dir/objects.a @CMakeFiles\MarkovNet.dir\objects1.rsp
-C:\PROGRA~1\MinGW\mingw64\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\MarkovNet.dir/objects.a -Wl,--no-whole-archive  -o MarkovNet.exe -Wl,--out-implib,libMarkovNet.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\MarkovNet.dir\linklibs.rsp
