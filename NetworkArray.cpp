@@ -52,7 +52,6 @@ void NetworkArray::assign(ParameterObj par) {
 	std::array<float,numstates-1> unbinding {S_off * dt, Sa_off * dt,SL_off * dt,
 											 SLa_off * dt, SLH_off * dt};
 
-	// ToDo: check transitions
 	transitions.fill({0});
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {

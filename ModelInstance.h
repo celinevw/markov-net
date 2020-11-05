@@ -11,8 +11,6 @@
 #include <vector>
 #include <cmath>
 
-//ToDo: use diffusion coefficient or directly calculate stepsize when entering new state
-
 class ModelInstance{
 private:
 	int state;

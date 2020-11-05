@@ -96,7 +96,7 @@ void ModelInstance::transition(float x) {
 
 void ModelInstance::nicking(float x){
 	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking if not nicked yet
-		float p_nick = 0.5; //ToDo: get value p_nick
+		float p_nick = 1;
 		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
 			nick1 = currenttime;
 		}
