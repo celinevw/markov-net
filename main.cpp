@@ -9,7 +9,7 @@ int main(int argc, char ** arg) {
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 5;
-	float totaltime = 600;					// check with ModelInstance
+	float totaltime = 300;					// check with ModelInstance
 	float dt_output = 0.1;
 
 	UniformDistribution unif(0,1);

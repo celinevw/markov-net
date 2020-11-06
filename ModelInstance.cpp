@@ -2,6 +2,7 @@
 // Created by Celly on 20/10/2020.
 //
 
+#include <iostream>
 #include "ModelInstance.h"
 
 void ModelInstance::assign(NetworkArray net, ParameterObj par) {
@@ -87,6 +88,9 @@ void ModelInstance::transition(float x) {
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
 				updateStep();
+				if (attachingSi){
+					std::cout << state << "\t" << position << std::endl;
+				}
 			}
 			break;
 		}
