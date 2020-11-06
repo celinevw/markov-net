@@ -5,10 +5,14 @@
 #include "IO.h"
 
 ParameterObj IO::read(int argc, char **arg) {
-	if(argc != 6){
+	ParameterObj parameters;
+	if (argc == 1) {
+		return parameters;
+	}
+
+	if (argc != 6){
 		std::cerr << "usage: " << arg[0] << " Sconc Lconc Hconc topology substrate" << std::endl;
 	}
-	ParameterObj parameters;
 	parameters.S_conc = std::stof(arg[1]);
 	parameters.L_conc = std::stof(arg[2]);
 	parameters.H_conc = std::stof(arg[3]);
