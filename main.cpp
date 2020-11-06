@@ -5,7 +5,7 @@
 
 int main(int argc, char ** arg) {
 	IO myIO;
-	ParameterObj myparameters;
+	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 5;
@@ -36,8 +36,8 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-	const int numtimesteps = 60000;
-	std::array<std::array<int, 4>, numtimesteps> outputarr{};
+	const int numtimesteps = 6000;
+	std::array<std::array<float, 4>, numtimesteps> outputarr{};
 	outputarr.fill({});
 	bool nicked1;
 	bool nicked2;
@@ -47,16 +47,16 @@ int main(int argc, char ** arg) {
 			nicked1 = model->nick1 >0 && model->nick1 < i*dt_output;
 			nicked2 = model->nick2 >0 && model->nick2 < i*dt_output;
 			if (!nicked1 && !nicked2){
-				outputarr.at(i).at(0) += 1;
+				outputarr.at(i).at(0) += 1.0/num_sims;
 			}
 			if (nicked1 && !nicked2){
-				outputarr.at(i).at(1) += 1;
+				outputarr.at(i).at(1) += 1.0/num_sims;
 			}
 			if (!nicked1 && nicked2){
-				outputarr.at(i).at(2) += 1;
+				outputarr.at(i).at(2) += 1.0/num_sims;
 			}
 			if (nicked1 && nicked2){
-				outputarr.at(i).at(3) += 1;
+				outputarr.at(i).at(3) += 1.0/num_sims;
 			}
 		}
 	}
@@ -72,8 +72,9 @@ int main(int argc, char ** arg) {
 	std::string filepath2 = "timestepsOut.tsv";
 	std::ofstream out_timesteps;
 	out_timesteps.open(filepath2);
+	out_timesteps << totaltime << "\t" << dt_output << std::endl;
 	for (auto timestep: outputarr){
-		for (int nicked:  timestep){
+		for (auto nicked:  timestep){
 			out_timesteps << nicked << "\t";
 		}
 		out_timesteps << std::endl;
