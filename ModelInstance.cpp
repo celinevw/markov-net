@@ -16,6 +16,8 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	nick2 = -1;
 	currenttime = 0;
 	topology = par.top;
+
+	firstbound.push_back(0.0);
 }
 
 ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
@@ -86,12 +88,22 @@ void ModelInstance::transition(float x) {
 							   (state % 6 == 0 && index == state + 1);
 			if (!attachingSi || std::abs(position - network.mismatchsite) < 2 * stepsize){
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
+				if (state % 6 == 0 && index == state + 1) {
+					firstbound.push_back(currenttime);
+				}
+				if (state < 6 && index == state + 6) {
+					secondbound.push_back(currenttime);
+				}
+				if (index == state / 6) {
+					firstbound.push_back(currenttime);
+				}
+				if (index == state % 6) {
+					secondbound.push_back(currenttime);
+				}
 				state = index;
 				updateStep();
-				if (attachingSi){
-					std::cout << state << "\t" << position << std::endl;
-				}
 			}
+
 			break;
 		}
 		index++;
@@ -122,7 +134,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	auto it = numbers_ptr->begin();
 	int i=0;
 
-	while (currenttime <= 600 && (nick1<0 || nick2<0)) {
+	while (currenttime <= 600) {
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
 		nicking(*(it++));

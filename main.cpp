@@ -8,8 +8,8 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 5;
-	float totaltime = 300;					// check with ModelInstance
+	const int num_sims = 50;
+	float totaltime = 600;					// check with ModelInstance
 	float dt_output = 0.1;
 
 	UniformDistribution unif(0,1);
@@ -17,7 +17,7 @@ int main(int argc, char ** arg) {
 	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/0.5 + 2/(100e-6)); i++) { //hardcoded :(
+		for (int i = 0; i < (totaltime+30.0)*(1/0.5 + 3/(100e-6)); i++) { //hardcoded :(
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
@@ -60,6 +60,50 @@ int main(int argc, char ** arg) {
 			}
 		}
 	}
+
+	bool first_bound;
+	bool second_bound;
+	std::array<std::array<int, 4>, numtimesteps> boundarr{};
+	for (ModelInstance* model: sims){
+		first_bound = false;
+		second_bound = false;
+		auto it1 = model->firstbound.begin();
+		auto it2 = model->secondbound.begin();
+		for (int i = 0; i< numtimesteps; i++) {
+			if (it1 != model->firstbound.end() && *it1 <= i * dt_output){
+				first_bound = !first_bound;
+				it1++;
+			}
+			if (it2 != model->secondbound.end() && *it2 <= i * dt_output){
+				second_bound = !second_bound;
+				it2++;
+			}
+			if (!first_bound && !second_bound){
+				boundarr.at(i).at(0) += 1;
+			}
+			if (first_bound && !second_bound){
+				boundarr.at(i).at(1) += 1;
+			}
+			if (!first_bound && second_bound){
+				boundarr.at(i).at(2) += 1;
+			}
+			if (first_bound && second_bound){
+				boundarr.at(i).at(3) += 1;
+			}
+		}
+	}
+
+	std::string dimerbinding = "dimerBinding.tsv";
+	std::ofstream bindingstream;
+	bindingstream.open(dimerbinding);
+	bindingstream << totaltime << "\t" << dt_output << std::endl;
+	for (auto timestep: boundarr){
+		for (auto bound:  timestep){
+			bindingstream << bound << "\t";
+		}
+		bindingstream << std::endl;
+	}
+	bindingstream.close();
 
 	std::string filepath = "modelOut.tsv";
 	std::ofstream out;
