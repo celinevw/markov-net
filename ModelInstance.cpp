@@ -15,6 +15,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	nick2 = -1;
 	currenttime = 0;
 	topology = par.top;
+	firstbound.push_back(0.0);
 }
 
 ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
@@ -81,10 +82,23 @@ void ModelInstance::transition(float x) {
 	int index = 0;
 	for (float threshold : cumulative){
 		if (x < threshold){
-			//It is not one of transitions where Si binds the mismatch
-			bool attachingSi = (state < 6 && index == state + 6) ||
-							   (state % 6 == 0 && index == state + 1);
-			if (!attachingSi || std::abs(position - network.mismatchsite) < 2 * stepsize){
+			//It is not one of transitions where S is activated
+			bool activatingS = (state / 6 == 1 && index == state + 6) ||
+							   (state % 6 == 1 && index == state + 1);
+			if (!activatingS || std::abs(position - network.mismatchsite) < 2 * stepsize){
+
+				if (state % 6 == 1 && index == state + 1) {
+					firstbound.push_back(currenttime);
+				}
+				if (state / 6 == 1 && index == state + 6) {
+					secondbound.push_back(currenttime);
+				}
+				if (state % 6 >= 2 && index == state / 1) {
+					firstbound.push_back(currenttime);
+				}
+				if (state / 6 >= 2 && index == state % 6) {
+					secondbound.push_back(currenttime);
+				}
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
 				updateStep();
