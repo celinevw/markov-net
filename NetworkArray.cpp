@@ -44,7 +44,7 @@ void NetworkArray::assign(ParameterObj par) {
 	float H_conc = par.H_conc;	// M
 
 	//D in micrometer^2/s
-	std::array<float, 6> single_diff {0, 0, 0.043, 0.005, 0.005, 0.005};
+	std::array<float, 6> single_diff {0, 0.036, 0.043, 0.005, 0.005, 0.005};
 
 	const int numstates = 6;
 	std::array<float,numstates-1> nextstate {S_on * S_conc * dt, RateToProbability(S_change, dt), L_on * L_conc * dt,
@@ -53,6 +53,8 @@ void NetworkArray::assign(ParameterObj par) {
 											 SLa_off * dt, SLH_off * dt};
 
 	transitions.fill({0});
+
+	// ToDo: allow state 7
 	float i_next, i_unbind, j_next, j_unbind;
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {
@@ -73,8 +75,7 @@ void NetworkArray::assign(ParameterObj par) {
 			transitions.at(l).at(l+numstates) = nextstate.at(i) * j_next * i_unbind * j_unbind;
 		}
 
-		/* Si-Si cannot be reached, so don't add edges to/from node 7.
-		 * Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
+		/* Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
 		 * Binding or conformational change only occurs if the complex does not fall off.
 		 * A complex cannot fall off if it is not attached yet
 		 */
@@ -86,10 +87,7 @@ void NetworkArray::assign(ParameterObj par) {
 			transitions.at(l).at(j) = unbinding.at(i-1);
 		}
 
-		if(i == 1 || j == 1) {
-			diffusion.at(l) = 0.0;
-		}
-		else if (single_diff.at(i) == 0){
+		if (single_diff.at(i) == 0){
 			diffusion.at(l) = single_diff.at(j);
 		}
 		else if (single_diff.at(j) == 0){
