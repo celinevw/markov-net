@@ -15,7 +15,6 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	nick2 = -1;
 	currenttime = 0;
 	topology = par.top;
-	firstbound.push_back(0.0);
 }
 
 ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
@@ -85,7 +84,7 @@ void ModelInstance::transition(float x) {
 			//It is not one of transitions where S is activated
 			bool activatingS = (state / 6 == 1 && index == state + 6) ||
 							   (state % 6 == 1 && index == state + 1);
-			if (!activatingS || std::abs(position - network.mismatchsite) < 2 * stepsize){
+			if (!activatingS || std::abs(position - network.mismatchsite) < 5 * stepsize){
 
 				if (state % 6 == 1 && index == state + 1) {
 					firstbound.push_back(currenttime);
@@ -93,7 +92,7 @@ void ModelInstance::transition(float x) {
 				if (state / 6 == 1 && index == state + 6) {
 					secondbound.push_back(currenttime);
 				}
-				if (state % 6 >= 2 && index == state / 1) {
+				if (state % 6 >= 2 && index == state / 6) {
 					firstbound.push_back(currenttime);
 				}
 				if (state / 6 >= 2 && index == state % 6) {
@@ -133,7 +132,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	auto it = numbers_ptr->begin();
 	int i=0;
 
-	while (currenttime <= 600 && (nick1<0 || nick2<0)) {
+	while (currenttime <= 600  ) { // &&(nick1<0 || nick2<0)
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
 		nicking(*(it++));

@@ -42,6 +42,7 @@ int main(int argc, char ** arg) {
 	bool nicked1;
 	bool nicked2;
 
+	// Create table nicking fractions over time
 	for (ModelInstance* model: sims){
 		for (int i = 0; i< numtimesteps; i++) {
 			nicked1 = model->nick1 >0 && model->nick1 < i*dt_output;
@@ -61,6 +62,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
+	// Create table activations over time
 	bool first_bound;
 	bool second_bound;
 	std::array<std::array<int, 4>, numtimesteps> boundarr{};
@@ -105,6 +107,23 @@ int main(int argc, char ** arg) {
 	}
 	bindingstream.close();
 
+	// Save binding/unbinding moments
+	std::string bindingmoments = "dimerBinding2.tsv";
+	std::ofstream out_bindingmoments;
+	out_bindingmoments.open(bindingmoments);
+	for (ModelInstance* model: sims){
+		for (auto i: model->firstbound){
+			out_bindingmoments << i << "\t";
+		}
+		out_bindingmoments << std::endl;
+		for (auto i: model->secondbound){
+			out_bindingmoments << i << "\t";
+		}
+		out_bindingmoments << std::endl;
+	}
+	out_bindingmoments.close();
+
+	// Save nicking moments
 	std::string filepath = "modelOut.tsv";
 	std::ofstream out;
 	out.open(filepath);
@@ -113,6 +132,7 @@ int main(int argc, char ** arg) {
 		myIO.write(*model, filepath);
 	}
 
+	// Save nicking fractions over time
 	std::string filepath2 = "timestepsOut.tsv";
 	std::ofstream out_timesteps;
 	out_timesteps.open(filepath2);
