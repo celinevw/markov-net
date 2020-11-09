@@ -67,11 +67,11 @@ void NetworkArray::assign(ParameterObj par) {
 		j_unbind = j > 0 && j < numstates? (1 - unbinding.at(j - 1)) : 1;
 
 		// state1 goes to the next state
-		if (l != 0 && j < numstates - 1 && l != 7 && l+1 != 7) {
+		if (l != 0 && j < numstates - 1) {
 			transitions.at(l).at(l+1) = nextstate.at(j) * i_next * i_unbind * j_unbind;
 		}
 		//state2 goes to the next state
-		if (l != 0 && i < numstates - 1 && l != 7 && l + numstates != 7) {
+		if (l != 0 && i < numstates - 1) {
 			transitions.at(l).at(l+numstates) = nextstate.at(i) * j_next * i_unbind * j_unbind;
 		}
 

@@ -69,6 +69,7 @@ void ModelInstance::setStep(float x) {
 /* Choose transition to follow based on random number x.
  */
 void ModelInstance::transition(float x) {
+	// ToDo: when going to Sa, must be at mismatch
 	// No outgoing edges, then stay in this state
 	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
 		return;
