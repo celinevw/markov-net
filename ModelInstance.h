@@ -16,7 +16,7 @@ private:
 	int state;
 	int position;
 	int stepsize;
-	float dt;
+	float dt_react;
 	float dt_diff;
 	float currenttime;
 	NetworkArray network;

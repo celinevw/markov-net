@@ -11,9 +11,9 @@ enum Substrate {GT1A, GT2A, GT2B};
 enum Topology {circular, linear, endblocked};
 
 struct ParameterObj {
-	float S_conc = 1e-9;
-	float L_conc = 1e-9;
-	float H_conc = 1e-9;
+	float S_conc = 100e-9;
+	float L_conc = 100e-9;
+	float H_conc = 100e-9;
 	Topology top = endblocked;
 	Substrate subs = GT2A;
 };

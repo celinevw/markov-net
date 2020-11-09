@@ -17,7 +17,7 @@ int main(int argc, char ** arg) {
 	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/0.5 + 3/(100e-6)); i++) { //hardcoded :(
+		for (int i = 0; i < (totaltime+30.0)*(1/0.1 + 3/(100e-6)); i++) { //hardcoded :(
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
