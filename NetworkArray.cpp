@@ -54,7 +54,6 @@ void NetworkArray::assign(ParameterObj par) {
 
 	transitions.fill({0});
 
-	// ToDo: allow state 7
 	float i_next, i_unbind, j_next, j_unbind;
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {

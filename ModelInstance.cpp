@@ -14,6 +14,8 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	nick1 = -1;
 	nick2 = -1;
 	currenttime = 0;
+	passed_mismatch = false;
+	p_activate = 1;
 	topology = par.top;
 }
 
@@ -84,14 +86,7 @@ void ModelInstance::transition(float x) {
 			//It is not one of transitions where S is activated
 			bool activatingS = (state / 6 == 1 && index == state + 6) ||
 							   (state % 6 == 1 && index == state + 1);
-			if (!activatingS || std::abs(position - network.mismatchsite) < 5 * stepsize){
-
-				if (state % 6 == 1 && index == state + 1) {
-					firstbound.push_back(currenttime);
-				}
-				if (state / 6 == 1 && index == state + 6) {
-					secondbound.push_back(currenttime);
-				}
+			if (!activatingS){
 				if (state % 6 >= 2 && index == state / 6) {
 					firstbound.push_back(currenttime);
 				}
@@ -102,9 +97,24 @@ void ModelInstance::transition(float x) {
 				state = index;
 				updateStep();
 			}
+			//ToDo: handle if it were going to activate Si. Maybe prob to 0?
 			break;
 		}
 		index++;
+	}
+}
+
+void ModelInstance::activateS(float x){
+	if (x >= p_activate){
+		return;
+	}
+	if (state % 6 == 1) {
+		state = state + 1;
+		firstbound.push_back(currenttime);
+	}
+	else {
+		state = state + 6;
+		secondbound.push_back(currenttime);
 	}
 }
 
@@ -135,10 +145,21 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	while (currenttime <= 600  ) { // &&(nick1<0 || nick2<0)
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
+		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
+				(std::abs((position - network.nickingsite1)) < stepsize
+				|| std::abs((position - network.nickingsite2)) < stepsize);
 		nicking(*(it++));
 
 		if(i % stepsperreaction == 0) {
-			transition(*(it++));
+			if (passed_mismatch){
+				std::cout << state << "\t" << "passed_mismatch" << "\t";
+				activateS(*(it++));
+				passed_mismatch = false;
+				std::cout << state << std::endl;
+			}
+			else {
+				transition(*(it++));
+			}
 		}
 		i++;
 	}

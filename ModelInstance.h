@@ -10,6 +10,7 @@
 #include <random>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 class ModelInstance{
 private:
@@ -19,6 +20,8 @@ private:
 	float dt_react;
 	float dt_diff;
 	float currenttime;
+	bool passed_mismatch;
+	float p_activate;
 	NetworkArray network;
 	Topology topology;
 public:
@@ -33,6 +36,7 @@ public:
 	int getPosition();
 	void setStep(float x);
 	void transition(float x);
+	void activateS(float x);
 	void nicking(float x);
 	void updateStep();
 	void main(std::vector<float> *numbers_ptr);
