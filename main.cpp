@@ -9,7 +9,7 @@ int main(int argc, char ** arg) {
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 50;
-	float totaltime = 600;					// check with ModelInstance
+	float totaltime = 300;					// check with ModelInstance
 	float dt_output = 0.1;
 
 	UniformDistribution unif(0,1);
@@ -17,7 +17,7 @@ int main(int argc, char ** arg) {
 	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/0.1 + 3/(100e-6)); i++) { //hardcoded :(
+		for (int i = 0; i < (totaltime+30.0)*(1/0.1 + 2/(100e-6)); i++) { //hardcoded :(
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
@@ -36,7 +36,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-	const int numtimesteps = 6000;
+	const int numtimesteps = 3000;
 	std::array<std::array<float, 4>, numtimesteps> outputarr{};
 	outputarr.fill({});
 	bool nicked1;
@@ -98,7 +98,7 @@ int main(int argc, char ** arg) {
 	std::string dimerbinding = "dimerBinding.tsv";
 	std::ofstream bindingstream;
 	bindingstream.open(dimerbinding);
-	bindingstream << totaltime << "\t" << dt_output << std::endl;
+	bindingstream << totaltime << "\t" << dt_output << "\t" << num_sims << std::endl;
 	for (auto timestep: boundarr){
 		for (auto bound:  timestep){
 			bindingstream << bound << "\t";
@@ -136,7 +136,7 @@ int main(int argc, char ** arg) {
 	std::string filepath2 = "timestepsOut.tsv";
 	std::ofstream out_timesteps;
 	out_timesteps.open(filepath2);
-	out_timesteps << totaltime << "\t" << dt_output << std::endl;
+	out_timesteps << totaltime << "\t" << dt_output << "\t" << num_sims << std::endl;
 	for (auto timestep: outputarr){
 		for (auto nicked:  timestep){
 			out_timesteps << nicked << "\t";
