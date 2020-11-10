@@ -87,11 +87,13 @@ void ModelInstance::transition(float x) {
 			bool activatingS = (state / 6 == 1 && index == state + 6) ||
 							   (state % 6 == 1 && index == state + 1);
 			if (!activatingS){
-				if (state % 6 >= 2 && index == state / 6) {
+				if (state % 6 >= 2 && index == state - (state % 6)) {
 					firstbound.push_back(currenttime);
+					//std::cout << "inactivate complex 1" << std::endl;
 				}
 				if (state / 6 >= 2 && index == state % 6) {
 					secondbound.push_back(currenttime);
+					//std::cout << "inactivate complex 2" << std::endl;
 				}
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
@@ -108,13 +110,15 @@ void ModelInstance::activateS(float x){
 	if (x >= p_activate){
 		return;
 	}
-	if (state % 6 == 1) {
+	if ((state / 6 != 1) || (state % 6 == 1 && x < (p_activate / 2))) {	// if only complex 1 can activate, or choose randomly between the two
 		state = state + 1;
 		firstbound.push_back(currenttime);
+		//std::cout << "activate complex 1" << std::endl;
 	}
-	else {
+	else {										// if only complex 2 can activate, or choose randomly
 		state = state + 6;
 		secondbound.push_back(currenttime);
+		//std::cout << "activate complex 2" << std::endl;
 	}
 }
 
@@ -152,10 +156,8 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 
 		if(i % stepsperreaction == 0) {
 			if (passed_mismatch){
-				std::cout << state << "\t" << "passed_mismatch" << "\t";
 				activateS(*(it++));
 				passed_mismatch = false;
-				std::cout << state << std::endl;
 			}
 			else {
 				transition(*(it++));

@@ -144,5 +144,6 @@ int main(int argc, char ** arg) {
 		out_timesteps << std::endl;
 	}
 
+	std::cout << "finished" << std::endl;
 	return 0;
 }
