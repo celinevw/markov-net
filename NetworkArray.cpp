@@ -4,8 +4,6 @@
 
 #include "NetworkArray.h"
 
-// TODO: check all probabilities of edges, combined with falling off
-
 float RateToProbability(float x, float dt){
 	return 1 - std::pow(1 - x, dt);
 }

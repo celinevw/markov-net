@@ -71,7 +71,6 @@ void ModelInstance::setStep(float x) {
 /* Choose transition to follow based on random number x.
  */
 void ModelInstance::transition(float x) {
-	// ToDo: when going to Sa, must be at mismatch
 	// No outgoing edges, then stay in this state
 	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
 		return;
@@ -99,7 +98,6 @@ void ModelInstance::transition(float x) {
 				state = index;
 				updateStep();
 			}
-			//ToDo: handle if it were going to activate Si. Maybe prob to 0?
 			break;
 		}
 		index++;
@@ -146,7 +144,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	auto it = numbers_ptr->begin();
 	int i=0;
 
-	while (currenttime <= 300 && (nick1<0 || nick2<0)) {
+	while (currenttime <= 300 && (nick1<0 || nick2<0) && state != 0) {
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&

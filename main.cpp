@@ -14,7 +14,6 @@ int main(int argc, char ** arg) {
 
 	UniformDistribution unif(0,1);
 	std::array<std::vector<float>*, num_sims> arr_per_sim{};
-	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
 		for (int i = 0; i < (totaltime+30.0)*(1/0.1 + 2/(100e-6)); i++) { //hardcoded :(
