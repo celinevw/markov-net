@@ -17,8 +17,6 @@ private:
 	int state;
 	int position;
 	int stepsize;
-	float dt_react;
-	float dt_diff;
 	float currenttime;
 	bool passed_mismatch;
 	float p_activate;
@@ -27,6 +25,9 @@ private:
 public:
 	float nick1;	// time at which site 1 nicked
 	float nick2;	// time at which site 2 nicked
+	float dt_diff;
+	float dt_react;
+	float totaltime;
 	std::vector<float> firstbound; 		// when first dimer is activated or falls off
 	std::vector<float> secondbound;		// when second dimer is activated or falls off
 	void assign(NetworkArray net, ParameterObj par);

@@ -10,6 +10,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = 0.1; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
+	totaltime = 300;
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;
@@ -143,7 +144,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	auto it = numbers_ptr->begin();
 	int i=0;
 
-	while (currenttime <= 300 && (nick1<0 || nick2<0) && state != 0) {
+	while (currenttime <= totaltime && (nick1<0 || nick2<0) && state != 0) {
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
