@@ -61,7 +61,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-	// Create table activations over time
+/*	// Create table activations over time
 	bool first_bound;
 	bool second_bound;
 	std::array<std::array<int, 4>, numtimesteps> boundarr{};
@@ -120,7 +120,7 @@ int main(int argc, char ** arg) {
 		}
 		out_bindingmoments << std::endl;
 	}
-	out_bindingmoments.close();
+	out_bindingmoments.close();*/
 
 	// Save nicking moments
 	std::string filepath = "modelOut.tsv";

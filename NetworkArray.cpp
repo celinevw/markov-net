@@ -12,12 +12,12 @@ void NetworkArray::assign(ParameterObj par) {
 	length = 2770;
 	if (par.subs == GT1A){
 		mismatchsite = 1730;
-		nickingsite1 = 690;
-		nickingsite2 = -200;	//never reached
+		nickingsite1 = 690;		// far site
+		nickingsite2 = -200;	// never reached
 	}
 	else if (par.subs == GT2A){
 		mismatchsite = 1730;
-		nickingsite1 = 690;
+		nickingsite1 = 690;		// close site
 		nickingsite2 = 1760;
 	}
 	else if (par.subs == GT2B){
