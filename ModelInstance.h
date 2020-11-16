@@ -30,6 +30,7 @@ public:
 	float totaltime;
 	std::vector<float> firstbound; 		// when first dimer is activated or falls off
 	std::vector<float> secondbound;		// when second dimer is activated or falls off
+	std::vector<float> homotetramer;		// when second dimer is activated or falls off
 	void assign(NetworkArray net, ParameterObj par);
 	ModelInstance(NetworkArray net, ParameterObj par);
 	ModelInstance();

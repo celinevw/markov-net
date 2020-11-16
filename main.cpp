@@ -63,7 +63,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-/*	// Create table activations over time
+	// Create table activations over time
 	bool first_bound;
 	bool second_bound;
 	std::array<std::array<int, 4>, numtimesteps> boundarr{};
@@ -73,11 +73,11 @@ int main(int argc, char ** arg) {
 		auto it1 = model->firstbound.begin();
 		auto it2 = model->secondbound.begin();
 		for (int i = 0; i< numtimesteps; i++) {
-			if (it1 != model->firstbound.end() && *it1 <= i * dt_output){
+			if (it1 != model->firstbound.end() && *it1 <= i * dt_reaction){
 				first_bound = !first_bound;
 				it1++;
 			}
-			if (it2 != model->secondbound.end() && *it2 <= i * dt_output){
+			if (it2 != model->secondbound.end() && *it2 <= i * dt_reaction){
 				second_bound = !second_bound;
 				it2++;
 			}
@@ -96,10 +96,51 @@ int main(int argc, char ** arg) {
 		}
 	}
 
+	bool ishomotetramer;
+	std::array<int, numtimesteps> homotetramer_arr{};
+	// Save homo/heterodimers over time
+	for(ModelInstance * model: sims){
+		ishomotetramer = false;
+		auto it1 = model->homotetramer.begin();
+		for (int i = 0; i< numtimesteps; i++) {
+			if (it1 != model->homotetramer.end() && *it1 <= i * dt_reaction){
+				ishomotetramer = !ishomotetramer;
+				it1++;
+			}
+			if(ishomotetramer){
+				homotetramer_arr.at(i) += 1;
+			}
+		}
+	}
+
+	// Save homo/heterotetramers over time
+	std::string homotetramer = "homotetramers.tsv";
+	std::ofstream homotetramer_out;
+	homotetramer_out.open(homotetramer);
+	homotetramer_out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	for (auto timestep: homotetramer_arr){
+		homotetramer_out << timestep << std::endl;
+	}
+	homotetramer_out.close();
+
+	// Save homotetramer moments
+	std::string homotetramer_moment = "homotetramers2.tsv";
+	std::ofstream homotetramermoment_out;
+	homotetramermoment_out.open(homotetramer_moment);
+	homotetramermoment_out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	for (auto model : sims){
+		for (auto time : model->homotetramer) {
+			homotetramermoment_out << time << "\t";
+		}
+		homotetramermoment_out << std::endl;
+	}
+	homotetramermoment_out.close();
+
+	// Save active dimers over time
 	std::string dimerbinding = "dimerBinding.tsv";
 	std::ofstream bindingstream;
 	bindingstream.open(dimerbinding);
-	bindingstream << totaltime << "\t" << dt_output << "\t" << num_sims << std::endl;
+	bindingstream << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	for (auto timestep: boundarr){
 		for (auto bound:  timestep){
 			bindingstream << bound << "\t";
@@ -122,7 +163,7 @@ int main(int argc, char ** arg) {
 		}
 		out_bindingmoments << std::endl;
 	}
-	out_bindingmoments.close();*/
+	out_bindingmoments.close();
 
 	// Save nicking moments
 	std::string filepath = "modelOut.tsv";

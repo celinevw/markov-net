@@ -143,6 +143,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 
 	auto it = numbers_ptr->begin();
 	int i=0;
+	int oldstate;
 
 	while (currenttime <= totaltime && (nick1<0 || nick2<0) && state != 0) {
 		currenttime = dt_diff * i; //update only needed when time may be used
@@ -153,12 +154,20 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 		nicking(*(it++));
 
 		if(i % stepsperreaction == 0) {
-			if (passed_mismatch){
+			oldstate = state;
+
+			if (passed_mismatch) {
 				activateS(*(it++));
 				passed_mismatch = false;
-			}
-			else {
+			} else {
 				transition(*(it++));
+			}
+
+			if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
+				homotetramer.push_back(currenttime);
+			}
+			if (oldstate / 6 == oldstate % 6 && state == 0) {
+				homotetramer.push_back(currenttime);
 			}
 		}
 		i++;
