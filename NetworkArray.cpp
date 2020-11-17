@@ -26,7 +26,7 @@ void NetworkArray::assign(ParameterObj par) {
 		nickingsite2 = 1760;
 	}
 
-	float dt_react = 0.1;				// seconds, Check with modelinstance and number of random numbers in main!
+	dt_react = 0.1;				// seconds, Check with modelinstance and number of random numbers in main!
 	float S_on = 4.40e7;		// per M per second
 	float L_on = 1.27e7;		// per M per second
 	float H_on = 1e7;			// per M per second

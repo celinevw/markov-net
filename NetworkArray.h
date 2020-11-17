@@ -22,6 +22,7 @@ public:
 	int mismatchsite;
 	int nickingsite1;
 	int nickingsite2;
+	float dt_react;
 };
 
 #endif //MARKOVNET_NETWORKARRAY_H
