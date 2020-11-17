@@ -17,7 +17,6 @@ private:
 	int state;
 	int position;
 	int stepsize;
-	float currenttime;
 	bool passed_mismatch;
 	float p_activate;
 	NetworkArray network;
@@ -28,6 +27,7 @@ public:
 	float dt_diff;
 	float dt_react;
 	float totaltime;
+	float currenttime;
 	std::vector<float> firstbound; 		// when first dimer is activated or falls off
 	std::vector<float> secondbound;		// when second dimer is activated or falls off
 	std::vector<float> homotetramer;		// when second dimer is activated or falls off

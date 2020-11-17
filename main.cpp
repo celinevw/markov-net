@@ -97,7 +97,7 @@ int main(int argc, char ** arg) {
 	}
 
 	bool ishomotetramer;
-	std::array<int, numtimesteps> homotetramer_arr{};
+	std::array<std::array<int,2>, numtimesteps> homotetramer_arr{};
 	// Save homo/heterodimers over time
 	for(ModelInstance * model: sims){
 		ishomotetramer = false;
@@ -108,7 +108,10 @@ int main(int argc, char ** arg) {
 				it1++;
 			}
 			if(ishomotetramer){
-				homotetramer_arr.at(i) += 1;
+				homotetramer_arr.at(i).at(0) += 1;
+			}
+			else if(model->currenttime >= i * dt_reaction){
+				homotetramer_arr.at(i).at(1) += 1;
 			}
 		}
 	}

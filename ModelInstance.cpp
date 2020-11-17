@@ -8,7 +8,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
-	dt_react = 0.1; 						// for reaction, check dt with networkarray for probabilities
+	dt_react = 0.025; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
 	totaltime = 300;
 	updateStep();
