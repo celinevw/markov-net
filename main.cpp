@@ -8,7 +8,7 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 3;
+	const int num_sims = 2;
 
 	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
@@ -21,10 +21,9 @@ int main(int argc, char ** arg) {
 
 	UniformDistribution unif(0,1);
 	std::array<std::vector<float>*, num_sims> arr_per_sim{};
-	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/dt_reaction + 2/dt_diffusion); i++){ //hardcoded :(
+		for (int i = 0; i < (totaltime+30.0)*(1/dt_reaction + 2/dt_diffusion); i++) { //hardcoded :(
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
@@ -125,6 +124,7 @@ int main(int argc, char ** arg) {
 		}
 		out_timesteps << std::endl;
 	}
+	std::cout << "finished" << std::endl;
 
 	return 0;
 }

@@ -6,11 +6,25 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
+C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
+random
+-
+fstream
+-
+
+C:/Users/Celly/CLionProjects/MarkovNet/IO.h
+vector
+-
+fstream
+-
 iostream
+-
+map
 -
 ModelInstance.h
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
+ParameterObj.h
+C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 NetworkArray.h
@@ -35,4 +49,12 @@ C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 string
 -
+
+C:/Users/Celly/CLionProjects/MarkovNet/main.cpp
+array
+-
+IO.h
+C:/Users/Celly/CLionProjects/MarkovNet/IO.h
+Distribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
 

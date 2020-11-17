@@ -28,7 +28,7 @@ void NetworkArray::assign(ParameterObj par) {
 		nickingsite2 = 1760;
 	}
 
-	float dt = 0.5;				// seconds, Check with modelinstance!
+	dt_react = 0.025;				// seconds, Check with modelinstance!
 	float S_on = 4.40e7;		// per M per second
 	float L_on = 1.27e7;		// per M per second
 	float H_on = 1e7;			// per M per second
@@ -47,10 +47,10 @@ void NetworkArray::assign(ParameterObj par) {
 	std::array<float, 6> single_diff {0, 0, 0.043, 0.005, 0.005, 0.005};
 
 	const int numstates = 6;
-	std::array<float,numstates-1> nextstate {S_on * S_conc * dt, RateToProbability(S_change, dt), L_on * L_conc * dt,
-											 RateToProbability(L_change, dt), H_on * H_conc * dt};
-	std::array<float,numstates-1> unbinding {S_off * dt, Sa_off * dt,SL_off * dt,
-											 SLa_off * dt, SLH_off * dt};
+	std::array<float,numstates-1> nextstate {S_on * S_conc * dt_react, RateToProbability(S_change, dt_react), L_on * L_conc * dt_react,
+											 RateToProbability(L_change, dt_react), H_on * H_conc * dt_react};
+	std::array<float,numstates-1> unbinding {S_off * dt_react, Sa_off * dt_react,SL_off * dt_react,
+											 SLa_off * dt_react, SLH_off * dt_react};
 
 	transitions.fill({0});
 	float i_next, i_unbind, j_next, j_unbind;

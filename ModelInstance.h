@@ -16,7 +16,6 @@ private:
 	int state;
 	int position;
 	int stepsize;
-	float dt;
 	float currenttime;
 	NetworkArray network;
 	Topology topology;

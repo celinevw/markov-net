@@ -9,7 +9,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
-	dt = 0.5; 						// for reaction, check dt with networkarray for probabilities
+	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
 	updateStep();
 	nick1 = -1;
@@ -129,7 +129,7 @@ void ModelInstance::updateStep() {
 /* main method, one run of a model instance
  */
 void ModelInstance::main(std::vector<float> *numbers_ptr) {
-	int stepsperreaction = roundf(dt / dt_diff);
+	int stepsperreaction = roundf(dt_react / dt_diff);
 
 	auto it = numbers_ptr->begin();
 	int i=0;
