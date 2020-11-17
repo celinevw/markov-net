@@ -134,7 +134,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	auto it = numbers_ptr->begin();
 	int i=0;
 
-	while (currenttime <= 600) {
+	while (currenttime <= totaltime && (nick1<0 || nick2<0) && state != 0) {
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
 		nicking(*(it++));

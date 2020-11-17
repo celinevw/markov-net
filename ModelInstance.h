@@ -17,13 +17,15 @@ private:
 	int position;
 	int stepsize;
 	float dt;
-	float dt_diff;
 	float currenttime;
 	NetworkArray network;
 	Topology topology;
 public:
 	float nick1;	// time at which site 1 nicked
 	float nick2;	// time at which site 2 nicked
+	float dt_diff;
+	float dt_react;
+	float totaltime;
 	std::vector<float> firstbound;
 	std::vector<float> secondbound;
 	void assign(NetworkArray net, ParameterObj par);

@@ -8,24 +8,26 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 50;
-	float totaltime = 600;					// check with ModelInstance
-	float dt_output = 0.1;
+	const int num_sims = 3;
+
+	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
+	for (int i=0; i<num_sims; i++){
+		sims.push_back(new ModelInstance(network, myparameters));
+	}
+
+	float totaltime = sims.at(0)->totaltime;
+	float dt_reaction = sims.at(0)->dt_react;
+	float dt_diffusion = sims.at(0)->dt_diff;
 
 	UniformDistribution unif(0,1);
 	std::array<std::vector<float>*, num_sims> arr_per_sim{};
 	//ToDo: get right amount of random numbers
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/0.5 + 3/(100e-6)); i++) { //hardcoded :(
+		for (int i = 0; i < (totaltime+30.0)*(1/dt_reaction + 2/dt_diffusion); i++){ //hardcoded :(
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
-	}
-
-	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
-	for (int i=0; i<num_sims; i++){
-		sims.push_back(new ModelInstance(network, myparameters));
 	}
 
 #pragma omp parallel
@@ -44,8 +46,8 @@ int main(int argc, char ** arg) {
 
 	for (ModelInstance* model: sims){
 		for (int i = 0; i< numtimesteps; i++) {
-			nicked1 = model->nick1 >0 && model->nick1 < i*dt_output;
-			nicked2 = model->nick2 >0 && model->nick2 < i*dt_output;
+			nicked1 = model->nick1 >0 && model->nick1 < i * dt_reaction;
+			nicked2 = model->nick2 >0 && model->nick2 < i * dt_reaction;
 			if (!nicked1 && !nicked2){
 				outputarr.at(i).at(0) += 1.0/num_sims;
 			}
@@ -70,11 +72,11 @@ int main(int argc, char ** arg) {
 		auto it1 = model->firstbound.begin();
 		auto it2 = model->secondbound.begin();
 		for (int i = 0; i< numtimesteps; i++) {
-			if (it1 != model->firstbound.end() && *it1 <= i * dt_output){
+			if (it1 != model->firstbound.end() && *it1 <= i * dt_reaction){
 				first_bound = !first_bound;
 				it1++;
 			}
-			if (it2 != model->secondbound.end() && *it2 <= i * dt_output){
+			if (it2 != model->secondbound.end() && *it2 <= i * dt_reaction){
 				second_bound = !second_bound;
 				it2++;
 			}
@@ -96,7 +98,7 @@ int main(int argc, char ** arg) {
 	std::string dimerbinding = "dimerBinding.tsv";
 	std::ofstream bindingstream;
 	bindingstream.open(dimerbinding);
-	bindingstream << totaltime << "\t" << dt_output << std::endl;
+	bindingstream << totaltime << "\t" << dt_reaction << std::endl;
 	for (auto timestep: boundarr){
 		for (auto bound:  timestep){
 			bindingstream << bound << "\t";
@@ -116,7 +118,7 @@ int main(int argc, char ** arg) {
 	std::string filepath2 = "timestepsOut.tsv";
 	std::ofstream out_timesteps;
 	out_timesteps.open(filepath2);
-	out_timesteps << totaltime << "\t" << dt_output << std::endl;
+	out_timesteps << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	for (auto timestep: outputarr){
 		for (auto nicked:  timestep){
 			out_timesteps << nicked << "\t";
