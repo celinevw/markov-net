@@ -37,7 +37,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-	const int numtimesteps = 3000;
+	const int numtimesteps = 12000;
 	std::array<std::array<float, 4>, numtimesteps> outputarr{};
 	outputarr.fill({});
 	bool nicked1;
@@ -122,7 +122,8 @@ int main(int argc, char ** arg) {
 	homotetramer_out.open(homotetramer);
 	homotetramer_out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	for (auto timestep: homotetramer_arr){
-		homotetramer_out << timestep << std::endl;
+		homotetramer_out << float(timestep.at(0))/(timestep.at(0)+timestep.at(1)) << "\t"
+		<< float(timestep.at(1))/(timestep.at(0)+timestep.at(1)) << std::endl;
 	}
 	homotetramer_out.close();
 
