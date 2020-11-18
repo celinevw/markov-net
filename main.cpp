@@ -23,7 +23,7 @@ int main(int argc, char ** arg) {
 	std::array<std::vector<float>*, num_sims> arr_per_sim{};
 	for (auto & it : arr_per_sim) {
 		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/dt_reaction + 2/dt_diffusion); i++) { //hardcoded :(
+		for (int i = 0; i < (totaltime+30.0)*(1/dt_reaction + 2/dt_diffusion); i++) {
 			myarr_ptr->push_back(unif.getRandomNumber());
 		}
 		it = myarr_ptr;
@@ -38,8 +38,7 @@ int main(int argc, char ** arg) {
 	}
 
 	const int numtimesteps = 12000;
-	std::array<std::array<float, 4>, numtimesteps> outputarr{};
-	outputarr.fill({});
+	std::vector<std::array<float, 4>> nicking_arr(numtimesteps, std::array<float, 4>{});
 	bool nicked1;
 	bool nicked2;
 
@@ -49,16 +48,16 @@ int main(int argc, char ** arg) {
 			nicked1 = model->nick1 >0 && model->nick1 < i*dt_reaction;
 			nicked2 = model->nick2 >0 && model->nick2 < i*dt_reaction;
 			if (!nicked1 && !nicked2){
-				outputarr.at(i).at(0) += 1.0/num_sims;
+				nicking_arr.at(i).at(0) += 1.0 / num_sims;
 			}
 			if (nicked1 && !nicked2){
-				outputarr.at(i).at(1) += 1.0/num_sims;
+				nicking_arr.at(i).at(1) += 1.0 / num_sims;
 			}
 			if (!nicked1 && nicked2){
-				outputarr.at(i).at(2) += 1.0/num_sims;
+				nicking_arr.at(i).at(2) += 1.0 / num_sims;
 			}
 			if (nicked1 && nicked2){
-				outputarr.at(i).at(3) += 1.0/num_sims;
+				nicking_arr.at(i).at(3) += 1.0 / num_sims;
 			}
 		}
 	}
@@ -66,7 +65,7 @@ int main(int argc, char ** arg) {
 	// Create table activations over time
 	bool first_bound;
 	bool second_bound;
-	std::array<std::array<int, 4>, numtimesteps> boundarr{};
+	std::vector<std::array<int, 4>> boundarr(numtimesteps, std::array<int, 4>{});
 	for (ModelInstance* model: sims){
 		first_bound = false;
 		second_bound = false;
@@ -77,9 +76,15 @@ int main(int argc, char ** arg) {
 				first_bound = !first_bound;
 				it1++;
 			}
+			else if(first_bound && model->currenttime < i * dt_reaction){
+				first_bound = false;
+			}
 			if (it2 != model->secondbound.end() && *it2 <= i * dt_reaction){
 				second_bound = !second_bound;
 				it2++;
+			}
+			else if(second_bound && model->currenttime < i * dt_reaction){
+				second_bound = false;
 			}
 			if (!first_bound && !second_bound){
 				boundarr.at(i).at(0) += 1;
@@ -97,8 +102,8 @@ int main(int argc, char ** arg) {
 	}
 
 	bool ishomotetramer;
-	std::array<std::array<int,2>, numtimesteps> homotetramer_arr{};
-	// Save homo/heterodimers over time
+	std::vector<std::array<float,2>> homotetramer_arr(numtimesteps, std::array<float, 2>{});
+	// Create table homo/heterodimers over time
 	for(ModelInstance * model: sims){
 		ishomotetramer = false;
 		auto it1 = model->homotetramer.begin();
@@ -117,78 +122,47 @@ int main(int argc, char ** arg) {
 	}
 
 	// Save homo/heterotetramers over time
-	std::string homotetramer = "homotetramers.tsv";
-	std::ofstream homotetramer_out;
-	homotetramer_out.open(homotetramer);
-	homotetramer_out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
-	for (auto timestep: homotetramer_arr){
-		homotetramer_out << float(timestep.at(0))/(timestep.at(0)+timestep.at(1)) << "\t"
-		<< float(timestep.at(1))/(timestep.at(0)+timestep.at(1)) << std::endl;
-	}
-	homotetramer_out.close();
+	std::string homotetramer_file = "homotetramers.tsv";
+	std::ofstream out;
+	out.open(homotetramer_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.writeHomotetramers(homotetramer_arr, homotetramer_file);
 
 	// Save homotetramer moments
-	std::string homotetramer_moment = "homotetramers2.tsv";
-	std::ofstream homotetramermoment_out;
-	homotetramermoment_out.open(homotetramer_moment);
-	homotetramermoment_out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
-	for (auto model : sims){
-		for (auto time : model->homotetramer) {
-			homotetramermoment_out << time << "\t";
-		}
-		homotetramermoment_out << std::endl;
-	}
-	homotetramermoment_out.close();
+	std::string homotetramermoment_file = "homotetramers2.tsv";
+	out.open(homotetramermoment_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.momentsHomotetramer(sims, homotetramermoment_file);
 
 	// Save active dimers over time
-	std::string dimerbinding = "dimerBinding.tsv";
-	std::ofstream bindingstream;
-	bindingstream.open(dimerbinding);
-	bindingstream << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
-	for (auto timestep: boundarr){
-		for (auto bound:  timestep){
-			bindingstream << bound << "\t";
-		}
-		bindingstream << std::endl;
-	}
-	bindingstream.close();
+	std::string dimerbinding_file = "dimerBinding.tsv";
+	out.open(dimerbinding_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.writeDimerActivating(boundarr, dimerbinding_file);
 
 	// Save binding/unbinding moments
-	std::string bindingmoments = "dimerBinding2.tsv";
-	std::ofstream out_bindingmoments;
-	out_bindingmoments.open(bindingmoments);
-	for (ModelInstance* model: sims){
-		for (auto i: model->firstbound){
-			out_bindingmoments << i << "\t";
-		}
-		out_bindingmoments << std::endl;
-		for (auto i: model->secondbound){
-			out_bindingmoments << i << "\t";
-		}
-		out_bindingmoments << std::endl;
-	}
-	out_bindingmoments.close();
+	std::string activemoment_file = "dimerBinding2.tsv";
+	out.open(activemoment_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.momentsActive(sims, activemoment_file);
 
 	// Save nicking moments
-	std::string filepath = "modelOut.tsv";
-	std::ofstream out;
-	out.open(filepath);
+	std::string nickingmoment_file = "modelOut.tsv";
+	out.open(nickingmoment_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	out.close();
-	for (ModelInstance* model: sims){
-		myIO.write(*model, filepath);
-	}
+	myIO.momentsNicking(sims, nickingmoment_file);
 
 	// Save nicking fractions over time
-	std::string filepath2 = "timestepsOut.tsv";
-	std::ofstream out_timesteps;
-	out_timesteps.open(filepath2);
-	out_timesteps << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
-	for (auto timestep: outputarr){
-		for (auto nicked:  timestep){
-			out_timesteps << nicked << "\t";
-		}
-		out_timesteps << std::endl;
-	}
+	std::string nicking_file = "timestepsOut.tsv";
+	out.open(nicking_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.writeNicking(nicking_arr, nicking_file);
 
 	std::cout << "finished" << std::endl;
 	return 0;
