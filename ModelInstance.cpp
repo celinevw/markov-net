@@ -57,7 +57,7 @@ void ModelInstance::setStep(float x) {
 	}
 	else if (topology == circular){
 		// go to the "other side"
-		position = (position + direction * stepsize) % network.length;
+		position = (position + direction * stepsize + network.length) % network.length;
 	}
 	else if (topology == linear){
 		// fall off, go to none-none state
