@@ -18,6 +18,10 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	passed_mismatch = false;
 	p_activate = 1;
 	topology = par.top;
+
+	dimersactive = std::array<std::vector<float>, 2> {};
+	homotetramer = std::vector<float>{};
+	states = std::vector<int>(totaltime/dt_react, -1);
 }
 
 ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
@@ -87,11 +91,11 @@ void ModelInstance::transition(float x) {
 							   (state % 6 == 1 && index == state + 1);
 			if (!activatingS){
 				if (state % 6 >= 2 && index == state - (state % 6)) {
-					firstbound.push_back(currenttime);
+					dimersactive.at(0).push_back(currenttime);
 					//std::cout << "inactivate complex 1" << std::endl;
 				}
 				if (state / 6 >= 2 && index == state % 6) {
-					secondbound.push_back(currenttime);
+					dimersactive.at(1).push_back(currenttime);
 					//std::cout << "inactivate complex 2" << std::endl;
 				}
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
@@ -110,12 +114,12 @@ void ModelInstance::activateS(float x){
 	}
 	if ((state / 6 != 1) || (state % 6 == 1 && x < (p_activate / 2))) {	// if only complex 1 can activate, or choose randomly between the two
 		state = state + 1;
-		firstbound.push_back(currenttime);
+		dimersactive.at(0).push_back(currenttime);
 		//std::cout << "activate complex 1" << std::endl;
 	}
 	else {										// if only complex 2 can activate, or choose randomly
 		state = state + 6;
-		secondbound.push_back(currenttime);
+		dimersactive.at(1).push_back(currenttime);
 		//std::cout << "activate complex 2" << std::endl;
 	}
 }
@@ -155,6 +159,8 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 
 		if(i % stepsperreaction == 0) {
 			oldstate = state;
+
+			states.at(i/stepsperreaction) = state;
 
 			if (passed_mismatch) {
 				activateS(*(it++));

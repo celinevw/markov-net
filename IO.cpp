@@ -42,11 +42,11 @@ void IO::momentsActive(std::vector<ModelInstance*> sims, std::string filename){
 	std::ofstream outstream;
 	outstream.open(filename, std::ios::app);
 	for (ModelInstance* model: sims){
-		for (auto i: model->firstbound){
+		for (auto i: model->dimersactive.at(0)){
 			outstream << i << "\t";
 		}
 		outstream << std::endl;
-		for (auto i: model->secondbound){
+		for (auto i: model->dimersactive.at(1)){
 			outstream << i << "\t";
 		}
 		outstream << std::endl;
@@ -63,6 +63,16 @@ void IO::momentsHomotetramer(std::vector<ModelInstance*> sims, std::string filen
 		}
 		outstream << std::endl;
 	}
+	outstream.close();
+}
+
+void IO::singleStates(ModelInstance *model, std::string filename) {
+	std::ofstream outstream;
+	outstream.open(filename, std::ios::app);
+	for (int thisstate : model->states){
+		outstream << thisstate << "\t";
+	}
+	outstream << std::endl;
 	outstream.close();
 }
 
@@ -103,11 +113,26 @@ void IO::writeDimerActivating(std::vector<std::array<int, 4>> dimer_arr, std::st
 }
 
 void IO::writeHomotetramers(std::vector<std::array<float, 2>> homotetramer_arr, std::string filename) {
-	std::ofstream homotetramer_out;
-	homotetramer_out.open(filename, std::ios::app);
+	std::ofstream outstream;
+	outstream.open(filename, std::ios::app);
 	for (auto timestep: homotetramer_arr){
-		homotetramer_out << timestep.at(0)/(timestep.at(0)+timestep.at(1)) << "\t"
+		outstream << timestep.at(0)/(timestep.at(0)+timestep.at(1)) << "\t"
 						 << timestep.at(1)/(timestep.at(0)+timestep.at(1)) << std::endl;
 	}
-	homotetramer_out.close();
+	outstream.close();
+}
+
+void IO::writeStates(std::vector<std::array<int, 36>> states_arr, std::string filename) {
+	std::ofstream outstream;
+	outstream.open(filename, std::ios::app);
+	for (auto timestep: states_arr){
+		for (int state: timestep){
+			outstream << state << "\t";
+		}
+		outstream << std::endl;
+	}
+
+
+	outstream.close();
+
 }

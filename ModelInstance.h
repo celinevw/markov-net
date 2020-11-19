@@ -28,9 +28,9 @@ public:
 	float dt_react;
 	float totaltime;
 	float currenttime;
-	std::vector<float> firstbound; 		// when first dimer is activated or falls off
-	std::vector<float> secondbound;		// when second dimer is activated or falls off
-	std::vector<float> homotetramer;		// when second dimer is activated or falls off
+	std::array<std::vector<float>, 2> dimersactive;	//when MutS dimers are activated
+	std::vector<float> homotetramer;	// when complex is a homotetramer
+	std::vector<int> states;
 	void assign(NetworkArray net, ParameterObj par);
 	ModelInstance(NetworkArray net, ParameterObj par);
 	ModelInstance();

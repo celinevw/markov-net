@@ -8,7 +8,7 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 50;
+	const int num_sims = 1;
 
 	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
@@ -69,17 +69,17 @@ int main(int argc, char ** arg) {
 	for (ModelInstance* model: sims){
 		first_bound = false;
 		second_bound = false;
-		auto it1 = model->firstbound.begin();
-		auto it2 = model->secondbound.begin();
+		auto it1 = model->dimersactive.at(0).begin();
+		auto it2 = model->dimersactive.at(1).begin();
 		for (int i = 0; i< numtimesteps; i++) {
-			if (it1 != model->firstbound.end() && *it1 <= i * dt_reaction){
+			if (it1 != model->dimersactive.at(0).end() && *it1 <= i * dt_reaction){
 				first_bound = !first_bound;
 				it1++;
 			}
 			else if(first_bound && model->currenttime < i * dt_reaction){
 				first_bound = false;
 			}
-			if (it2 != model->secondbound.end() && *it2 <= i * dt_reaction){
+			if (it2 != model->dimersactive.at(1).end() && *it2 <= i * dt_reaction){
 				second_bound = !second_bound;
 				it2++;
 			}
@@ -101,9 +101,9 @@ int main(int argc, char ** arg) {
 		}
 	}
 
+	// Create table homo/heterodimers over time
 	bool ishomotetramer;
 	std::vector<std::array<float,2>> homotetramer_arr(numtimesteps, std::array<float, 2>{});
-	// Create table homo/heterodimers over time
 	for(ModelInstance * model: sims){
 		ishomotetramer = false;
 		auto it1 = model->homotetramer.begin();
@@ -121,20 +121,35 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-	// Save homo/heterotetramers over time
-	std::string homotetramer_file = "homotetramers.tsv";
-	std::ofstream out;
-	out.open(homotetramer_file);
-	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
-	out.close();
-	myIO.writeHomotetramers(homotetramer_arr, homotetramer_file);
+	// Create table states over tine
+	std::vector<std::array<int, 36>> states_arr(numtimesteps, std::array<int, 36>{});
+	int i;
+	for (ModelInstance * model: sims){
+		i = 0;
+		for(int a : model->states){
+			if (a==-1){
+				break;
+			}
+			states_arr.at(i).at(a) += 1;
+			i++;
+		}
+	}
 
-	// Save homotetramer moments
-	std::string homotetramermoment_file = "homotetramers2.tsv";
-	out.open(homotetramermoment_file);
+	std::ofstream out;
+
+	// Save nicking moments
+	std::string nickingmoment_file = "nicking_moments.tsv";
+	out.open(nickingmoment_file);
 	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	out.close();
-	myIO.momentsHomotetramer(sims, homotetramermoment_file);
+	myIO.momentsNicking(sims, nickingmoment_file);
+
+	// Save nicking fractions over time
+	std::string nicking_file = "nicking.tsv";
+	out.open(nicking_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.writeNicking(nicking_arr, nicking_file);
 
 	// Save active dimers over time
 	std::string dimerbinding_file = "dimerBinding.tsv";
@@ -144,25 +159,36 @@ int main(int argc, char ** arg) {
 	myIO.writeDimerActivating(boundarr, dimerbinding_file);
 
 	// Save binding/unbinding moments
-	std::string activemoment_file = "dimerBinding2.tsv";
+	std::string activemoment_file = "dimerBinding_moments.tsv";
 	out.open(activemoment_file);
 	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	out.close();
 	myIO.momentsActive(sims, activemoment_file);
 
-	// Save nicking moments
-	std::string nickingmoment_file = "modelOut.tsv";
-	out.open(nickingmoment_file);
+	// Save homo/heterotetramers over time
+	std::string homotetramer_file = "homotetramers.tsv";
+	out.open(homotetramer_file);
 	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	out.close();
-	myIO.momentsNicking(sims, nickingmoment_file);
+	myIO.writeHomotetramers(homotetramer_arr, homotetramer_file);
 
-	// Save nicking fractions over time
-	std::string nicking_file = "timestepsOut.tsv";
-	out.open(nicking_file);
+	// Save homotetramer moments
+	std::string homotetramermoment_file = "homotetramers_moments.tsv";
+	out.open(homotetramermoment_file);
 	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
 	out.close();
-	myIO.writeNicking(nicking_arr, nicking_file);
+	myIO.momentsHomotetramer(sims, homotetramermoment_file);
+
+	std::string singleState_file = "statesSingle.tsv";
+	out.open(singleState_file);
+	out.close();
+	myIO.singleStates(sims.at(0), singleState_file);
+
+	std::string states_file = "states.tsv";
+	out.open(states_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out.close();
+	myIO.writeStates(states_arr, states_file);
 
 	std::cout << "finished" << std::endl;
 	return 0;
