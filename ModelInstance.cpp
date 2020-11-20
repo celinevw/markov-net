@@ -149,7 +149,7 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 	int i=0;
 	int oldstate;
 
-	while (currenttime <= totaltime && (nick1<0 || nick2<0) && state != 0) {
+	while (dt_diff * i < totaltime && state != 0) { // && (nick1<0 || nick2<0)
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(*(it++));
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&

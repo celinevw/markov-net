@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
-random
--
-fstream
--
-
 C:/Users/Celly/CLionProjects/MarkovNet/IO.cpp
 IO.h
 C:/Users/Celly/CLionProjects/MarkovNet/IO.h
@@ -30,10 +24,6 @@ C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 ParameterObj.h
 C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 
-C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
-ModelInstance.h
-C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 NetworkArray.h
 C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
@@ -48,10 +38,6 @@ cmath
 iostream
 -
 
-C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.cpp
-NetworkArray.h
-C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
 array
 -
@@ -60,19 +46,7 @@ cmath
 ParameterObj.h
 C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 
-C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.cpp
-ParameterObj.h
-C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 string
 -
-
-C:/Users/Celly/CLionProjects/MarkovNet/main.cpp
-array
--
-IO.h
-C:/Users/Celly/CLionProjects/MarkovNet/IO.h
-Distribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
 

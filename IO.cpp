@@ -70,9 +70,8 @@ void IO::singleStates(ModelInstance *model, std::string filename) {
 	std::ofstream outstream;
 	outstream.open(filename, std::ios::app);
 	for (int thisstate : model->states){
-		outstream << thisstate << "\t";
+		outstream << thisstate << std::endl;
 	}
-	outstream << std::endl;
 	outstream.close();
 }
 
@@ -125,14 +124,12 @@ void IO::writeHomotetramers(std::vector<std::array<float, 2>> homotetramer_arr, 
 void IO::writeStates(std::vector<std::array<int, 36>> states_arr, std::string filename) {
 	std::ofstream outstream;
 	outstream.open(filename, std::ios::app);
-	for (auto timestep: states_arr){
+	for (auto & timestep: states_arr){
 		for (int state: timestep){
 			outstream << state << "\t";
 		}
 		outstream << std::endl;
 	}
-
-
 	outstream.close();
 
 }
