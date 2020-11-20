@@ -70,8 +70,9 @@ void IO::singleStates(ModelInstance *model, std::string filename) {
 	std::ofstream outstream;
 	outstream.open(filename, std::ios::app);
 	for (int thisstate : model->states){
-		outstream << thisstate << std::endl;
+		outstream << thisstate << "\t";
 	}
+	outstream << std::endl;
 	outstream.close();
 }
 

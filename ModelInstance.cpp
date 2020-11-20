@@ -21,7 +21,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 
 	dimersactive = std::array<std::vector<float>, 2> {};
 	homotetramer = std::vector<float>{};
-	states = std::vector<int>(totaltime/dt_react, -1);
+	states = std::vector<int>(totaltime/dt_react, 0);
 }
 
 ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {

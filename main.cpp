@@ -127,9 +127,10 @@ int main(int argc, char ** arg) {
 	int index_statesvector;
 	int currentstate;
 	for (ModelInstance * model: sims) {
+		currentstate = 1;
 		for (int i=0; i<numtimesteps; i++){
 			index_statesvector = float(i)*dt_plot/dt_reaction;
-			if (currentstate != 0) {
+			if (currentstate > 0) {
 				currentstate = model->states.at(index_statesvector);
 			}
 			states_arr.at(i).at(currentstate) += 1;
