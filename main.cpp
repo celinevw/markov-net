@@ -125,10 +125,14 @@ int main(int argc, char ** arg) {
 	// Create table states over tine
 	std::vector<std::array<int, 36>> states_arr(numtimesteps, std::array<int, 36>{});
 	int index_statesvector;
+	int currentstate;
 	for (ModelInstance * model: sims) {
 		for (int i=0; i<numtimesteps; i++){
 			index_statesvector = float(i)*dt_plot/dt_reaction;
-			states_arr.at(i).at(model->states.at(index_statesvector)) += 1;
+			if (currentstate != 0) {
+				currentstate = model->states.at(index_statesvector);
+			}
+			states_arr.at(i).at(currentstate) += 1;
 		}
 	}
 
