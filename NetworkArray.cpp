@@ -40,6 +40,7 @@ void NetworkArray::assign(ParameterObj par) {
 	float S_conc = par.S_conc;	// M
 	float L_conc = par.L_conc;	// M
 	float H_conc = par.H_conc;	// M
+	bool onlydimers = true;
 
 	//D in micrometer^2/s
 	std::array<float, 6> single_diff {0, 0.036, 0.043, 0.005, 0.005, 0.005};
@@ -67,9 +68,12 @@ void NetworkArray::assign(ParameterObj par) {
 		if (l != 0 && j < numstates - 1) {
 			transitions.at(l).at(l+1) = nextstate.at(j) * i_next * i_unbind * j_unbind;
 		}
-		//state2 goes to the next state
-		if (l != 0 && i < numstates - 1) {
-			transitions.at(l).at(l+numstates) = nextstate.at(i) * j_next * i_unbind * j_unbind;
+
+		if(!onlydimers){
+			//state2 goes to the next state
+			if (l != 0 && i < numstates - 1) {
+				transitions.at(l).at(l+numstates) = nextstate.at(i) * j_next * i_unbind * j_unbind;
+			}
 		}
 
 		/* Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.

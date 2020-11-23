@@ -78,7 +78,7 @@ void IO::singleStates(ModelInstance *model, std::string filename) {
 
 void IO::writeTransitions(NetworkArray net){
 	std::ofstream outstream;
-	outstream.open("transitions.tsv", std::ios::app);
+	outstream.open("transitions.tsv");
 	for(auto state_from: net.transitions){
 		for (auto state_to: state_from){
 			outstream << state_to << "\t";
