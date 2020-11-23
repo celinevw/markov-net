@@ -7,7 +7,7 @@
 
 #include <string>
 
-enum Substrate {GT1A, GT2A, GT2B};
+enum Substrate_type {GT1A, GT2A, GT2B};
 enum Topology {circular, linear, endblocked};
 
 struct ParameterObj {
@@ -15,7 +15,7 @@ struct ParameterObj {
 	float L_conc = 100e-9;
 	float H_conc = 100e-9;
 	Topology top = endblocked;
-	Substrate subs = GT2A;
+	Substrate_type subs = GT2A;
 };
 
 #endif //MARKOVNET_PARAMETEROBJ_H

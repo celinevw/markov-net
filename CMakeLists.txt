@@ -3,4 +3,4 @@ project(MarkovNet)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(MarkovNet main.cpp Distribution.cpp Distribution.h ModelInstance.cpp ModelInstance.h TestingDistributions.cpp TestingDistributions.h NetworkArray.cpp NetworkArray.h IO.cpp IO.h ParameterObj.cpp ParameterObj.h)
+add_executable(MarkovNet main.cpp Distribution.cpp Distribution.h ModelInstance.cpp ModelInstance.h TestingDistributions.cpp TestingDistributions.h NetworkArray.cpp NetworkArray.h IO.cpp IO.h ParameterObj.cpp ParameterObj.h Substrate.cpp Substrate.h)

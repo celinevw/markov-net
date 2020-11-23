@@ -277,6 +277,33 @@ ParameterObj.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/ParameterObj.cpp.s
 .PHONY : ParameterObj.cpp.s
 
+Substrate.obj: Substrate.cpp.obj
+
+.PHONY : Substrate.obj
+
+# target to build an object file
+Substrate.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Substrate.cpp.obj
+.PHONY : Substrate.cpp.obj
+
+Substrate.i: Substrate.cpp.i
+
+.PHONY : Substrate.i
+
+# target to preprocess a source file
+Substrate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Substrate.cpp.i
+.PHONY : Substrate.cpp.i
+
+Substrate.s: Substrate.cpp.s
+
+.PHONY : Substrate.s
+
+# target to generate assembly for a file
+Substrate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarkovNet.dir\build.make CMakeFiles/MarkovNet.dir/Substrate.cpp.s
+.PHONY : Substrate.cpp.s
+
 TestingDistributions.obj: TestingDistributions.cpp.obj
 
 .PHONY : TestingDistributions.obj
@@ -355,6 +382,9 @@ help:
 	@echo ... ParameterObj.obj
 	@echo ... ParameterObj.i
 	@echo ... ParameterObj.s
+	@echo ... Substrate.obj
+	@echo ... Substrate.i
+	@echo ... Substrate.s
 	@echo ... TestingDistributions.obj
 	@echo ... TestingDistributions.i
 	@echo ... TestingDistributions.s

@@ -110,6 +110,12 @@
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h">
 			<Option target="MarkovNet"/>
 		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Substrate.cpp">
+			<Option target="MarkovNet"/>
+		</Unit>
+		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h">
+			<Option target="MarkovNet"/>
+		</Unit>
 		<Unit filename="C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp">
 			<Option target="MarkovNet"/>
 		</Unit>

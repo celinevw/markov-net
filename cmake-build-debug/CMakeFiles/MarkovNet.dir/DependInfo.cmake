@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj"
+  "C:/Users/Celly/CLionProjects/MarkovNet/Substrate.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/Substrate.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj"
   "C:/Users/Celly/CLionProjects/MarkovNet/main.cpp" "C:/Users/Celly/CLionProjects/MarkovNet/cmake-build-debug/CMakeFiles/MarkovNet.dir/main.cpp.obj"
   )

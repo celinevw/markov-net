@@ -40,7 +40,7 @@ void NetworkArray::assign(ParameterObj par) {
 	float S_conc = par.S_conc;	// M
 	float L_conc = par.L_conc;	// M
 	float H_conc = par.H_conc;	// M
-	bool onlydimers = true;
+	bool onlydimers = false;
 
 	//D in micrometer^2/s
 	std::array<float, 6> single_diff {0, 0.036, 0.043, 0.005, 0.005, 0.005};
