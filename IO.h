@@ -9,12 +9,12 @@
 #include <fstream>
 #include <iostream>
 #include <map>
-#include "ModelInstance.h"
-#include "ParameterObj.h"
+#include "Substrate.h"
 
 class IO{
 public:
 	ParameterObj read(int argc, char** arg);
+	void momentsNicking(std::vector<Substrate*> sims, std::string filename);
 	void momentsNicking(std::vector<ModelInstance*> sims, std::string filename);
 	void momentsActive(std::vector<ModelInstance*> sims, std::string filename);
 	void momentsHomotetramer(std::vector<ModelInstance*> sims, std::string filename);

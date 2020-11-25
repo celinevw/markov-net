@@ -38,6 +38,14 @@ void IO::momentsNicking(std::vector<ModelInstance*> sims, std::string filename) 
 	outstream.close();
 }
 
+void IO::momentsNicking(std::vector<Substrate *> sims, std::string filename) {
+	std::ofstream outstream;
+	outstream.open(filename, std::ios::app);
+	for (Substrate* model:sims) {
+		outstream << model->nick1 << "\t" << model->nick2 << std::endl;
+	}
+}
+
 void IO::momentsActive(std::vector<ModelInstance*> sims, std::string filename){
 	std::ofstream outstream;
 	outstream.open(filename, std::ios::app);
