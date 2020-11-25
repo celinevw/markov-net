@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <tuple>
+#include <algorithm>
 #include "ModelInstance.h"
 
 class Substrate{
@@ -17,7 +18,7 @@ public:
 	Substrate(NetworkArray net, ParameterObj par, bool allow_loading);
 	Substrate();
 	void assign(NetworkArray net, ParameterObj par, bool allow_loading);
-	std::vector<std::tuple<ModelInstance, float>> complexes;
+	std::vector<ModelInstance> complexes;
 	float currenttime;
 	bool mult_loading;
 	float nick1;
