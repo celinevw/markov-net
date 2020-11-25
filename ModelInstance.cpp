@@ -142,7 +142,7 @@ void ModelInstance::updateStep() {
 
 /* main method, one run of a model instance
  */
-void ModelInstance::main(std::vector<float> *numbers_ptr) {
+std::array<float, 2> ModelInstance::main(std::vector<float> *numbers_ptr) {
 	int stepsperreaction = roundf(dt_react / dt_diff);
 
 	auto it = numbers_ptr->begin();
@@ -178,4 +178,6 @@ void ModelInstance::main(std::vector<float> *numbers_ptr) {
 		}
 		i++;
 	}
+	std::array<float, 2> nickingmoments {nick1, nick2};
+	return nickingmoments;
 }
