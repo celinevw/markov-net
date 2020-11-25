@@ -4,7 +4,7 @@
 
 #include "ModelInstance.h"
 
-void ModelInstance::assign(NetworkArray net, ParameterObj par) {
+void ModelInstance::assign(NetworkArray net, ParameterObj par, float time) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
@@ -14,7 +14,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;
-	currenttime = 0;
+	currenttime = time;
 	passed_mismatch = false;
 	p_activate = 1;
 	topology = par.top;
@@ -24,14 +24,14 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par) {
 	states = std::vector<int>(totaltime/dt_react, 0);
 }
 
-ModelInstance::ModelInstance(NetworkArray net, ParameterObj par) {
-	assign(net, par);
+ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, float start) {
+	assign(net, par, start);
 }
 
 ModelInstance::ModelInstance() {
 	NetworkArray myNet;
 	ParameterObj myPars;
-	assign(myNet, myPars);
+	assign(myNet, myPars, 0.0);
 }
 
 int ModelInstance::getState() {
