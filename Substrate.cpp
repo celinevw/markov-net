@@ -10,6 +10,8 @@ void Substrate::assign(NetworkArray net, ParameterObj par, bool allow_loading) {
 	mult_loading = allow_loading;
 	currenttime = 0.0;
 	complexes.emplace_back(network, parameters);
+	nick1 = -1.0;
+	nick2 = -1.0;
 }
 
 Substrate::Substrate(NetworkArray net, ParameterObj par, bool allow_loading){
@@ -40,16 +42,21 @@ void Substrate::main() {
 
 	std::vector<float> *numbers_ptr {}; // ToDo: get random numbers
 	std::array<std::vector<float>, 2> nicks;
-	std::array<float,2> nicks_complex {0,0};
-	auto nicks_it = nicks.begin();
+	std::array<float,2> nicks_complex {-1.0, -1.0};
 	for(ModelInstance protein : complexes){
 		nicks_complex = protein.main(numbers_ptr);
-		nicks.at(0).push_back(nicks_complex.at(0));
-		nicks.at(1).push_back(nicks_complex.at(1));
-		nicks_it++;
+		if (nicks_complex.at(0) != -1) {
+			nicks.at(0).push_back(nicks_complex.at(0));
+		}
+		if (nicks_complex.at(0) != -1) {
+			nicks.at(1).push_back(nicks_complex.at(1));
+		}
 	}
-
-	nick1 = *std::min_element(nicks.at(0).begin(), nicks.at(0).end());
-	nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
+	if (!nicks.at(0).empty()) { //if never nicked, leave at -1
+		nick1 = *std::min_element(nicks.at(0).begin(), nicks.at(0).end());
+	}
+	if (!nicks.at(1).empty()) {
+		nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
+	}
 
 }

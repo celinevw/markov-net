@@ -10,6 +10,7 @@ CMakeFiles/MarkovNet.dir/IO.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
  C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
  C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
+ C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
 CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
  C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
@@ -22,6 +23,12 @@ CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj
 CMakeFiles/MarkovNet.dir/ParameterObj.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.cpp
  C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
+CMakeFiles/MarkovNet.dir/Substrate.cpp.obj
+ C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
+ C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
+ C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
+ C:/Users/Celly/CLionProjects/MarkovNet/Substrate.cpp
+ C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
 CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
  C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp
@@ -32,4 +39,5 @@ CMakeFiles/MarkovNet.dir/main.cpp.obj
  C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
  C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
  C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
+ C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
  C:/Users/Celly/CLionProjects/MarkovNet/main.cpp

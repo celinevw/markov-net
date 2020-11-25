@@ -21,10 +21,8 @@ iostream
 -
 map
 -
-ModelInstance.h
-C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
-ParameterObj.h
-C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
+Substrate.h
+C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
 
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 NetworkArray.h
@@ -51,6 +49,14 @@ C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 string
 -
+
+C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
+vector
+-
+tuple
+-
+ModelInstance.h
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 
 C:/Users/Celly/CLionProjects/MarkovNet/main.cpp
 array
