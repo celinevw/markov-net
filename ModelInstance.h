@@ -31,8 +31,8 @@ public:
 	std::array<std::vector<float>, 2> dimersactive;	//when MutS dimers are activated
 	std::vector<float> homotetramer;	// when complex is a homotetramer
 	std::vector<int> states;
-	void assign(NetworkArray net, ParameterObj par);
-	ModelInstance(NetworkArray net, ParameterObj par);
+	void assign(NetworkArray net, ParameterObj par, float time);
+	ModelInstance(NetworkArray net, ParameterObj par, float starttime=0.0);
 	ModelInstance();
 	int getState();
 	int getPosition();
@@ -41,6 +41,6 @@ public:
 	void activateS(float x);
 	void nicking(float x);
 	void updateStep();
-	void main(std::vector<float> *numbers_ptr);
+	std::array<float, 2> main(std::vector<float> *numbers_ptr);
 };
 #endif //MARKOVNET_MODELINSTANCE_H
