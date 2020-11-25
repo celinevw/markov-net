@@ -8,16 +8,17 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 1000;
+	const int num_sims = 2;
+	bool multiple_loading = false;
 
-	std::vector<ModelInstance*> sims; // create vector of pointers to model objects
+	std::vector<Substrate*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
-		sims.push_back(new ModelInstance(network, myparameters));
+		sims.push_back(new Substrate(network, myparameters, multiple_loading));
 	}
 
-	float totaltime = sims.at(0)->totaltime;
-	float dt_reaction = sims.at(0)->dt_react;
-	float dt_diffusion = sims.at(0)->dt_diff;
+	float totaltime = sims.at(0)->complexes.at(0).totaltime;
+	float dt_reaction = sims.at(0)->complexes.at(0).dt_react;
+	float dt_diffusion = sims.at(0)->complexes.at(0).dt_diff;
 	float dt_plot = 0.1;
 
 	UniformDistribution unif(0,1);
@@ -34,7 +35,7 @@ int main(int argc, char ** arg) {
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
-			sims.at(i)->main(arr_per_sim.at(i));
+			sims.at(i)->main();
 		}
 	}
 
@@ -44,7 +45,7 @@ int main(int argc, char ** arg) {
 	bool nicked2;
 
 	// Create table nicking fractions over time
-	for (ModelInstance* model: sims){
+	for (Substrate* model: sims){
 		for (int i = 0; i< numtimesteps; i++) {
 			nicked1 = model->nick1 >0 && model->nick1 < i*dt_plot;
 			nicked2 = model->nick2 >0 && model->nick2 < i*dt_plot;
@@ -67,20 +68,20 @@ int main(int argc, char ** arg) {
 	bool first_bound;
 	bool second_bound;
 	std::vector<std::array<int, 4>> boundarr(numtimesteps, std::array<int, 4>{});
-	for (ModelInstance* model: sims){
+	for (Substrate* model: sims){
 		first_bound = false;
 		second_bound = false;
-		auto it1 = model->dimersactive.at(0).begin();
-		auto it2 = model->dimersactive.at(1).begin();
+		auto it1 = model->complexes.at(0).dimersactive.at(0).begin();
+		auto it2 = model->complexes.at(0).dimersactive.at(1).begin();
 		for (int i = 0; i< numtimesteps; i++) {
-			if (it1 != model->dimersactive.at(0).end() && *it1 <= i * dt_plot){
+			if (it1 != model->complexes.at(0).dimersactive.at(0).end() && *it1 <= i * dt_plot){
 				first_bound = !first_bound;
 				it1++;
 			}
 			else if(first_bound && model->currenttime < i * dt_plot){
 				first_bound = false;
 			}
-			if (it2 != model->dimersactive.at(1).end() && *it2 <= i * dt_plot){
+			if (it2 != model->complexes.at(0).dimersactive.at(1).end() && *it2 <= i * dt_plot){
 				second_bound = !second_bound;
 				it2++;
 			}
@@ -105,11 +106,11 @@ int main(int argc, char ** arg) {
 	// Create table homo/heterodimers over time
 	bool ishomotetramer;
 	std::vector<std::array<float,2>> homotetramer_arr(numtimesteps, std::array<float, 2>{});
-	for(ModelInstance * model: sims){
+	for(Substrate * model: sims){
 		ishomotetramer = false;
-		auto it1 = model->homotetramer.begin();
+		auto it1 = model->complexes.at(0).homotetramer.begin();
 		for (int i = 0; i< numtimesteps; i++) {
-			if (it1 != model->homotetramer.end() && *it1 <= i * dt_plot){
+			if (it1 != model->complexes.at(0).homotetramer.end() && *it1 <= i * dt_plot){
 				ishomotetramer = !ishomotetramer;
 				it1++;
 			}
@@ -126,12 +127,12 @@ int main(int argc, char ** arg) {
 	std::vector<std::array<int, 36>> states_arr(numtimesteps, std::array<int, 36>{});
 	int index_statesvector;
 	int currentstate;
-	for (ModelInstance * model: sims) {
+	for (Substrate * model: sims) {
 		currentstate = 1;
 		for (int i=0; i<numtimesteps; i++){
 			index_statesvector = float(i)*dt_plot/dt_reaction;
 			if (currentstate > 0) {
-				currentstate = model->states.at(index_statesvector);
+				currentstate = model->complexes.at(0).states.at(index_statesvector);
 			}
 			states_arr.at(i).at(currentstate) += 1;
 		}
@@ -153,38 +154,10 @@ int main(int argc, char ** arg) {
 	out.close();
 	myIO.writeNicking(nicking_arr, nicking_file);
 
-	// Save active dimers over time
-	std::string dimerbinding_file = "dimerBinding.tsv";
-	out.open(dimerbinding_file);
-	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
-	out.close();
-	myIO.writeDimerActivating(boundarr, dimerbinding_file);
-
-	// Save binding/unbinding moments
-	std::string activemoment_file = "dimerBinding_moments.tsv";
-	out.open(activemoment_file);
-	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
-	out.close();
-	myIO.momentsActive(sims, activemoment_file);
-
-	// Save homo/heterotetramers over time
-	std::string homotetramer_file = "homotetramers.tsv";
-	out.open(homotetramer_file);
-	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
-	out.close();
-	myIO.writeHomotetramers(homotetramer_arr, homotetramer_file);
-
-	// Save homotetramer moments
-	std::string homotetramermoment_file = "homotetramers_moments.tsv";
-	out.open(homotetramermoment_file);
-	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
-	out.close();
-	myIO.momentsHomotetramer(sims, homotetramermoment_file);
-
 	std::string singleState_file = "statesSingle.tsv";
 	out.open(singleState_file);
 	out.close();
-	myIO.singleStates(sims.at(0), singleState_file);
+	myIO.singleStates(&sims.at(0)->complexes.at(0), singleState_file);
 
 	std::string states_file = "states.tsv";
 	out.open(states_file);
