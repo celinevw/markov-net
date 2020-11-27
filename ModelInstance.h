@@ -7,6 +7,7 @@
 
 #include "NetworkArray.h"
 #include "ParameterObj.h"
+#include "XoshiroCpp.hpp"
 #include <random>
 #include <vector>
 #include <cmath>
@@ -21,6 +22,8 @@ private:
 	float p_activate;
 	NetworkArray network;
 	Topology topology;
+	XoshiroCpp::Xoshiro128PlusPlus gen;
+	std::uniform_real_distribution<> dist;
 public:
 	float nick1;	// time at which site 1 nicked
 	float nick2;	// time at which site 2 nicked
@@ -31,8 +34,8 @@ public:
 	std::array<std::vector<float>, 2> dimersactive;	//when MutS dimers are activated
 	std::vector<float> homotetramer;	// when complex is a homotetramer
 	std::vector<int> states;
-	void assign(NetworkArray net, ParameterObj par, float time);
-	ModelInstance(NetworkArray net, ParameterObj par, float starttime=0.0);
+	void assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time);
+	ModelInstance(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float starttime=0.0);
 	ModelInstance();
 	int getState();
 	int getPosition();
@@ -41,6 +44,6 @@ public:
 	void activateS(float x);
 	void nicking(float x);
 	void updateStep();
-	std::array<float, 2> main(std::vector<float> *numbers_ptr);
+	std::array<float, 2> main();
 };
 #endif //MARKOVNET_MODELINSTANCE_H

@@ -4,7 +4,7 @@
 
 #include "ModelInstance.h"
 
-void ModelInstance::assign(NetworkArray net, ParameterObj par, float time) {
+void ModelInstance::assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
@@ -22,16 +22,19 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par, float time) {
 	dimersactive = std::array<std::vector<float>, 2> {};
 	homotetramer = std::vector<float>{};
 	states = std::vector<int>(totaltime/dt_react, 0);
+	gen = rng;
+	dist = std::uniform_real_distribution<> (0,1);
 }
 
-ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, float start) {
-	assign(net, par, start);
+ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float start) {
+	assign(net, par, rng, start);
 }
 
 ModelInstance::ModelInstance() {
 	NetworkArray myNet;
 	ParameterObj myPars;
-	assign(myNet, myPars, 0.0);
+	XoshiroCpp::Xoshiro128PlusPlus rng (1000);
+	assign(myNet, myPars, rng, 0.0);
 }
 
 int ModelInstance::getState() {
@@ -142,20 +145,18 @@ void ModelInstance::updateStep() {
 
 /* main method, one run of a model instance
  */
-std::array<float, 2> ModelInstance::main(std::vector<float> *numbers_ptr) {
+std::array<float, 2> ModelInstance::main() {
 	int stepsperreaction = roundf(dt_react / dt_diff);
-
-	auto it = numbers_ptr->begin();
 	int i=0;
 	int oldstate;
 
 	while (dt_diff * i < totaltime && state != 0) { // && (nick1<0 || nick2<0)
 		currenttime = dt_diff * i; //update only needed when time may be used
-		setStep(*(it++));
+		setStep(dist(gen));
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 				(std::abs((position - network.nickingsite1)) < stepsize
 				|| std::abs((position - network.nickingsite2)) < stepsize);
-		nicking(*(it++));
+		nicking(dist(gen));
 
 		if(i % stepsperreaction == 0) {
 			oldstate = state;
@@ -163,10 +164,10 @@ std::array<float, 2> ModelInstance::main(std::vector<float> *numbers_ptr) {
 			states.at(i/stepsperreaction) = state;
 
 			if (passed_mismatch) {
-				activateS(*(it++));
+				activateS(dist(gen));
 				passed_mismatch = false;
 			} else {
-				transition(*(it++));
+				transition(dist(gen));
 			}
 
 			if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
