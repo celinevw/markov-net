@@ -10,9 +10,11 @@ int main(int argc, char ** arg) {
 	const int num_sims = 2;
 	bool multiple_loading = false;
 
+	std::uniform_int_distribution unif(0,1000);
+	std::mt19937 gen(std::random_device);
 	std::vector<Substrate*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
-		sims.push_back(new Substrate(network, myparameters, multiple_loading));
+		sims.push_back(new Substrate(network, myparameters, multiple_loading, std::uint64_t(unif(gen))));
 	}
 
 	float totaltime = sims.at(0)->complexes.at(0).totaltime;
@@ -20,15 +22,6 @@ int main(int argc, char ** arg) {
 	float dt_diffusion = sims.at(0)->complexes.at(0).dt_diff;
 	float dt_plot = 0.1;
 
-	UniformDistribution unif(0,1);
-	std::array<std::vector<float>*, num_sims> arr_per_sim{};
-	for (auto & it : arr_per_sim) {
-		auto *myarr_ptr = new std::vector<float>;
-		for (int i = 0; i < (totaltime+30.0)*(1/dt_reaction + 2/dt_diffusion); i++) {
-			myarr_ptr->push_back(unif.getRandomNumber());
-		}
-		it = myarr_ptr;
-	}
 
 #pragma omp parallel
 	{

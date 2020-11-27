@@ -10,11 +10,13 @@ CMakeFiles/MarkovNet.dir/IO.cpp.obj: ../ModelInstance.h
 CMakeFiles/MarkovNet.dir/IO.cpp.obj: ../NetworkArray.h
 CMakeFiles/MarkovNet.dir/IO.cpp.obj: ../ParameterObj.h
 CMakeFiles/MarkovNet.dir/IO.cpp.obj: ../Substrate.h
+CMakeFiles/MarkovNet.dir/IO.cpp.obj: ../XoshiroCpp.hpp
 
 CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../ModelInstance.cpp
 CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../ModelInstance.h
 CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../NetworkArray.h
 CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../ParameterObj.h
+CMakeFiles/MarkovNet.dir/ModelInstance.cpp.obj: ../XoshiroCpp.hpp
 
 CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj: ../NetworkArray.cpp
 CMakeFiles/MarkovNet.dir/NetworkArray.cpp.obj: ../NetworkArray.h
@@ -28,6 +30,7 @@ CMakeFiles/MarkovNet.dir/Substrate.cpp.obj: ../NetworkArray.h
 CMakeFiles/MarkovNet.dir/Substrate.cpp.obj: ../ParameterObj.h
 CMakeFiles/MarkovNet.dir/Substrate.cpp.obj: ../Substrate.cpp
 CMakeFiles/MarkovNet.dir/Substrate.cpp.obj: ../Substrate.h
+CMakeFiles/MarkovNet.dir/Substrate.cpp.obj: ../XoshiroCpp.hpp
 
 CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj: ../Distribution.h
 CMakeFiles/MarkovNet.dir/TestingDistributions.cpp.obj: ../TestingDistributions.cpp
@@ -39,5 +42,6 @@ CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ModelInstance.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../NetworkArray.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../ParameterObj.h
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../Substrate.h
+CMakeFiles/MarkovNet.dir/main.cpp.obj: ../XoshiroCpp.hpp
 CMakeFiles/MarkovNet.dir/main.cpp.obj: ../main.cpp
 

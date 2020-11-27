@@ -18,7 +18,7 @@ void Substrate::assign(NetworkArray net, ParameterObj par, bool allow_loading, s
 }
 
 Substrate::Substrate(NetworkArray net, ParameterObj par, bool allow_loading, std::uint64_t seed){
-	assign(net, par, seed, allow_loading);
+	assign(net, par, allow_loading, seed);
 }
 
 Substrate::Substrate() {
@@ -47,6 +47,7 @@ void Substrate::main() {
 			complexes.emplace_back(network, parameters, gen, currenttime);
 		}
 	}
+	currenttime = 0.0;
 
 	std::array<std::vector<float>, 2> nicks;
 	std::array<float,2> nicks_complex {-1.0, -1.0};
