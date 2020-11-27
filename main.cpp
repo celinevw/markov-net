@@ -1,5 +1,6 @@
 #include <array>
 #include "IO.h"
+#include "Distribution.h"
 
 
 int main(int argc, char ** arg) {
