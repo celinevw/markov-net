@@ -10,11 +10,10 @@ int main(int argc, char ** arg) {
 	const int num_sims = 2;
 	bool multiple_loading = false;
 
-	std::uniform_int_distribution unif(0,1000);
-	std::mt19937 gen(std::random_device);
+	UniformDistribution unif(0,1);
 	std::vector<Substrate*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
-		sims.push_back(new Substrate(network, myparameters, multiple_loading, std::uint64_t(unif(gen))));
+		sims.push_back(new Substrate(network, myparameters, multiple_loading, unif.getRandomNumber()*1000));
 	}
 
 	float totaltime = sims.at(0)->complexes.at(0).totaltime;
