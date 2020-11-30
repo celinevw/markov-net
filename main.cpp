@@ -8,7 +8,7 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 2;
+	const int num_sims = 1000;
 	bool multiple_loading = false;
 
 	UniformDistribution unif(0,1);
@@ -143,9 +143,11 @@ int main(int argc, char ** arg) {
 	std::string nicking_file = "nicking.tsv";
 	out.open(nicking_file);
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
+	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << myparameters.top << myparameters.subs << std::endl;
 	out.close();
 	myIO.writeNicking(nicking_arr, nicking_file);
 
+	/*
 	std::string singleState_file = "statesSingle.tsv";
 	out.open(singleState_file);
 	out.close();
@@ -156,6 +158,7 @@ int main(int argc, char ** arg) {
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
 	out.close();
 	myIO.writeStates(states_arr, states_file);
+	*/
 
 	std::cout << "finished" << std::endl;
 	return 0;
