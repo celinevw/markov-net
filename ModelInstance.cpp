@@ -147,10 +147,10 @@ void ModelInstance::updateStep() {
  */
 std::array<float, 2> ModelInstance::main() {
 	int stepsperreaction = roundf(dt_react / dt_diff);
-	int i=0;
+	int i = currenttime / dt_diff;
 	int oldstate;
 
-	while (dt_diff * i < totaltime && state != 0) { // && (nick1<0 || nick2<0)
+	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(dist(gen));
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
