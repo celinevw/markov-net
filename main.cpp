@@ -143,7 +143,7 @@ int main(int argc, char ** arg) {
 	std::string nicking_file = "nicking.tsv";
 	out.open(nicking_file);
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
-	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << myparameters.top << myparameters.subs << std::endl;
+	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << std::endl;
 	out.close();
 	myIO.writeNicking(nicking_arr, nicking_file);
 
