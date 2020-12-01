@@ -30,7 +30,7 @@ Substrate::Substrate() {
 
 void Substrate::main() {
 	if(!mult_loading){
-		complexes.at(0).main();
+		complexes.at(0).main(std::vector<std::vector<int>>());
 		nick1 = complexes.at(0).nick1;
 		nick2 = complexes.at(0).nick2;
 		return;
@@ -41,6 +41,10 @@ void Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	currenttime = dt;
 	int numcomplexes = 1;
+	std::array<std::vector<float>, 2> nicks;
+	std::vector<std::vector<int>> positions;
+	std::vector<int> single_positions;
+
 	while(currenttime < complexes.at(0).totaltime) {
 		x = dist(gen);
 		//binding moment
@@ -53,10 +57,9 @@ void Substrate::main() {
 	std::cout << numcomplexes << std::endl;
 	currenttime = 0.0;
 
-	std::array<std::vector<float>, 2> nicks;
-
 	for (size_t i = 0; i < complexes.size(); i++){
-			complexes.at(i).main();
+			single_positions = complexes.at(i).main(positions);
+			positions.push_back(single_positions);
 		}
 
 	for(ModelInstance protein : complexes){

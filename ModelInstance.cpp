@@ -145,14 +145,20 @@ void ModelInstance::updateStep() {
 
 /* main method, one run of a model instance
  */
-std::array<float, 2> ModelInstance::main() {
+std::vector<int> ModelInstance::main(std::vector<std::vector<int>> positions) {
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
 	int oldstate;
+	std::vector<int> my_pos;
+
+	if (i != 0) {
+		my_pos.assign(i, -1);
+	}
 
 	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(dist(gen));
+		my_pos.push_back(position);
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 				(std::abs((position - network.nickingsite1)) < stepsize
 				|| std::abs((position - network.nickingsite2)) < stepsize);
@@ -179,6 +185,6 @@ std::array<float, 2> ModelInstance::main() {
 		}
 		i++;
 	}
-	std::array<float, 2> nickingmoments {nick1, nick2};
-	return nickingmoments;
+
+	return my_pos;
 }
