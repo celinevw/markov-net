@@ -54,14 +54,17 @@ void Substrate::main() {
 	currenttime = 0.0;
 
 	std::array<std::vector<float>, 2> nicks;
-	std::array<float,2> nicks_complex {-1.0, -1.0};
-	for(ModelInstance protein : complexes){
-		nicks_complex = protein.main();
-		if (nicks_complex.at(0) != -1) {
-			nicks.at(0).push_back(nicks_complex.at(0));
+
+	for (size_t i = 0; i < complexes.size(); i++){
+			complexes.at(i).main();
 		}
-		if (nicks_complex.at(0) != -1) {
-			nicks.at(1).push_back(nicks_complex.at(1));
+
+	for(ModelInstance protein : complexes){
+		if (protein.nick1 != -1) {
+			nicks.at(0).push_back(protein.nick1);
+		}
+		if (protein.nick2 != -1) {
+			nicks.at(1).push_back(protein.nick2);
 		}
 	}
 	if (!nicks.at(0).empty()) { //if never nicked, leave at -1
