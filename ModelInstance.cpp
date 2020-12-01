@@ -10,7 +10,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshi
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
-	totaltime = 300;
+	totaltime = 150;
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;
@@ -145,7 +145,7 @@ void ModelInstance::updateStep() {
 
 /* main method, one run of a model instance
  */
-std::vector<int> ModelInstance::main(std::vector<std::vector<int>> positions) {
+std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
 	int oldstate;
@@ -185,6 +185,7 @@ std::vector<int> ModelInstance::main(std::vector<std::vector<int>> positions) {
 		}
 		i++;
 	}
+	positions.push_back(my_pos);
 
 	return my_pos;
 }

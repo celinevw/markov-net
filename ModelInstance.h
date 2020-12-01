@@ -44,6 +44,6 @@ public:
 	void activateS(float x);
 	void nicking(float x);
 	void updateStep();
-	std::vector<int> main(std::vector<std::vector<int>> positions);
+	std::vector<int> main(std::vector<std::vector<int>> &positions);
 };
 #endif //MARKOVNET_MODELINSTANCE_H

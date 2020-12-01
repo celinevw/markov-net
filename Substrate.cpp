@@ -2,6 +2,7 @@
 // Created by Celly on 23/11/2020.
 //
 
+#include <fstream>
 #include "Substrate.h"
 
 void Substrate::assign(NetworkArray net, ParameterObj par, bool allow_loading, std::uint64_t seed) {
@@ -30,7 +31,8 @@ Substrate::Substrate() {
 
 void Substrate::main() {
 	if(!mult_loading){
-		complexes.at(0).main(std::vector<std::vector<int>>());
+		std::vector<std::vector<int>> my_pos;
+		complexes.at(0).main(my_pos);
 		nick1 = complexes.at(0).nick1;
 		nick2 = complexes.at(0).nick2;
 		return;

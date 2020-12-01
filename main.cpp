@@ -31,7 +31,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
-	const int numtimesteps = 3000;
+	int numtimesteps = totaltime/dt_plot;
 	std::vector<std::array<float, 4>> nicking_arr(numtimesteps, std::array<float, 4>{});
 	bool nicked1;
 	bool nicked2;
