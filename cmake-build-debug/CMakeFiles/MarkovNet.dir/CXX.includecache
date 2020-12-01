@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
+random
+-
+fstream
+-
+
+C:/Users/Celly/CLionProjects/MarkovNet/IO.h
+vector
+-
+fstream
+-
+iostream
+-
+map
+-
+Substrate.h
+C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
+
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 NetworkArray.h
 C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
@@ -57,4 +75,12 @@ limits
 -
 type_traits
 -
+
+C:/Users/Celly/CLionProjects/MarkovNet/main.cpp
+array
+-
+IO.h
+C:/Users/Celly/CLionProjects/MarkovNet/IO.h
+Distribution.h
+C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
 

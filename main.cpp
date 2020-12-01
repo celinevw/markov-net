@@ -9,7 +9,7 @@ int main(int argc, char ** arg) {
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 1000;
-	bool multiple_loading = false;
+	bool multiple_loading = true;
 
 	UniformDistribution unif(0,1);
 	std::vector<Substrate*> sims; // create vector of pointers to model objects

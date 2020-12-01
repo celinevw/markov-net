@@ -40,13 +40,17 @@ void Substrate::main() {
 	float dt = complexes.at(0).dt_react;
 	float bindingchance = network.transitions.at(1).at(7);
 	currenttime = dt;
+	int numcomplexes = 1;
 	while(currenttime < complexes.at(0).totaltime) {
 		x = dist(gen);
 		//binding moment
 		if (x < bindingchance) {
 			complexes.emplace_back(network, parameters, gen, currenttime);
+			numcomplexes += 1;
 		}
+		currenttime += dt;
 	}
+	std::cout << numcomplexes << std::endl;
 	currenttime = 0.0;
 
 	std::array<std::vector<float>, 2> nicks;
