@@ -29,6 +29,15 @@ Substrate::Substrate() {
 	assign(mynet, myparameters, sd, false);
 }
 
+bool Substrate::position_occupied(int pos, int time_i) {
+	for (auto complex : positions){
+		if (complex.size() > time_i && complex.at(time_i) == pos){
+			return true;
+		}
+	}
+	return false;
+}
+
 void Substrate::main() {
 	if(!mult_loading){
 		std::vector<std::vector<int>> my_pos;
@@ -41,28 +50,29 @@ void Substrate::main() {
 	float x;
 	float dt = complexes.at(0).dt_react;
 	float bindingchance = network.transitions.at(1).at(7);
-	currenttime = dt;
 	int numcomplexes = 1;
 	std::array<std::vector<float>, 2> nicks;
-	std::vector<std::vector<int>> positions;
 	std::vector<int> single_positions;
 
-	while(currenttime < complexes.at(0).totaltime) {
+	//first complex
+	single_positions = complexes.at(0).main(positions);
+	positions.push_back(single_positions);
+
+	for (int i = 1; i < (complexes.at(0).totaltime/dt); i++) {
+		currenttime = i * dt;
 		x = dist(gen);
-		//binding moment
-		if (x < bindingchance) {
+		//binding moment chance allows and mismatch not occupied
+		if (x < bindingchance && !position_occupied(network.mismatchsite, i)) {
 			complexes.emplace_back(network, parameters, gen, currenttime);
 			numcomplexes += 1;
+			single_positions = complexes.at(numcomplexes-1).main(positions);
+			positions.push_back(single_positions);
+			std::cout << numcomplexes << "\t";
 		}
 		currenttime += dt;
 	}
 	std::cout << numcomplexes << std::endl;
 	currenttime = 0.0;
-
-	for (size_t i = 0; i < complexes.size(); i++){
-			single_positions = complexes.at(i).main(positions);
-			positions.push_back(single_positions);
-		}
 
 	for(ModelInstance protein : complexes){
 		if (protein.nick1 != -1) {

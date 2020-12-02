@@ -16,10 +16,12 @@ private:
 	ParameterObj parameters;
 	XoshiroCpp::Xoshiro128PlusPlus gen;
 	std::uniform_real_distribution<> dist;
+	std::vector<std::vector<int>> positions;
 public:
 	Substrate(NetworkArray net, ParameterObj par, bool allow_loading, std::uint64_t seed);
 	Substrate();
 	void assign(NetworkArray net, ParameterObj par, bool allow_loading, std::uint64_t seed);
+	bool position_occupied(int pos, int time_i);
 	std::vector<ModelInstance> complexes;
 	float currenttime{};
 	bool mult_loading{};

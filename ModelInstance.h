@@ -39,7 +39,7 @@ public:
 	ModelInstance();
 	int getState();
 	int getPosition();
-	void setStep(float x);
+	void setStep(float x, int index, std::vector<std::vector<int>> &positions);
 	void transition(float x);
 	void activateS(float x);
 	void nicking(float x);

@@ -48,9 +48,10 @@ int ModelInstance::getPosition() {
 /* Randomly decide direction. Check whether new position lies within boundaries
  * If so, update step, else don't.
  */
-void ModelInstance::setStep(float x) {
+void ModelInstance::setStep(float x, int index, std::vector<std::vector<int>> &positions) {
 	// Choose direction
 	int direction;
+	int newposition;
 	if(x<0.5){
 		direction = -1;
 	}
@@ -60,19 +61,32 @@ void ModelInstance::setStep(float x) {
 
 	// If not stepping off DNA, add step to position
 	if(position + direction * stepsize >= 0 && position + direction * stepsize < network.length){
-		position += (direction * stepsize);
+		newposition = position + (direction * stepsize);
 	}
 	else if (topology == circular){
 		// go to the "other side"
-		position = (position + direction * stepsize + network.length) % network.length;
+		newposition = (position + direction * stepsize + network.length) % network.length;
 	}
 	else if (topology == linear){
 		// fall off, go to none-none state
 		state = 0;
+		newposition = -1;
 		updateStep();
 	}
 	// if endblocked, do not take a step.
 
+	// Check all other positions at this timestep
+	// ToDo what if going to a "future complex's" position?
+	bool occupied = false;
+	for (auto complex: positions){
+		if (complex.size() > index && complex.at(index) == newposition){
+			occupied = true;
+			break;
+		}
+	}
+	if (!occupied){
+		position = newposition;
+	}
 }
 
 /* Choose transition to follow based on random number x.
@@ -157,7 +171,7 @@ std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
 
 	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
-		setStep(dist(gen));
+		setStep(dist(gen), i, positions);
 		my_pos.push_back(position);
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 				(std::abs((position - network.nickingsite1)) < stepsize
