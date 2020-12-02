@@ -10,7 +10,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshi
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
-	totaltime = 150;
+	totaltime = 5;
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;
@@ -50,8 +50,8 @@ int ModelInstance::getPosition() {
  */
 void ModelInstance::setStep(float x, int index, std::vector<std::vector<int>> &positions) {
 	// Choose direction
-	int direction;
-	int newposition;
+	int direction = 0;
+	int newposition = position;
 	if(x<0.5){
 		direction = -1;
 	}
@@ -75,17 +75,19 @@ void ModelInstance::setStep(float x, int index, std::vector<std::vector<int>> &p
 	}
 	// if endblocked, do not take a step.
 
-	// Check all other positions at this timestep
-	// ToDo what if going to a "future complex's" position?
-	bool occupied = false;
-	for (auto complex: positions){
-		if (complex.size() > index && complex.at(index) == newposition){
-			occupied = true;
-			break;
+	if(newposition != position) {
+		// Check all other positions at this timestep
+		// ToDo what if going to a "future complex's" position?
+		bool occupied = false;
+		for (auto complex: positions) {
+			if (complex.size() > index && complex.at(index) == newposition) {
+				occupied = true;
+				break;
+			}
 		}
-	}
-	if (!occupied){
-		position = newposition;
+		if (!occupied) {
+			position = newposition;
+		}
 	}
 }
 
@@ -197,6 +199,11 @@ std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
 				homotetramer.push_back(currenttime);
 			}
 		}
+
+		if(i % 10000 == 0){
+			int x = 0;
+		}
+
 		i++;
 	}
 	positions.push_back(my_pos);

@@ -12,6 +12,10 @@ random
 fstream
 -
 
+C:/Users/Celly/CLionProjects/MarkovNet/IO.cpp
+IO.h
+C:/Users/Celly/CLionProjects/MarkovNet/IO.h
+
 C:/Users/Celly/CLionProjects/MarkovNet/IO.h
 vector
 -
@@ -23,6 +27,10 @@ map
 -
 Substrate.h
 C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
+
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
+ModelInstance.h
+C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 NetworkArray.h
@@ -53,6 +61,8 @@ string
 -
 
 C:/Users/Celly/CLionProjects/MarkovNet/Substrate.cpp
+fstream
+-
 Substrate.h
 C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
 

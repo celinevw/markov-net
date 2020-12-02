@@ -39,6 +39,7 @@ bool Substrate::position_occupied(int pos, int time_i) {
 }
 
 void Substrate::main() {
+	std::cout << "Substrate" << std::endl;
 	if(!mult_loading){
 		std::vector<std::vector<int>> my_pos;
 		complexes.at(0).main(my_pos);
@@ -67,7 +68,7 @@ void Substrate::main() {
 			numcomplexes += 1;
 			single_positions = complexes.at(numcomplexes-1).main(positions);
 			positions.push_back(single_positions);
-			std::cout << numcomplexes << "\t";
+			std::cout << currenttime << "\t";
 		}
 		currenttime += dt;
 	}
@@ -87,6 +88,15 @@ void Substrate::main() {
 	}
 	if (!nicks.at(1).empty()) {
 		nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
+	}
+
+	std::ofstream pos_stream;
+	pos_stream.open("postitions.tsv");
+	for(auto complex : positions){
+		for(int i=0; i<100; i++) {
+			pos_stream << complex.at(i*250) << "\t";
+		}
+		pos_stream << std::endl;
 	}
 
 }
