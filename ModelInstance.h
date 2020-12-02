@@ -34,8 +34,8 @@ public:
 	std::array<std::vector<float>, 2> dimersactive;	//when MutS dimers are activated
 	std::vector<float> homotetramer;	// when complex is a homotetramer
 	std::vector<int> states;
-	void assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time);
-	ModelInstance(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float starttime=0.0);
+	void assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time);
+	ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float starttime=0.0);
 	ModelInstance();
 	int getState();
 	int getPosition();

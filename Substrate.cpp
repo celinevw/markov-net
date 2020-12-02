@@ -5,7 +5,7 @@
 #include <fstream>
 #include "Substrate.h"
 
-void Substrate::assign(NetworkArray net, ParameterObj par, bool allow_loading, std::uint64_t seed) {
+void Substrate::assign(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed) {
 	network = net;
 	parameters = par;
 	mult_loading = allow_loading;
@@ -18,7 +18,7 @@ void Substrate::assign(NetworkArray net, ParameterObj par, bool allow_loading, s
 	complexes.emplace_back(network, parameters, gen);
 }
 
-Substrate::Substrate(NetworkArray net, ParameterObj par, bool allow_loading, std::uint64_t seed){
+Substrate::Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed){
 	assign(net, par, allow_loading, seed);
 }
 
@@ -53,22 +53,18 @@ void Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	int numcomplexes = 1;
 	std::array<std::vector<float>, 2> nicks;
-	std::vector<int> single_positions;
 
 	//first complex
-	single_positions = complexes.at(0).main(positions);
-	positions.push_back(single_positions);
+	complexes.at(0).main(positions);
 
 	for (int i = 1; i < (complexes.at(0).totaltime/dt); i++) {
 		currenttime = i * dt;
 		x = dist(gen);
 		//binding moment chance allows and mismatch not occupied
 		if (x < bindingchance && !position_occupied(network.mismatchsite, i)) {
-			std::cout << currenttime << "\t";
 			complexes.emplace_back(network, parameters, gen, currenttime);
 			numcomplexes += 1;
-			single_positions = complexes.at(numcomplexes-1).main(positions);
-			positions.push_back(single_positions);
+			complexes.at(numcomplexes-1).main(positions);
 		}
 		currenttime += dt;
 	}

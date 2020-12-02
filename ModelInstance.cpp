@@ -4,7 +4,7 @@
 
 #include "ModelInstance.h"
 
-void ModelInstance::assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time) {
+void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time) {
 	network = net;
 	position = network.mismatchsite;	// starting position and mismatch position must be the same
 	state = 1;						// graph is symmetric, so let all start in state 1
@@ -26,7 +26,7 @@ void ModelInstance::assign(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshi
 	dist = std::uniform_real_distribution<> (0,1);
 }
 
-ModelInstance::ModelInstance(NetworkArray net, ParameterObj par, XoshiroCpp::Xoshiro128PlusPlus &rng, float start) {
+ModelInstance::ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float start) {
 	assign(net, par, rng, start);
 }
 
@@ -162,7 +162,7 @@ void ModelInstance::updateStep() {
 /* main method, one run of a model instance
  */
 std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
-	std::cout << "Modelinstance" << std::endl;
+	std::cout << currenttime << "\tModelinstance" << std::endl;
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
 	int oldstate;
@@ -174,8 +174,8 @@ std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
 
 	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
-		setStep(dist(gen), i, positions);
 		my_pos.push_back(position);
+		setStep(dist(gen), i, positions);
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 				(std::abs((position - network.nickingsite1)) < stepsize
 				|| std::abs((position - network.nickingsite2)) < stepsize);
