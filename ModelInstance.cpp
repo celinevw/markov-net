@@ -162,6 +162,7 @@ void ModelInstance::updateStep() {
 /* main method, one run of a model instance
  */
 std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
+	std::cout << "Modelinstance" << std::endl;
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
 	int oldstate;

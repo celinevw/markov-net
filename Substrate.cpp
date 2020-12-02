@@ -64,11 +64,11 @@ void Substrate::main() {
 		x = dist(gen);
 		//binding moment chance allows and mismatch not occupied
 		if (x < bindingchance && !position_occupied(network.mismatchsite, i)) {
+			std::cout << currenttime << "\t";
 			complexes.emplace_back(network, parameters, gen, currenttime);
 			numcomplexes += 1;
 			single_positions = complexes.at(numcomplexes-1).main(positions);
 			positions.push_back(single_positions);
-			std::cout << currenttime << "\t";
 		}
 		currenttime += dt;
 	}
