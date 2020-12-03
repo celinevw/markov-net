@@ -38,11 +38,11 @@ ModelInstance::ModelInstance() {
 	assign(myNet, myPars, rng, 0, 0.0, -1);
 }
 
-int ModelInstance::getState() {
+int ModelInstance::getState() const {
 	return this->state;
 }
 
-int ModelInstance::getPosition() {
+int ModelInstance::getPosition() const {
 	return position;
 }
 
@@ -87,7 +87,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 					   || std::abs((position - network.nickingsite2)) < stepsize);
 }
 
-bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition) {
+bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition) const {
 	if (newposition < 0) {
 		return true;
 	}
@@ -210,10 +210,6 @@ void ModelInstance::main(std::vector<int> &positions) {
 
 		if(i % stepsperreaction == 0) {
 			reactionStep(i, positions);
-		}
-
-		if(i % 10000 == 0) {
-			int x = 0;
 		}
 		i++;
 	}

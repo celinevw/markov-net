@@ -19,7 +19,6 @@ int main(int argc, char ** arg) {
 
 	float totaltime = sims.at(0)->complexes.at(0).totaltime;
 	float dt_reaction = sims.at(0)->complexes.at(0).dt_react;
-	float dt_diffusion = sims.at(0)->complexes.at(0).dt_diff;
 	float dt_plot = 0.1;
 
 
@@ -143,7 +142,7 @@ int main(int argc, char ** arg) {
 	std::string nicking_file = "nicking.tsv";
 	out.open(nicking_file);
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
-	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << std::endl;
+	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << "\t" << multiple_loading << std::endl;
 	out.close();
 	myIO.writeNicking(nicking_arr, nicking_file);
 

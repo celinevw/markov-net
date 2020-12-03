@@ -38,10 +38,10 @@ public:
 	void assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, int my_index, float time, int pos);
 	ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, int my_index, float starttime=0.0, int pos=-1);
 	ModelInstance();
-	int getState();
-	int getPosition();
+	int getState() const;
+	int getPosition() const;
 	void setStep(std::vector<int> &positions);
-	bool stepPossible(std::vector<int> &positions, int newposition);
+	bool stepPossible(std::vector<int> &positions, int newposition) const;
 	void transition(std::vector<int> &positions);
 	void activateS();
 	void nicking();

@@ -35,6 +35,36 @@ bool Substrate::positionFree(int pos) {
 	return std::none_of(positions.begin(), positions.end(), [pos](int complex){return complex == pos;});
 }
 
+void Substrate::findNickingmoments() {
+	std::array<std::vector<float>, 2> nicks;
+	for (ModelInstance &protein : complexes) {
+		if (protein.nick1 != -1) {
+			nicks.at(0).push_back(protein.nick1);
+		}
+		if (protein.nick2 != -1) {
+			nicks.at(1).push_back(protein.nick2);
+		}
+	}
+	if (!nicks.at(0).empty()) { //if never nicked, leave at -1
+		nick1 = *std::min_element(nicks.at(0).begin(), nicks.at(0).end());
+	}
+	if (!nicks.at(1).empty()) {
+		nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
+	}
+}
+
+void Substrate::bindComplex(float bindingchance) {
+	float x = dist(gen);
+	int binding_position = int_dist(gen);
+
+	//binding moment: chance allows and mismatch not occupied
+	if (x < bindingchance && !positionFree(binding_position)) {
+		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
+		positions.push_back(complexes.at(numcomplexes).getPosition());
+		numcomplexes += 1;
+	}
+}
+
 void Substrate::main() {
 	std::cout << "Substrate" << std::endl;
 	if (!mult_loading) {
@@ -75,35 +105,4 @@ void Substrate::main() {
 	currenttime = 0.0;
 
 	findNickingmoments();
-}
-
-
-void Substrate::findNickingmoments() {
-	std::array<std::vector<float>, 2> nicks;
-	for (ModelInstance &protein : complexes) {
-		if (protein.nick1 != -1) {
-			nicks.at(0).push_back(protein.nick1);
-		}
-		if (protein.nick2 != -1) {
-			nicks.at(1).push_back(protein.nick2);
-		}
-	}
-	if (!nicks.at(0).empty()) { //if never nicked, leave at -1
-		nick1 = *std::min_element(nicks.at(0).begin(), nicks.at(0).end());
-	}
-	if (!nicks.at(1).empty()) {
-		nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
-	}
-}
-
-void Substrate::bindComplex(float bindingchance) {
-	float x = dist(gen);
-	int binding_position = int_dist(gen);
-
-	//binding moment: chance allows and mismatch not occupied
-	if (x < bindingchance && !positionFree(binding_position)) {
-		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
-		positions.push_back(complexes.at(numcomplexes).getPosition());
-		numcomplexes += 1;
-	}
 }
