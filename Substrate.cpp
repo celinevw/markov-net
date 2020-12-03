@@ -16,7 +16,8 @@ void Substrate::assign(NetworkArray &net, ParameterObj &par, bool allow_loading,
 	gen = XoshiroCpp::Xoshiro128PlusPlus (seed);
 	dist = std::uniform_real_distribution<> (0,1);
 	int_dist = std::uniform_int_distribution<>(0, network.length);
-	complexes.emplace_back(network, parameters, gen);
+	complexes.emplace_back(network, parameters, gen, 0, currenttime);
+	positions.push_back(complexes.at(0).getPosition());
 }
 
 Substrate::Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed){
@@ -31,12 +32,7 @@ Substrate::Substrate() {
 }
 
 bool Substrate::positionFree(int pos) {
-	for (auto &complex : positions){
-		if (complex == pos){
-			return false;
-		}
-	}
-	return true;
+	return std::none_of(positions.begin(), positions.end(), [pos](int complex){return complex == pos;});
 }
 
 void Substrate::main() {
@@ -54,24 +50,27 @@ void Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	numcomplexes = 1;
-	ModelInstance &protein = complexes.at(0);
 
-	//first complex
-	complexes.at(0).main(positions);
+	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
+		currenttime = i * dt_diff;
 
-	std::uniform_int_distribution int_dist(0, network.length);
-	int binding_position;
-	for (int i = 1; i < (complexes.at(0).totaltime/dt); i++) {
-		currenttime = i * dt;
-		x = dist(gen);
-		binding_position = int_dist(gen);
-		//binding moment chance allows and mismatch not occupied
-		if (x < bindingchance && !position_occupied(binding_position, i)) {
-			complexes.emplace_back(network, parameters, gen, currenttime);
-			numcomplexes += 1;
-			complexes.at(numcomplexes-1).main(positions);
+		if(i % stepsperreaction == 0) {
+			bindComplex(bindingchance);
+			for (auto &protein : complexes) {
+				if(protein.getState() != 0 && (protein.nick1<0 || protein.nick2<0)) {
+					protein.reactionStep(i, positions);
+				}
+			}
 		}
-		currenttime += dt;
+
+		for (auto &protein: complexes) {
+			if(protein.getState() != 0) {
+				protein.setStep(positions);
+				protein.nicking();
+				protein.currenttime = currenttime;
+			}
+		}
+
 	}
 	std::cout << numcomplexes << std::endl;
 	currenttime = 0.0;
@@ -104,7 +103,8 @@ void Substrate::bindComplex(float bindingchance) {
 
 	//binding moment: chance allows and mismatch not occupied
 	if (x < bindingchance && !positionFree(binding_position)) {
-		complexes.emplace_back(network, parameters, gen, currenttime);
+		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
+		positions.push_back(complexes.at(numcomplexes).getPosition());
 		numcomplexes += 1;
 	}
 }

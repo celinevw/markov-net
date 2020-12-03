@@ -4,9 +4,9 @@
 
 #include "ModelInstance.h"
 
-void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time) {
+void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, int ind, float time, int pos) {
 	network = net;
-	position = network.mismatchsite;	// starting position and mismatch position must be the same
+	position = pos >= 0 ? pos : network.mismatchsite; //if position not -1, otherwise mismatchsite
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
@@ -18,6 +18,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	passed_mismatch = false;
 	p_activate = 1;
 	topology = par.top;
+	my_index = ind;
 
 	dimersactive = std::array<std::vector<float>, 2> {};
 	homotetramer = std::vector<float>{};
@@ -26,15 +27,15 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	dist = std::uniform_real_distribution<> (0,1);
 }
 
-ModelInstance::ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float start) {
-	assign(net, par, rng, start);
+ModelInstance::ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, int ind, float start, int pos) {
+	assign(net, par, rng, ind, start, pos);
 }
 
 ModelInstance::ModelInstance() {
 	NetworkArray myNet;
 	ParameterObj myPars;
 	XoshiroCpp::Xoshiro128PlusPlus rng (1000);
-	assign(myNet, myPars, rng, 0.0);
+	assign(myNet, myPars, rng, 0, 0.0, -1);
 }
 
 int ModelInstance::getState() {
@@ -48,10 +49,10 @@ int ModelInstance::getPosition() {
 /* Randomly decide direction. Check whether new position lies within boundaries
  * If so, update step, else don't.
  */
-void ModelInstance::setStep(int my_index, std::vector<int> &positions) {
+void ModelInstance::setStep(std::vector<int> &positions) {
 	float x = dist(gen);
 	// Choose direction
-	int direction = 0;
+	int direction;
 	int newposition = position;
 	if(x<0.5){
 		direction = -1;
@@ -76,10 +77,9 @@ void ModelInstance::setStep(int my_index, std::vector<int> &positions) {
 	}
 	// if endblocked, do not take a step.
 
-	if(newposition != position && stepPossible(positions, newposition, my_index)) {
+	if(newposition != position && stepPossible(positions, newposition)) {
 		position = newposition;
 		positions.at(my_index) = position;
-
 	}
 
 	passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
@@ -87,9 +87,14 @@ void ModelInstance::setStep(int my_index, std::vector<int> &positions) {
 					   || std::abs((position - network.nickingsite2)) < stepsize);
 }
 
-bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int my_index) {
+bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition) {
+	if (newposition < 0) {
+		return true;
+	}
 	for (int i = 0; i< positions.size(); i++) {
-		if (newposition == positions.at(i) && i != my_index){
+		if ((newposition <= positions.at(i) && positions.at(i) < position)
+		|| (position < positions.at(i) && positions.at(i) <= newposition)
+		&& i != my_index){
 			return false;
 		}
 	}
@@ -98,7 +103,7 @@ bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, i
 
 /* Choose transition to follow based on random number x.
  */
-void ModelInstance::transition() {
+void ModelInstance::transition(std::vector<int> &positions) {
 	float x = dist(gen);
 	// No outgoing edges, then stay in this state
 	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
@@ -126,6 +131,9 @@ void ModelInstance::transition() {
 				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
 				state = index;
 				updateStep();
+			}
+			if (state == 0) {
+				positions.at(my_index) = -1;
 			}
 			break;
 		}
@@ -167,8 +175,9 @@ void ModelInstance::updateStep() {
 	stepsize = round(std::sqrt(2*network.diffusion.at(state)*dt_diff)*10000/3.4); //micrometer->armstrong->bp
 }
 
-void ModelInstance::reactionStep(int timeindex, int stepsperreaction) {
+void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 	int oldstate = state;
+	int stepsperreaction = roundf(dt_react / dt_diff);
 
 	states.at(timeindex/stepsperreaction) = state;
 
@@ -176,7 +185,7 @@ void ModelInstance::reactionStep(int timeindex, int stepsperreaction) {
 		activateS();
 		passed_mismatch = false;
 	} else {
-		transition();
+		transition(positions);
 	}
 
 	if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
@@ -189,33 +198,23 @@ void ModelInstance::reactionStep(int timeindex, int stepsperreaction) {
 
 /* main method, one run of a model instance
  */
-std::vector<int> ModelInstance::main(std::vector<int> &positions) {
+void ModelInstance::main(std::vector<int> &positions) {
 	std::cout << currenttime << "\tModelinstance" << std::endl;
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
-	int oldstate;
-	std::vector<int> my_pos;
-
-	if (i != 0) {
-		my_pos.assign(i, -1);
-	}
 
 	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
-		my_pos.push_back(position);
-		setStep(i, positions);
+		setStep(positions);
 		nicking();
 
 		if(i % stepsperreaction == 0) {
-			reactionStep(i, stepsperreaction);
+			reactionStep(i, positions);
 		}
 
-		if(i % 10000 == 0){
+		if(i % 10000 == 0) {
 			int x = 0;
 		}
-
 		i++;
 	}
-
-	return my_pos;
 }

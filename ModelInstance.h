@@ -20,6 +20,7 @@ private:
 	int stepsize;
 	bool passed_mismatch;
 	float p_activate;
+	int my_index;
 	NetworkArray network;
 	Topology topology;
 	XoshiroCpp::Xoshiro128PlusPlus gen;
@@ -34,18 +35,18 @@ public:
 	std::array<std::vector<float>, 2> dimersactive;	//when MutS dimers are activated
 	std::vector<float> homotetramer;	// when complex is a homotetramer
 	std::vector<int> states;
-	void assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float time);
-	ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, float starttime=0.0);
+	void assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, int my_index, float time, int pos);
+	ModelInstance(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xoshiro128PlusPlus &rng, int my_index, float starttime=0.0, int pos=-1);
 	ModelInstance();
 	int getState();
 	int getPosition();
-	void setStep(int index, std::vector<int> &positions);
-	bool stepPossible(std::vector<int> &positions, int newposition, int index);
-	void transition();
+	void setStep(std::vector<int> &positions);
+	bool stepPossible(std::vector<int> &positions, int newposition);
+	void transition(std::vector<int> &positions);
 	void activateS();
 	void nicking();
 	void updateStep();
-	void reactionStep(int timeindex, int stepsperreaction);
-	std::vector<int> main(std::vector<int> &positions);
+	void reactionStep(int timeindex, std::vector<int> &positions);
+	void main(std::vector<int> &positions);
 };
 #endif //MARKOVNET_MODELINSTANCE_H
