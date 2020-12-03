@@ -23,13 +23,15 @@ public:
 	Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
 	Substrate();
 	void assign(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
-	bool position_occupied(int pos, int time_i);
+	bool positionFree(int pos);
 	std::vector<ModelInstance> complexes;
 	float currenttime{};
 	bool mult_loading{};
 	float nick1{};
 	float nick2{};
 	void main();
+	void findNickingmoments();
+	void bindComplex(float bindingchance);
 };
 
 #endif //MARKOVNET_SUBSTRATE_H

@@ -30,13 +30,13 @@ Substrate::Substrate() {
 	assign(mynet, myparameters, sd, false);
 }
 
-bool Substrate::position_occupied(int pos, int time_i) {
-	for (auto complex : positions){
-		if (complex.size() > time_i && complex.at(time_i) == pos){
-			return true;
+bool Substrate::positionFree(int pos) {
+	for (auto &complex : positions){
+		if (complex == pos){
+			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 void Substrate::main() {
@@ -76,7 +76,13 @@ void Substrate::main() {
 	std::cout << numcomplexes << std::endl;
 	currenttime = 0.0;
 
-	for(ModelInstance protein : complexes){
+	findNickingmoments();
+}
+
+
+void Substrate::findNickingmoments() {
+	std::array<std::vector<float>, 2> nicks;
+	for (ModelInstance &protein : complexes) {
 		if (protein.nick1 != -1) {
 			nicks.at(0).push_back(protein.nick1);
 		}
@@ -92,4 +98,13 @@ void Substrate::main() {
 	}
 }
 
+void Substrate::bindComplex(float bindingchance) {
+	float x = dist(gen);
+	int binding_position = int_dist(gen);
+
+	//binding moment: chance allows and mismatch not occupied
+	if (x < bindingchance && !positionFree(binding_position)) {
+		complexes.emplace_back(network, parameters, gen, currenttime);
+		numcomplexes += 1;
+	}
 }
