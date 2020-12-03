@@ -40,6 +40,7 @@ public:
 	int getState();
 	int getPosition();
 	void setStep(float x, int index, std::vector<std::vector<int>> &positions);
+	bool stepPossible(std::vector<std::vector<int>> &positions, int newposition, int index);
 	void transition(float x);
 	void activateS(float x);
 	void nicking(float x);

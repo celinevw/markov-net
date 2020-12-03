@@ -57,11 +57,14 @@ void Substrate::main() {
 	//first complex
 	complexes.at(0).main(positions);
 
+	std::uniform_int_distribution int_dist(0, network.length);
+	int binding_position;
 	for (int i = 1; i < (complexes.at(0).totaltime/dt); i++) {
 		currenttime = i * dt;
 		x = dist(gen);
+		binding_position = int_dist(gen);
 		//binding moment chance allows and mismatch not occupied
-		if (x < bindingchance && !position_occupied(network.mismatchsite, i)) {
+		if (x < bindingchance && !position_occupied(binding_position, i)) {
 			complexes.emplace_back(network, parameters, gen, currenttime);
 			numcomplexes += 1;
 			complexes.at(numcomplexes-1).main(positions);

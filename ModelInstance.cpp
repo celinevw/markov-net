@@ -75,20 +75,21 @@ void ModelInstance::setStep(float x, int index, std::vector<std::vector<int>> &p
 	}
 	// if endblocked, do not take a step.
 
-	if(newposition != position) {
-		// Check all other positions at this timestep
-		// ToDo what if going to a "future complex's" position?
-		bool occupied = false;
-		for (auto complex: positions) {
-			if (complex.size() > index && complex.at(index) == newposition) {
-				occupied = true;
-				break;
-			}
-		}
-		if (!occupied) {
-			position = newposition;
+	if(newposition != position && stepPossible(positions, newposition, index)) {
+		position = newposition;
+
+	}
+}
+
+bool ModelInstance::stepPossible(std::vector<std::vector<int>> &positions, int newposition, int index) {
+	// Check all other positions at this timestep
+	// ToDo what if going to a "future complex's" position?
+	for (auto complex: positions) {
+		if (complex.size() > index && ((complex.at(index) >= newposition && complex.at(index) < position) || (complex.at(index) <= newposition && complex.at(index) > position))) {
+			return false;
 		}
 	}
+	return true;
 }
 
 /* Choose transition to follow based on random number x.
