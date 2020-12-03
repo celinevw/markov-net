@@ -38,8 +38,7 @@ bool Substrate::positionFree(int pos) {
 void Substrate::main() {
 	std::cout << "Substrate" << std::endl;
 	if (!mult_loading) {
-		std::vector<int> my_pos {};
-		complexes.at(0).main(my_pos);
+		complexes.at(0).main(positions);
 		nick1 = complexes.at(0).nick1;
 		nick2 = complexes.at(0).nick2;
 		return;
