@@ -167,6 +167,26 @@ void ModelInstance::updateStep() {
 	stepsize = round(std::sqrt(2*network.diffusion.at(state)*dt_diff)*10000/3.4); //micrometer->armstrong->bp
 }
 
+void ModelInstance::reactionStep(int timeindex, int stepsperreaction) {
+	int oldstate = state;
+
+	states.at(timeindex/stepsperreaction) = state;
+
+	if (passed_mismatch) {
+		activateS();
+		passed_mismatch = false;
+	} else {
+		transition();
+	}
+
+	if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
+		homotetramer.push_back(currenttime);
+	}
+	if (oldstate / 6 == oldstate % 6 && state == 0) {
+		homotetramer.push_back(currenttime);
+	}
+}
+
 /* main method, one run of a model instance
  */
 std::vector<int> ModelInstance::main(std::vector<int> &positions) {
@@ -187,23 +207,7 @@ std::vector<int> ModelInstance::main(std::vector<int> &positions) {
 		nicking();
 
 		if(i % stepsperreaction == 0) {
-			oldstate = state;
-
-			states.at(i/stepsperreaction) = state;
-
-			if (passed_mismatch) {
-				activateS(dist(gen));
-				passed_mismatch = false;
-			} else {
-				transition(dist(gen));
-			}
-
-			if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
-				homotetramer.push_back(currenttime);
-			}
-			if (oldstate / 6 == oldstate % 6 && state == 0) {
-				homotetramer.push_back(currenttime);
-			}
+			reactionStep(i, stepsperreaction);
 		}
 
 		if(i % 10000 == 0){
@@ -212,7 +216,6 @@ std::vector<int> ModelInstance::main(std::vector<int> &positions) {
 
 		i++;
 	}
-	positions.push_back(my_pos);
 
 	return my_pos;
 }
