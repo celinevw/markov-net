@@ -79,6 +79,8 @@ void Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	numcomplexes = 1;
+	std::ofstream pos_out;
+	pos_out.open("positions.tsv");
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
 		currenttime = i * dt_diff;
@@ -99,6 +101,11 @@ void Substrate::main() {
 				protein.currenttime = currenttime;
 			}
 		}
+
+		for (auto pos : positions) {
+			pos_out << pos << "\t";
+		}
+		pos_out << std::endl;
 
 	}
 	std::cout << numcomplexes << std::endl;
