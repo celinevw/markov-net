@@ -81,6 +81,10 @@ void ModelInstance::setStep(int my_index, std::vector<int> &positions) {
 		positions.at(my_index) = position;
 
 	}
+
+	passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
+					  (std::abs((position - network.nickingsite1)) < stepsize
+					   || std::abs((position - network.nickingsite2)) < stepsize);
 }
 
 bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int my_index) {
