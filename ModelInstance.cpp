@@ -48,7 +48,8 @@ int ModelInstance::getPosition() {
 /* Randomly decide direction. Check whether new position lies within boundaries
  * If so, update step, else don't.
  */
-void ModelInstance::setStep(float x, int index, std::vector<std::vector<int>> &positions) {
+void ModelInstance::setStep(int my_index, std::vector<int> &positions) {
+	float x = dist(gen);
 	// Choose direction
 	int direction = 0;
 	int newposition = position;
@@ -75,17 +76,16 @@ void ModelInstance::setStep(float x, int index, std::vector<std::vector<int>> &p
 	}
 	// if endblocked, do not take a step.
 
-	if(newposition != position && stepPossible(positions, newposition, index)) {
+	if(newposition != position && stepPossible(positions, newposition, my_index)) {
 		position = newposition;
+		positions.at(my_index) = position;
 
 	}
 }
 
-bool ModelInstance::stepPossible(std::vector<std::vector<int>> &positions, int newposition, int index) {
-	// Check all other positions at this timestep
-	// ToDo what if going to a "future complex's" position?
-	for (auto complex: positions) {
-		if (complex.size() > index && ((complex.at(index) >= newposition && complex.at(index) < position) || (complex.at(index) <= newposition && complex.at(index) > position))) {
+bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int my_index) {
+	for (int i = 0; i< positions.size(); i++) {
+		if (newposition == positions.at(i) && i != my_index){
 			return false;
 		}
 	}
@@ -94,7 +94,8 @@ bool ModelInstance::stepPossible(std::vector<std::vector<int>> &positions, int n
 
 /* Choose transition to follow based on random number x.
  */
-void ModelInstance::transition(float x) {
+void ModelInstance::transition() {
+	float x = dist(gen);
 	// No outgoing edges, then stay in this state
 	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
 		return;
@@ -128,7 +129,8 @@ void ModelInstance::transition(float x) {
 	}
 }
 
-void ModelInstance::activateS(float x){
+void ModelInstance::activateS(){
+	float x = dist(gen);
 	if (x >= p_activate){
 		return;
 	}
@@ -144,7 +146,8 @@ void ModelInstance::activateS(float x){
 	}
 }
 
-void ModelInstance::nicking(float x){
+void ModelInstance::nicking(){
+	float x = dist(gen);
 	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking if not nicked yet
 		float p_nick = 1;
 		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
@@ -162,7 +165,7 @@ void ModelInstance::updateStep() {
 
 /* main method, one run of a model instance
  */
-std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
+std::vector<int> ModelInstance::main(std::vector<int> &positions) {
 	std::cout << currenttime << "\tModelinstance" << std::endl;
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
@@ -176,11 +179,8 @@ std::vector<int> ModelInstance::main(std::vector<std::vector<int>> &positions) {
 	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
 		my_pos.push_back(position);
-		setStep(dist(gen), i, positions);
-		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
-				(std::abs((position - network.nickingsite1)) < stepsize
-				|| std::abs((position - network.nickingsite2)) < stepsize);
-		nicking(dist(gen));
+		setStep(i, positions);
+		nicking();
 
 		if(i % stepsperreaction == 0) {
 			oldstate = state;

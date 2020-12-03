@@ -15,6 +15,7 @@ void Substrate::assign(NetworkArray &net, ParameterObj &par, bool allow_loading,
 
 	gen = XoshiroCpp::Xoshiro128PlusPlus (seed);
 	dist = std::uniform_real_distribution<> (0,1);
+	int_dist = std::uniform_int_distribution<>(0, network.length);
 	complexes.emplace_back(network, parameters, gen);
 }
 
@@ -40,19 +41,20 @@ bool Substrate::position_occupied(int pos, int time_i) {
 
 void Substrate::main() {
 	std::cout << "Substrate" << std::endl;
-	if(!mult_loading){
-		std::vector<std::vector<int>> my_pos;
+	if (!mult_loading) {
+		std::vector<int> my_pos {};
 		complexes.at(0).main(my_pos);
 		nick1 = complexes.at(0).nick1;
 		nick2 = complexes.at(0).nick2;
 		return;
 	}
 
-	float x;
-	float dt = complexes.at(0).dt_react;
+	float dt_react = complexes.at(0).dt_react;
+	float dt_diff = complexes.at(0).dt_diff;
 	float bindingchance = network.transitions.at(1).at(7);
-	int numcomplexes = 1;
-	std::array<std::vector<float>, 2> nicks;
+	int stepsperreaction = roundf(dt_react / dt_diff);
+	numcomplexes = 1;
+	ModelInstance &protein = complexes.at(0);
 
 	//first complex
 	complexes.at(0).main(positions);
@@ -88,14 +90,6 @@ void Substrate::main() {
 	if (!nicks.at(1).empty()) {
 		nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
 	}
-
-	std::ofstream pos_stream;
-	pos_stream.open("postitions.tsv");
-	for(auto complex : positions){
-		for(int i=0; i<100; i++) {
-			pos_stream << complex.at(i*250) << "\t";
-		}
-		pos_stream << std::endl;
-	}
+}
 
 }

@@ -16,7 +16,9 @@ private:
 	ParameterObj parameters;
 	XoshiroCpp::Xoshiro128PlusPlus gen;
 	std::uniform_real_distribution<> dist;
-	std::vector<std::vector<int>> positions;
+	std::uniform_int_distribution<> int_dist;
+	std::vector<int> positions;
+	int numcomplexes;
 public:
 	Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
 	Substrate();

@@ -39,12 +39,13 @@ public:
 	ModelInstance();
 	int getState();
 	int getPosition();
-	void setStep(float x, int index, std::vector<std::vector<int>> &positions);
-	bool stepPossible(std::vector<std::vector<int>> &positions, int newposition, int index);
-	void transition(float x);
-	void activateS(float x);
-	void nicking(float x);
+	void setStep(int index, std::vector<int> &positions);
+	bool stepPossible(std::vector<int> &positions, int newposition, int index);
+	void transition();
+	void activateS();
+	void nicking();
 	void updateStep();
-	std::vector<int> main(std::vector<std::vector<int>> &positions);
+	void reactionStep(int timeindex, int stepsperreaction);
+	std::vector<int> main(std::vector<int> &positions);
 };
 #endif //MARKOVNET_MODELINSTANCE_H
