@@ -58,7 +58,7 @@ void Substrate::bindComplex(float bindingchance) {
 	int binding_position = int_dist(gen);
 
 	//binding moment: chance allows and mismatch not occupied
-	if (x < bindingchance && !positionFree(binding_position)) {
+	if (x < bindingchance && positionFree(binding_position)) {
 		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
 		positions.push_back(complexes.at(numcomplexes).getPosition());
 		numcomplexes += 1;
@@ -84,6 +84,11 @@ void Substrate::main() {
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
 		currenttime = i * dt_diff;
+		for (auto pos : positions) {
+			pos_out << pos << "\t";
+		}
+		pos_out << std::endl;
+
 
 		if(i % stepsperreaction == 0) {
 			bindComplex(bindingchance);
@@ -101,11 +106,6 @@ void Substrate::main() {
 				protein.currenttime = currenttime;
 			}
 		}
-
-		for (auto pos : positions) {
-			pos_out << pos << "\t";
-		}
-		pos_out << std::endl;
 
 	}
 	std::cout << numcomplexes << std::endl;

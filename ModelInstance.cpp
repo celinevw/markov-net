@@ -88,6 +88,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 }
 
 bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition) const {
+	//ToDo deal with circular and jumping over
 	if (newposition < 0) {
 		return true;
 	}
