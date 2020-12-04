@@ -53,6 +53,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	float x = dist(gen);
 	// Choose direction
 	int direction;
+	int edge = 0;
 	int newposition = position;
 	if(x<0.5){
 		direction = -1;
@@ -67,6 +68,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	}
 	else if (topology == circular){
 		// go to the "other side"
+		edge = (position + direction * stepsize < 0) ? -1 : 1; //edge = -1 for low>high position, +1 for high>low
 		newposition = (position + direction * stepsize + network.length) % network.length;
 	}
 	else if (topology == linear){
@@ -77,7 +79,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	}
 	// if endblocked, do not take a step.
 
-	if(newposition != position && stepPossible(positions, newposition)) {
+	if(newposition != position && stepPossible(positions, newposition, edge)) {
 		position = newposition;
 		positions.at(my_index) = position;
 	}
@@ -87,15 +89,23 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 					   || std::abs((position - network.nickingsite2)) < stepsize);
 }
 
-bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition) const {
+bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int edge) const {
 	//ToDo deal with circular and jumping over
 	if (newposition < 0) {
 		return true;
 	}
-	for (int i = 0; i< positions.size(); i++) {
-		if ((newposition <= positions.at(i) && positions.at(i) < position)
-		|| (position < positions.at(i) && positions.at(i) <= newposition)
-		&& i != my_index){
+
+	for (int i = 0; i < positions.size(); i++) {
+		if (edge == 0 && i!= my_index && ((newposition <= positions.at(i) && positions.at(i) < position)
+			|| (position < positions.at(i) && positions.at(i) <= newposition))) {
+			return false;
+		}
+		else if (edge == -1 && i != my_index &&
+		((positions.at(i)>=0 && positions.at(i) <= position) || positions.at(i) >= newposition)) {
+			return false;
+		}
+		else if (edge == 1 && i != my_index &&
+		(positions.at(i) > position || (positions.at(i) >=0 && positions.at(i) <= newposition))) {
 			return false;
 		}
 	}

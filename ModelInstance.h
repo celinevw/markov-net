@@ -41,7 +41,7 @@ public:
 	int getState() const;
 	int getPosition() const;
 	void setStep(std::vector<int> &positions);
-	bool stepPossible(std::vector<int> &positions, int newposition) const;
+	bool stepPossible(std::vector<int> &positions, int newposition, int edge) const;
 	void transition(std::vector<int> &positions);
 	void activateS();
 	void nicking();
