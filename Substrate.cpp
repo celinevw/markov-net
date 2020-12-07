@@ -16,8 +16,6 @@ void Substrate::assign(NetworkArray &net, ParameterObj &par, bool allow_loading,
 	gen = XoshiroCpp::Xoshiro128PlusPlus (seed);
 	dist = std::uniform_real_distribution<> (0,1);
 	int_dist = std::uniform_int_distribution<>(0, network.length);
-	complexes.emplace_back(network, parameters, gen, 0, currenttime);
-	positions.push_back(complexes.at(0).getPosition());
 }
 
 Substrate::Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed){
@@ -66,7 +64,9 @@ void Substrate::bindComplex(float bindingchance) {
 }
 
 void Substrate::main() {
-	std::cout << "Substrate" << std::endl;
+	complexes.emplace_back(network, parameters, gen, 0, currenttime, int_dist(gen));
+	positions.push_back(complexes.at(0).getPosition());
+
 	if (!mult_loading) {
 		complexes.at(0).main(positions);
 		nick1 = complexes.at(0).nick1;
@@ -79,16 +79,9 @@ void Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	numcomplexes = 1;
-	std::ofstream pos_out;
-	pos_out.open("positions.tsv");
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
 		currenttime = i * dt_diff;
-		for (auto pos : positions) {
-			pos_out << pos << "\t";
-		}
-		pos_out << std::endl;
-
 
 		if(i % stepsperreaction == 0) {
 			bindComplex(bindingchance);
@@ -108,7 +101,6 @@ void Substrate::main() {
 		}
 
 	}
-	std::cout << numcomplexes << std::endl;
 	currenttime = 0.0;
 
 	findNickingmoments();

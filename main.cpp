@@ -17,11 +17,6 @@ int main(int argc, char ** arg) {
 		sims.push_back(new Substrate(network, myparameters, multiple_loading, unif.getRandomNumber()*1000));
 	}
 
-	float totaltime = sims.at(0)->complexes.at(0).totaltime;
-	float dt_reaction = sims.at(0)->complexes.at(0).dt_react;
-	float dt_plot = 0.1;
-
-
 #pragma omp parallel
 	{
 #pragma omp for
@@ -29,6 +24,10 @@ int main(int argc, char ** arg) {
 			sims.at(i)->main();
 		}
 	}
+
+	float totaltime = sims.at(0)->complexes.at(0).totaltime;
+	float dt_reaction = sims.at(0)->complexes.at(0).dt_react;
+	float dt_plot = 0.1;
 
 	int numtimesteps = totaltime/dt_plot;
 	std::vector<std::array<float, 4>> nicking_arr(numtimesteps, std::array<float, 4>{});
