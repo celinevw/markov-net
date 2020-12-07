@@ -33,7 +33,7 @@ bool Substrate::positionFree(int pos) {
 	return std::none_of(positions.begin(), positions.end(), [pos](int complex){return complex == pos;});
 }
 
-void Substrate::findNickingmoments() {
+std::array<float, 2> Substrate::findNickingmoments() {
 	std::array<std::vector<float>, 2> nicks;
 	for (ModelInstance &protein : complexes) {
 		if (protein.nick1 != -1) {
@@ -43,12 +43,14 @@ void Substrate::findNickingmoments() {
 			nicks.at(1).push_back(protein.nick2);
 		}
 	}
+	std::array<float, 2> nickingmoments {-1, -1};
 	if (!nicks.at(0).empty()) { //if never nicked, leave at -1
-		nick1 = *std::min_element(nicks.at(0).begin(), nicks.at(0).end());
+		nickingmoments.at(0) = *std::min_element(nicks.at(0).begin(), nicks.at(0).end());
 	}
 	if (!nicks.at(1).empty()) {
-		nick2 = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
+		nickingmoments.at(1) = *std::min_element(nicks.at(1).begin(), nicks.at(1).end());
 	}
+	return nickingmoments;
 }
 
 void Substrate::bindComplex(float bindingchance) {
@@ -79,11 +81,16 @@ void Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	numcomplexes = 1;
+	std::array<float, 2> nickingmoments{-1, -1};
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
 		currenttime = i * dt_diff;
 
 		if(i % stepsperreaction == 0) {
+			nickingmoments = findNickingmoments();
+			if (std::none_of(nickingmoments.begin(), nickingmoments.end(), [](float i){ return i < 0; })) {
+				break;
+			}
 			bindComplex(bindingchance);
 			for (auto &protein : complexes) {
 				if(protein.getState() != 0 && (protein.nick1<0 || protein.nick2<0)) {
@@ -101,7 +108,7 @@ void Substrate::main() {
 		}
 
 	}
-	currenttime = 0.0;
-
-	findNickingmoments();
+	std::cout << currenttime << std::endl;
+	nick1 = nickingmoments.at(0);
+	nick2 = nickingmoments.at(1);
 }

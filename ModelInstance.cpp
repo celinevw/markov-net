@@ -10,7 +10,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
-	totaltime = 5;
+	totaltime = 60;
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;

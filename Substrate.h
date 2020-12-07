@@ -20,18 +20,18 @@ private:
 	std::vector<int> positions;
 	int numcomplexes;
 public:
-	Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
-	Substrate();
-	void assign(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
-	bool positionFree(int pos);
 	std::vector<ModelInstance> complexes;
 	float currenttime{};
 	bool mult_loading{};
 	float nick1{};
 	float nick2{};
-	void main();
-	void findNickingmoments();
+	Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
+	Substrate();
+	void assign(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
+	bool positionFree(int pos);
+	std::array<float, 2> findNickingmoments();
 	void bindComplex(float bindingchance);
+	void main();
 };
 
 #endif //MARKOVNET_SUBSTRATE_H
