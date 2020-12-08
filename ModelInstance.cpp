@@ -85,8 +85,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	}
 
 	passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
-					  (std::abs((position - network.nickingsite1)) < stepsize
-					   || std::abs((position - network.nickingsite2)) < stepsize);
+					  (std::abs((position - network.mismatchsite)) < stepsize);
 }
 
 bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int edge) const {
