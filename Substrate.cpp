@@ -85,7 +85,16 @@ void Substrate::main() {
 	numcomplexes = 1;
 	std::array<float, 2> nickingmoments{-1, -1};
 
+	std::ofstream pos_str;
+	pos_str.open("positions.tsv");
+
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
+		/*
+		for (auto protein : positions) {
+			pos_str << protein << "\t";
+		}
+		pos_str << std::endl;
+		*/
 		currenttime = i * dt_diff;
 
 		if(i % stepsperreaction == 0) {
