@@ -119,6 +119,7 @@ void Substrate::main() {
 		}
 
 	}
+	pos_str.close();
 	std::cout << currenttime << std::endl;
 	nick1 = nickingmoments.at(0);
 	nick2 = nickingmoments.at(1);
