@@ -86,15 +86,18 @@ void Substrate::main() {
 	std::array<float, 2> nickingmoments{-1, -1};
 
 	std::ofstream pos_str;
-	pos_str.open("positions.tsv");
+	std::string pos_file = "positions.tsv";
+	pos_str.open(pos_file);
+	std::ofstream stepsize_str;
+	stepsize_str.open("stepsize.tsv");
+
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
-		/*
-		for (auto protein : positions) {
+		for (int &protein : positions) {
 			pos_str << protein << "\t";
 		}
 		pos_str << std::endl;
-		*/
+
 		currenttime = i * dt_diff;
 
 		if(i % stepsperreaction == 0) {
@@ -115,11 +118,13 @@ void Substrate::main() {
 				protein.setStep(positions);
 				protein.nicking();
 				protein.currenttime = currenttime;
+				stepsize_str << protein.stepsize << std::endl;
 			}
 		}
 
 	}
 	pos_str.close();
+	stepsize_str.close();
 	std::cout << currenttime << std::endl;
 	nick1 = nickingmoments.at(0);
 	nick2 = nickingmoments.at(1);

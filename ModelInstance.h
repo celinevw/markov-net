@@ -17,7 +17,6 @@ class ModelInstance{
 private:
 	int state;
 	int position;
-	int stepsize;
 	bool passed_mismatch;
 	float p_activate;
 	int my_index;
@@ -32,6 +31,7 @@ public:
 	float dt_react;
 	float totaltime;
 	float currenttime;
+	int stepsize;
 	std::array<std::vector<float>, 2> dimersactive;	//when MutS dimers are activated
 	std::vector<float> homotetramer;	// when complex is a homotetramer
 	std::vector<int> states;

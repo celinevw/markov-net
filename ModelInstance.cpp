@@ -10,7 +10,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
-	totaltime = 60;
+	totaltime = 90;
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;
@@ -134,8 +134,17 @@ void ModelInstance::transition(std::vector<int> &positions) {
 		if (x < threshold){
 			Si_bound = index / 6 == 1 || index % 6 == 1;
 
+			if (passed_mismatch && state % 6 == 1 && index == state + 1) {
+				// dimer 1 inactive and bound to mismatch but transitioning, don't transition
+				break;
+			}
+			else if (passed_mismatch && state / 6 == 1 && index == state + 6) {
+				// dimer 2 inactive and bound to mismatch but transition, don't transition
+				break;
+			}
+
 			state = index;
-			std::cout << "state:" << state << std::endl;
+			// std::cout << "state:" << state << std::endl;
 
 			if (! passed_mismatch || (passed_mismatch && !Si_bound)) {
 			// not passed mismatch, or stationary Si falls of then update stepsize.
@@ -157,12 +166,14 @@ void ModelInstance::activateS(){
 	}
 	if ((state / 6 != 1) || (state % 6 == 1 && x < (p_activate / 2))) {	// if only complex 1 can activate, or choose randomly between the two
 		state = state + 1;
+		// std::cout << "state:" << state << std::endl;
 		dimersactive.at(0).push_back(currenttime);
 		updateStep();
 		// std::cout << "activate complex 1" << currenttime << std::endl;
 	}
 	else {										// if only complex 2 can activate, or choose randomly
 		state = state + 6;
+		// std::cout << "state:" << state << std::endl;
 		dimersactive.at(1).push_back(currenttime);
 		updateStep();
 		// std::cout << "activate complex 2" << currenttime << std::endl;
@@ -175,9 +186,11 @@ void ModelInstance::nicking(){
 		float p_nick = 1;
 		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
 			nick1 = currenttime;
+			// std::cout << my_index << "\t" << currenttime << "\t" << 1 << std::endl;
 		}
 		if (std::abs((position - network.nickingsite2)) < stepsize && nick2 < 0 && x < p_nick){
 			nick2 = currenttime;
+			// std::cout << my_index << "\t" << currenttime << "\t" << 2 << std::endl;
 		}
 	}
 }
@@ -192,12 +205,11 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 
 	states.at(timeindex/stepsperreaction) = state;
 
-	if (!passed_mismatch) {
-		transition(positions);
-	}
-	else if (dist(gen) < network.activationS){
+	//ToDo: let other dimer transition
+	transition(positions);
+	if (passed_mismatch && dist(gen) < network.activationS) {
 		activateS();
-		std::cout << "activated S " << currenttime << std::endl;
+		// std::cout << "activated S " << currenttime << std::endl;
 		passed_mismatch = false;
 	}
 
@@ -212,7 +224,7 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 /* main method, one run of a model instance
  */
 void ModelInstance::main(std::vector<int> &positions) {
-	std::cout << currenttime << "\tModelinstance" << std::endl;
+	// std::cout << currenttime << "\tModelinstance" << std::endl;
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int i = currenttime / dt_diff;
 

@@ -9,7 +9,7 @@ int main(int argc, char ** arg) {
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 1;
-	bool multiple_loading = true;
+	bool multiple_loading = false;
 
 	UniformDistribution unif(0,1);
 	std::vector<Substrate*> sims; // create vector of pointers to model objects
@@ -17,11 +17,15 @@ int main(int argc, char ** arg) {
 		sims.push_back(new Substrate(network, myparameters, multiple_loading, unif.getRandomNumber()*1000));
 	}
 
+	int done = 0;
+
 #pragma omp parallel
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
 			sims.at(i)->main();
+			done += 1;
+			std::cout << done << std::endl;
 		}
 	}
 
