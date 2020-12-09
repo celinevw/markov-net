@@ -54,6 +54,9 @@ std::array<float, 2> Substrate::findNickingmoments() {
 }
 
 void Substrate::bindComplex(float bindingchance) {
+	if (!mult_loading){
+		return;
+	}
 	float x = dist(gen);
 	int binding_position = int_dist(gen);
 
