@@ -129,6 +129,7 @@ void ModelInstance::transition(std::vector<int> &positions) {
 	std::array<float, 36> cumulative{};
 	std::partial_sum(network.transitions.at(state).begin(), network.transitions.at(state).end(), cumulative.begin());
 	int index = 0;
+	bool Si_bound;
 	for (float threshold : cumulative){
 		if (x < threshold){
 			Si_bound = index / 6 == 1 || index % 6 == 1;
