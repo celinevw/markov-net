@@ -66,16 +66,13 @@ void Substrate::bindComplex(float bindingchance) {
 }
 
 void Substrate::main() {
-	if (!mult_loading) {
+	if (mult_loading) {
+		complexes.emplace_back(network, parameters, gen, 0, currenttime, dist(gen));
+	}
+	else {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, network.mismatchsite);
-		positions.push_back(complexes.at(0).getPosition());
-		complexes.at(0).main(positions);
-		nick1 = complexes.at(0).nick1;
-		nick2 = complexes.at(0).nick2;
-		return;
 	}
 
-	complexes.emplace_back(network, parameters, gen, 0, currenttime, dist(gen));
 	positions.push_back(complexes.at(0).getPosition());
 
 	float dt_react = complexes.at(0).dt_react;
