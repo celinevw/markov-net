@@ -86,10 +86,13 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 
 	passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 					  (std::abs((position - network.mismatchsite)) < stepsize);
+	if(passed_mismatch){
+		std::cout << "passed mismatch " << currenttime << std::endl;
+		stepsize = 0;
+	}
 }
 
 bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int edge) const {
-	//ToDo deal with circular and jumping over
 	if (newposition < 0) {
 		return true;
 	}
@@ -159,12 +162,14 @@ void ModelInstance::activateS(){
 	if ((state / 6 != 1) || (state % 6 == 1 && x < (p_activate / 2))) {	// if only complex 1 can activate, or choose randomly between the two
 		state = state + 1;
 		dimersactive.at(0).push_back(currenttime);
-		//std::cout << "activate complex 1" << std::endl;
+		updateStep();
+		// std::cout << "activate complex 1" << currenttime << std::endl;
 	}
 	else {										// if only complex 2 can activate, or choose randomly
 		state = state + 6;
 		dimersactive.at(1).push_back(currenttime);
-		//std::cout << "activate complex 2" << std::endl;
+		updateStep();
+		// std::cout << "activate complex 2" << currenttime << std::endl;
 	}
 }
 
@@ -191,11 +196,12 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 
 	states.at(timeindex/stepsperreaction) = state;
 
-	if (passed_mismatch) {
+	if (!passed_mismatch) {
+		transition(positions);
+	}
+	else if (dist(gen) < network.activationS){
 		activateS();
 		passed_mismatch = false;
-	} else {
-		transition(positions);
 	}
 
 	if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
