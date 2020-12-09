@@ -84,11 +84,13 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 		positions.at(my_index) = position;
 	}
 
-	passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
-					  (std::abs((position - network.mismatchsite)) < stepsize);
-	if(passed_mismatch){
-		std::cout << "passed mismatch " << currenttime << std::endl;
-		stepsize = 0;
+	if (!passed_mismatch) {
+		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
+						  (std::abs((position - network.mismatchsite)) < stepsize);
+		if(passed_mismatch){
+			std::cout << "passed mismatch " << currenttime << std::endl;
+			stepsize = 0;
+		}
 	}
 }
 
@@ -129,20 +131,13 @@ void ModelInstance::transition(std::vector<int> &positions) {
 	int index = 0;
 	for (float threshold : cumulative){
 		if (x < threshold){
-			//It is not one of transitions where S is activated
-			bool activatingS = (state / 6 == 1 && index == state + 6) ||
-							   (state % 6 == 1 && index == state + 1);
-			if (!activatingS){
-				if (state % 6 >= 2 && index == state - (state % 6)) {
-					dimersactive.at(0).push_back(currenttime);
-					//std::cout << "inactivate complex 1" << std::endl;
-				}
-				if (state / 6 >= 2 && index == state % 6) {
-					dimersactive.at(1).push_back(currenttime);
-					//std::cout << "inactivate complex 2" << std::endl;
-				}
-				// if not adding Si, position does not matter, else make sure it is close enough or do nothing
-				state = index;
+			Si_bound = index / 6 == 1 || index % 6 == 1;
+
+			state = index;
+			std::cout << "state:" << state << std::endl;
+
+			if (! passed_mismatch || (passed_mismatch && !Si_bound)) {
+			// not passed mismatch, or stationary Si falls of then update stepsize.
 				updateStep();
 			}
 			if (state == 0) {
@@ -201,6 +196,7 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 	}
 	else if (dist(gen) < network.activationS){
 		activateS();
+		std::cout << "activated S " << currenttime << std::endl;
 		passed_mismatch = false;
 	}
 
