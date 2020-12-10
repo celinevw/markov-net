@@ -88,7 +88,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 						  (std::abs((position - network.mismatchsite)) < stepsize);
 		if(passed_mismatch){
-			std::cout << "passed mismatch " << currenttime << std::endl;
+			//std::cout << "passed mismatch " << currenttime << std::endl;
 			stepsize = 0;
 		}
 	}
@@ -205,7 +205,6 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 
 	states.at(timeindex/stepsperreaction) = state;
 
-	//ToDo: let other dimer transition
 	transition(positions);
 	if (passed_mismatch && dist(gen) < network.activationS) {
 		activateS();

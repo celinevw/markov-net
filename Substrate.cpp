@@ -65,6 +65,7 @@ void Substrate::bindComplex(float bindingchance) {
 		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
 		positions.push_back(complexes.at(numcomplexes).getPosition());
 		numcomplexes += 1;
+		// std::cout << numcomplexes << std::endl;
 	}
 }
 
@@ -88,9 +89,6 @@ void Substrate::main() {
 	std::ofstream pos_str;
 	std::string pos_file = "positions.tsv";
 	pos_str.open(pos_file);
-	std::ofstream stepsize_str;
-	stepsize_str.open("stepsize.tsv");
-
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
 		for (int &protein : positions) {
@@ -118,14 +116,13 @@ void Substrate::main() {
 				protein.setStep(positions);
 				protein.nicking();
 				protein.currenttime = currenttime;
-				stepsize_str << protein.stepsize << std::endl;
 			}
 		}
 
 	}
+	pos_str << numcomplexes << std::endl;
 	pos_str.close();
-	stepsize_str.close();
-	std::cout << currenttime << std::endl;
+	// std::cout << currenttime << std::endl;
 	nick1 = nickingmoments.at(0);
 	nick2 = nickingmoments.at(1);
 }
