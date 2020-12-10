@@ -50,12 +50,15 @@ int ModelInstance::getPosition() const {
  * If so, update step, else don't.
  */
 void ModelInstance::setStep(std::vector<int> &positions) {
+	if (stepsize == 0) {
+		return;
+	}
 	float x = dist(gen);
 	// Choose direction
 	int direction;
 	int edge = 0;
 	int newposition = position;
-	if(x<0.5){
+	if(x < 0.5){
 		direction = -1;
 	}
 	else{
@@ -82,20 +85,23 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	if(newposition != position && stepPossible(positions, newposition, edge)) {
 		position = newposition;
 		positions.at(my_index) = position;
-	}
 
-	if (!passed_mismatch) {
-		passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
-						  (std::abs((position - network.mismatchsite)) < stepsize);
-		if(passed_mismatch){
-			//std::cout << "passed mismatch " << currenttime << std::endl;
-			stepsize = 0;
+		if (!passed_mismatch) {
+			// Only allow if step taken. If there was another complex already there, step could not have been taken
+			passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
+							  (std::abs((position - network.mismatchsite)) < stepsize);
+			if(passed_mismatch){
+				//std::cout << "passed mismatch " << currenttime << std::endl;
+				position = network.mismatchsite;
+				stepsize = 0;
+			}
 		}
 	}
+
 }
 
 bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int edge) const {
-	if (newposition < 0) {
+	if (newposition < 0 || positions.size()==1) {
 		return true;
 	}
 

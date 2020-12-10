@@ -19,7 +19,7 @@ int main(int argc, char ** arg) {
 
 	int done = 0;
 
-#pragma omp parallel
+#pragma omp parallel num_threads(30)
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
