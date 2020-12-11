@@ -61,10 +61,14 @@ void NetworkArray::assign(ParameterObj par) {
 												  0.0, 0.0,
 												  0.0, H_off * dt_react};
 	transitions.fill({0});
+	diffusion.fill({0});
 
 	float i_next, j_next;
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {
+		i = l / numstates;
+		j = l % numstates;
+
 		// Fill diffusion constants
 		if (single_diff.at(i) == 0){
 			diffusion.at(l) = single_diff.at(j);
@@ -76,11 +80,17 @@ void NetworkArray::assign(ParameterObj par) {
 			diffusion.at(l) = pow(pow(single_diff.at(i), -1) + pow(single_diff.at(j), -1), -1);
 		}
 
+		// Add transitions for unbinding first, so zeroes can be overwritten by next-state transitions
+		transitions.at(l).at(j) = transition_Soff.at(i);
+		transitions.at(l).at(i * numstates) = transition_Soff.at(j);
+		transitions.at(l).at(2 * numstates + j) = transition_Loff.at(i);
+		transitions.at(l).at(i * numstates + 2) = transition_Loff.at(j);
+		transitions.at(l).at(4 * numstates + j) = transition_Hoff.at(i);
+		transitions.at(l).at(i * numstates + 4) = transition_Hoff.at(j);
+
 		/* Add transitions for going to the next state
 		 * Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
 		 */
-		i = l / numstates;
-		j = l % numstates;
 		i_next = i < numstates - 1 ? (1 - nextstate.at(i)) : 1;    // if not at SLH, p of not going to the next state
 		j_next = j < numstates - 1 ? (1 - nextstate.at(j)) : 1;
 
@@ -96,13 +106,6 @@ void NetworkArray::assign(ParameterObj par) {
 			}
 		}
 
-		// Add transitions for unbinding
-		transitions.at(l).at(j) = transition_Soff.at(i);
-		transitions.at(l).at(i * numstates) = transition_Soff.at(j);
-		transitions.at(l).at(2 * numstates + j) = transition_Loff.at(i);
-		transitions.at(l).at(i * numstates + 2) = transition_Loff.at(j);
-		transitions.at(l).at(4 * numstates + j) = transition_Hoff.at(i);
-		transitions.at(l).at(i * numstates + 4) = transition_Hoff.at(j);
 	}
 }
 
