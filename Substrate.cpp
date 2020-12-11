@@ -65,13 +65,13 @@ void Substrate::bindComplex(float bindingchance) {
 		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
 		positions.push_back(complexes.at(numcomplexes).getPosition());
 		numcomplexes += 1;
-		// std::cout << numcomplexes << std::endl;
+		// std::cout << numcomplexes << "\t" << currenttime << std::endl;
 	}
 }
 
 void Substrate::main() {
 	if (mult_loading) {
-		complexes.emplace_back(network, parameters, gen, 0, currenttime, dist(gen));
+		complexes.emplace_back(network, parameters, gen, 0, currenttime, int_dist(gen));
 	}
 	else {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, network.mismatchsite);

@@ -153,7 +153,7 @@ void ModelInstance::transition(std::vector<int> &positions) {
 			// std::cout << "state:" << state << std::endl;
 
 			if (! passed_mismatch || (passed_mismatch && !Si_bound)) {
-			// not passed mismatch, or stationary Si falls of then update stepsize.
+				// not passed mismatch, or stationary Si falls of then update stepsize.
 				updateStep();
 			}
 			if (state == 0) {

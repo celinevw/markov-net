@@ -9,12 +9,14 @@ int main(int argc, char ** arg) {
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 1;
-	bool multiple_loading = false;
+	bool multiple_loading = true;
 
 	UniformDistribution unif(0,1);
+	std::uint64_t sd;
 	std::vector<Substrate*> sims; // create vector of pointers to model objects
 	for (int i=0; i<num_sims; i++){
-		sims.push_back(new Substrate(network, myparameters, multiple_loading, unif.getRandomNumber()*1000));
+		sd = unif.getRandomNumber() * 1000;
+		sims.push_back(new Substrate(network, myparameters, multiple_loading, sd));
 	}
 
 	int done = 0;
