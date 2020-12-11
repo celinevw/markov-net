@@ -31,12 +31,12 @@ void NetworkArray::assign(ParameterObj par) {
 	float L_on = 1.27e7;		// per M per second
 	float H_on = 1e7;			// per M per second
 	float S_change = 0.44; 		// per second
-	float L_change = 1/8.0;		// per second
-	float S_off = 1/32.2;		// per second
-	float Sa_off = 1/683.0;		// per second
-	float SL_off = 1/32.0;		// per second
-	float SLa_off = 1/851.0;	// per second
-	float SLH_off = 1/197.0;	// per second
+	float L_change = 1 / 8.0;		// per second
+	float S_off = 1 / 32.2;		// per second
+	float Sa_off = 1 / 683.0;		// per second
+	float L_off = 1 / 32.0;		// per second
+	float La_off = 1 / 851.0;	// per second
+	float H_off = 1 / 197.0;	// per second
 	float S_conc = par.S_conc;	// M
 	float L_conc = par.L_conc;	// M
 	float H_conc = par.H_conc;	// M
@@ -50,46 +50,22 @@ void NetworkArray::assign(ParameterObj par) {
 	const int numstates = 6;
 	std::array<float,numstates-1> nextstate {S_on * S_conc * dt_react, 0, L_on * L_conc * dt_react,
 											 RateToProbability(L_change, dt_react), H_on * H_conc * dt_react};
-	std::array<float,numstates-1> unbinding {S_off * dt_react, Sa_off * dt_react,SL_off * dt_react,
-											 SLa_off * dt_react, SLH_off * dt_react};
 
+	std::array<float, numstates> transition_Soff {0.0, S_off * dt_react,
+												  Sa_off * dt_react, Sa_off * dt_react,
+												  Sa_off * dt_react, Sa_off * dt_react};
+	std::array<float, numstates> transition_Loff {0.0, 0.0,
+												  0.0, L_off * dt_react,
+												  La_off * dt_react, La_off * dt_react};
+	std::array<float, numstates> transition_Hoff {0.0, 0.0,
+												  0.0, 0.0,
+												  0.0, H_off * dt_react};
 	transitions.fill({0});
 
-	float i_next, i_unbind, j_next, j_unbind;
+	float i_next, j_next;
 	int i,j;
 	for (int l = 0; l < numstates*numstates; l++) {
-		i = l/numstates;
-		j = l%numstates;
-
-		i_next = i < numstates - 1 ? (1 - nextstate.at(i)) : 1;	// if not at SLH, p of not going to the next state
-		i_unbind = i > 0 && i < numstates ? (1 - unbinding.at(i - 1)) : 1;	// if not 'none', p of falling off
-		j_next = j < numstates - 1 ? (1 - nextstate.at(j)) : 1;
-		j_unbind = j > 0 && j < numstates? (1 - unbinding.at(j - 1)) : 1;
-
-		// state1 goes to the next state
-		if (l != 0 && j < numstates - 1) {
-			transitions.at(l).at(l+1) = nextstate.at(j) * i_next * i_unbind * j_unbind;
-		}
-
-		if(!onlydimers){
-			//state2 goes to the next state
-			if (l != 0 && i < numstates - 1) {
-				transitions.at(l).at(l+numstates) = nextstate.at(i) * j_next * i_unbind * j_unbind;
-			}
-		}
-
-		/* Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
-		 * Binding or conformational change only occurs if the complex does not fall off.
-		 * A complex cannot fall off if it is not attached yet
-		 */
-
-		if(j != 0) {
-			transitions.at(l).at(i*numstates) = unbinding.at(j-1);
-		}
-		if(i != 0) {
-			transitions.at(l).at(j) = unbinding.at(i-1);
-		}
-
+		// Fill diffusion constants
 		if (single_diff.at(i) == 0){
 			diffusion.at(l) = single_diff.at(j);
 		}
@@ -99,6 +75,34 @@ void NetworkArray::assign(ParameterObj par) {
 		else{
 			diffusion.at(l) = pow(pow(single_diff.at(i), -1) + pow(single_diff.at(j), -1), -1);
 		}
+
+		/* Add transitions for going to the next state
+		 * Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
+		 */
+		i = l / numstates;
+		j = l % numstates;
+		i_next = i < numstates - 1 ? (1 - nextstate.at(i)) : 1;    // if not at SLH, p of not going to the next state
+		j_next = j < numstates - 1 ? (1 - nextstate.at(j)) : 1;
+
+		// state1 goes to the next state
+		if (l != 0 && j < numstates - 1) {
+			transitions.at(l).at(l + 1) = nextstate.at(j) * i_next;
+		}
+
+		//state2 goes to the next state, if tetramer. only one can transition.
+		if (!onlydimers) {
+			if (l != 0 && i < numstates - 1) {
+				transitions.at(l).at(l + numstates) = nextstate.at(i) * j_next;
+			}
+		}
+
+		// Add transitions for unbinding
+		transitions.at(l).at(j) = transition_Soff.at(i);
+		transitions.at(l).at(i * numstates) = transition_Soff.at(j);
+		transitions.at(l).at(2 * numstates + j) = transition_Loff.at(i);
+		transitions.at(l).at(i * numstates + 2) = transition_Loff.at(j);
+		transitions.at(l).at(4 * numstates + j) = transition_Hoff.at(i);
+		transitions.at(l).at(i * numstates + 4) = transition_Hoff.at(j);
 	}
 }
 
