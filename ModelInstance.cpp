@@ -87,13 +87,16 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 		positions.at(my_index) = position;
 
 		if (!passed_mismatch) {
-			// Only allow if step taken. If there was another complex already there, step could not have been taken
 			passed_mismatch = (state / 6 == 1 || state % 6 == 1) &&
 							  (std::abs((position - network.mismatchsite)) < stepsize);
-			if(passed_mismatch){
-				//std::cout << "passed mismatch " << currenttime << std::endl;
-				position = network.mismatchsite;
+			if(passed_mismatch & stepPossible(positions, network.mismatchsite, 0)) {
+				// std::cout << my_index << " passed mismatch " << currenttime << std::endl;
 				stepsize = 0;
+				position = network.mismatchsite;
+				positions.at(my_index) = position;
+			}
+			else {
+				passed_mismatch = false;
 			}
 		}
 	}
@@ -175,14 +178,14 @@ void ModelInstance::activateS(){
 		// std::cout << "state:" << state << std::endl;
 		dimersactive.at(0).push_back(currenttime);
 		updateStep();
-		// std::cout << "activate complex 1" << currenttime << std::endl;
+		// std::cout << my_index << " activate complex 1 " << currenttime << std::endl;
 	}
 	else {										// if only complex 2 can activate, or choose randomly
 		state = state + 6;
 		// std::cout << "state:" << state << std::endl;
 		dimersactive.at(1).push_back(currenttime);
 		updateStep();
-		// std::cout << "activate complex 2" << currenttime << std::endl;
+		// std::cout << my_index << " activate complex 2 " << currenttime << std::endl;
 	}
 }
 

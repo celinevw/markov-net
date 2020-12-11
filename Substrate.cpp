@@ -86,15 +86,29 @@ void Substrate::main() {
 	numcomplexes = 1;
 	std::array<float, 2> nickingmoments{-1, -1};
 
+	/*
 	std::ofstream pos_str;
 	std::string pos_file = "positions.tsv";
 	pos_str.open(pos_file);
+	*/
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
+		/*
 		for (int &protein : positions) {
 			pos_str << protein << "\t";
 		}
 		pos_str << std::endl;
+
+		int at_mismatch = 0;
+		for (int &protein : positions) {
+			if (protein == 750) {
+				at_mismatch += 1;
+			}
+		}
+		if (at_mismatch > 1 ){
+			std::cout << "multiple at mismatch" << std::endl;
+		}
+		*/
 
 		currenttime = i * dt_diff;
 
@@ -120,8 +134,10 @@ void Substrate::main() {
 		}
 
 	}
+	/*
 	pos_str << numcomplexes << std::endl;
 	pos_str.close();
+	*/
 	// std::cout << currenttime << std::endl;
 	nick1 = nickingmoments.at(0);
 	nick2 = nickingmoments.at(1);
