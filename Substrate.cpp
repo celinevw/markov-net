@@ -29,8 +29,10 @@ Substrate::Substrate() {
 	assign(mynet, myparameters, sd, false);
 }
 
-bool Substrate::positionFree(int pos) {
-	return std::none_of(positions.begin(), positions.end(), [pos](int complex){return complex == pos;});
+bool Substrate::positionFree(int pos, int footprint) {
+	return std::none_of(positions.begin(), positions.end(), [pos, footprint](int complex){
+		return std::abs(complex - pos) <= footprint/2;
+	});
 }
 
 std::array<float, 2> Substrate::findNickingmoments() {
@@ -53,7 +55,7 @@ std::array<float, 2> Substrate::findNickingmoments() {
 	return nickingmoments;
 }
 
-void Substrate::bindComplex(float bindingchance) {
+void Substrate::bindComplex(float bindingchance, int footprint) {
 	if (!mult_loading){
 		return;
 	}
@@ -61,7 +63,7 @@ void Substrate::bindComplex(float bindingchance) {
 	int binding_position = int_dist(gen);
 
 	//binding moment: chance allows and mismatch not occupied
-	if (x < bindingchance && positionFree(binding_position)) {
+	if (x < bindingchance && positionFree(binding_position, footprint)) {
 		complexes.emplace_back(network, parameters, gen, numcomplexes, currenttime, binding_position);
 		positions.push_back(complexes.at(numcomplexes).getPosition());
 		numcomplexes += 1;
@@ -83,6 +85,7 @@ void Substrate::main() {
 	float dt_diff = complexes.at(0).dt_diff;
 	float bindingchance = network.transitions.at(1).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
+	int footprint = complexes.at(0).mutS_footprint;
 	numcomplexes = 1;
 	std::array<float, 2> nickingmoments{-1, -1};
 
@@ -90,6 +93,7 @@ void Substrate::main() {
 	std::ofstream pos_str;
 	std::string pos_file = "positions.tsv";
 	pos_str.open(pos_file);
+	pos_str << parameters.S_conc << "\t"  << parameters.L_conc << "\t" << parameters.H_conc << "\t" << parameters.top << "\t" << parameters.subs << "\t" << mult_loading << std::endl;
 	*/
 
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
@@ -117,7 +121,7 @@ void Substrate::main() {
 			if (std::none_of(nickingmoments.begin(), nickingmoments.end(), [](float i){ return i < 0; })) {
 				break;
 			}
-			bindComplex(bindingchance);
+			bindComplex(bindingchance, footprint);
 			for (auto &protein : complexes) {
 				if(protein.getState() != 0 && (protein.nick1<0 || protein.nick2<0)) {
 					protein.reactionStep(i, positions);

@@ -28,9 +28,9 @@ public:
 	Substrate(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
 	Substrate();
 	void assign(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
-	bool positionFree(int pos);
+	bool positionFree(int pos, int footprint);
 	std::array<float, 2> findNickingmoments();
-	void bindComplex(float bindingchance);
+	void bindComplex(float bindingchance, int footprint);
 	void main();
 };
 

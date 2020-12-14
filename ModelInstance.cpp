@@ -19,6 +19,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	p_activate = 1;
 	topology = par.top;
 	my_index = ind;
+	mutS_footprint = 10;
 
 	dimersactive = std::array<std::vector<float>, 2> {};
 	homotetramer = std::vector<float>{};
@@ -100,7 +101,6 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 			}
 		}
 	}
-
 }
 
 bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, int edge) const {
@@ -109,16 +109,16 @@ bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, i
 	}
 
 	for (int i = 0; i < positions.size(); i++) {
-		if (edge == 0 && i!= my_index && ((newposition <= positions.at(i) && positions.at(i) < position)
-			|| (position < positions.at(i) && positions.at(i) <= newposition))) {
+		if (edge == 0 && i!= my_index && ((newposition + mutS_footprint <= positions.at(i) && positions.at(i) < position)
+			|| (position < positions.at(i) && positions.at(i) <= newposition - mutS_footprint))) {
 			return false;
 		}
 		else if (edge == -1 && i != my_index &&
-		((positions.at(i)>=0 && positions.at(i) <= position) || positions.at(i) >= newposition)) {
+		((positions.at(i)>=0 && positions.at(i) <= position) || positions.at(i) >= newposition - mutS_footprint)) {
 			return false;
 		}
 		else if (edge == 1 && i != my_index &&
-		(positions.at(i) > position || (positions.at(i) >=0 && positions.at(i) <= newposition))) {
+		(positions.at(i) > position || (positions.at(i) >=0 && positions.at(i) <= newposition + mutS_footprint))) {
 			return false;
 		}
 	}
@@ -175,14 +175,12 @@ void ModelInstance::activateS(){
 	}
 	if ((state / 6 != 1) || (state % 6 == 1 && x < (p_activate / 2))) {	// if only complex 1 can activate, or choose randomly between the two
 		state = state + 1;
-		// std::cout << "state:" << state << std::endl;
 		dimersactive.at(0).push_back(currenttime);
 		updateStep();
 		// std::cout << my_index << " activate complex 1 " << currenttime << std::endl;
 	}
 	else {										// if only complex 2 can activate, or choose randomly
 		state = state + 6;
-		// std::cout << "state:" << state << std::endl;
 		dimersactive.at(1).push_back(currenttime);
 		updateStep();
 		// std::cout << my_index << " activate complex 2 " << currenttime << std::endl;
