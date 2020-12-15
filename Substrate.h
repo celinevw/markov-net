@@ -31,7 +31,7 @@ public:
 	bool positionFree(int pos, int footprint);
 	std::array<float, 2> findNickingmoments();
 	void bindComplex(float bindingchance, int footprint);
-	void main();
+	std::vector<std::vector<int>> main();
 };
 
 #endif //MARKOVNET_SUBSTRATE_H

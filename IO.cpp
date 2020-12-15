@@ -140,5 +140,17 @@ void IO::writeStates(std::vector<std::array<int, 36>> states_arr, std::string fi
 		outstream << std::endl;
 	}
 	outstream.close();
+}
 
+void IO::writeAllPositions(std::vector<std::vector<std::vector<int>>> &allpos_arr, std::string filename, int timesteps) {
+	std::ofstream outstream;
+	outstream.open(filename, std::ios::app);
+	for (int i=0; i<timesteps-1; i++) {
+		for (auto &substrate : allpos_arr) {
+			for (auto &complex : substrate.at(i)) {
+				outstream << complex << "\t";
+			}
+		}
+		outstream << std::endl;
+	}
 }

@@ -78,7 +78,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	else if (topology == linear){
 		// fall off, go to none-none state
 		state = 0;
-		newposition = -1;
+		newposition = -30;
 		updateStep();
 	}
 	// if endblocked, do not take a step.
@@ -160,7 +160,7 @@ void ModelInstance::transition(std::vector<int> &positions) {
 				updateStep();
 			}
 			if (state == 0) {
-				positions.at(my_index) = -1;
+				positions.at(my_index) = -30;
 			}
 			break;
 		}

@@ -71,7 +71,7 @@ void Substrate::bindComplex(float bindingchance, int footprint) {
 	}
 }
 
-void Substrate::main() {
+std::vector<std::vector<int>> Substrate::main() {
 	if (mult_loading) {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, int_dist(gen));
 	}
@@ -88,6 +88,7 @@ void Substrate::main() {
 	int footprint = complexes.at(0).mutS_footprint;
 	numcomplexes = 1;
 	std::array<float, 2> nickingmoments{-1, -1};
+	std::vector<std::vector<int>> positions_vec;
 
 	/*
 	std::ofstream pos_str;
@@ -127,6 +128,9 @@ void Substrate::main() {
 					protein.reactionStep(i, positions);
 				}
 			}
+
+			// Save all positions
+			positions_vec.push_back(positions);
 		}
 
 		for (auto &protein: complexes) {
@@ -145,4 +149,6 @@ void Substrate::main() {
 	// std::cout << currenttime << std::endl;
 	nick1 = nickingmoments.at(0);
 	nick2 = nickingmoments.at(1);
+
+	return positions_vec;
 }

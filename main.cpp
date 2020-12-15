@@ -20,14 +20,17 @@ int main(int argc, char ** arg) {
 	}
 
 	int done = 0;
+	std::vector<std::vector<std::vector<int>>> allpositions;
 
 #pragma omp parallel num_threads(30)
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
-			sims.at(i)->main();
+			allpositions.push_back(sims.at(i)->main());
 			done += 1;
-			std::cout << done << std::endl;
+			if (done % 10 == 0) {
+				std::cout << done << std::endl;
+			}
 		}
 	}
 
@@ -60,6 +63,7 @@ int main(int argc, char ** arg) {
 		}
 	}
 
+	/*
 	// Create table activations over time
 	bool first_bound;
 	bool second_bound;
@@ -133,6 +137,7 @@ int main(int argc, char ** arg) {
 			states_arr.at(i).at(currentstate) += 1;
 		}
 	}
+	*/
 
 	std::ofstream out;
 
@@ -151,6 +156,13 @@ int main(int argc, char ** arg) {
 	out.close();
 	myIO.writeNicking(nicking_arr, nicking_file);
 
+	// Save all positions over time
+	std::string allpos_file = "allpositions.tsv";
+	out.open(allpos_file);
+	out << totaltime << "\t" << dt_reaction << "\t" << num_sims << std::endl;
+	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << "\t" << multiple_loading << std::endl;
+	out.close();
+	myIO.writeAllPositions(allpositions, allpos_file, totaltime/dt_reaction);
 	/*
 	std::string singleState_file = "statesSingle.tsv";
 	out.open(singleState_file);
