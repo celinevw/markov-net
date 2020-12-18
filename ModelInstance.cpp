@@ -17,6 +17,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	currenttime = time;
 	passed_mismatch = false;
 	p_activate = 1;
+	p_nick = 1;
 	topology = par.top;
 	my_index = ind;
 	mutS_footprint = 10;
@@ -190,7 +191,6 @@ void ModelInstance::activateS(){
 void ModelInstance::nicking(){
 	float x = dist(gen);
 	if (state > 29 || state % 6 == 5){ // if one complex is SLH, possible nicking if not nicked yet
-		float p_nick = 1;
 		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
 			nick1 = currenttime;
 			// std::cout << my_index << "\t" << currenttime << "\t" << 1 << std::endl;

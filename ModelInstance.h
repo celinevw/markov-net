@@ -19,6 +19,7 @@ private:
 	int position;
 	bool passed_mismatch;
 	float p_activate;
+	float p_nick;
 	int my_index;
 	int stepsize;
 	NetworkArray network;
