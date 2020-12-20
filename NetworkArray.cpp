@@ -10,6 +10,7 @@ float RateToProbability(float x, float dt){
 
 void NetworkArray::assign(ParameterObj par) {
 	length = 2770;
+	// Save mismatch and nicking site positions depending on substrate type
 	if (par.subs == GT1A){
 		mismatchsite = 1730;
 		nickingsite1 = 690;		// far site
@@ -27,20 +28,20 @@ void NetworkArray::assign(ParameterObj par) {
 	}
 
 	dt_react = 0.025;				// seconds, Check with modelinstance and number of random numbers in main!
-	float S_on = 4.40e7;		// per M per second
-	float L_on = 1.27e7;		// per M per second
-	float H_on = 1e7;			// per M per second
-	float S_change = 0.44; 		// per second
-	float L_change = 1 / 8.0;		// per second
-	float S_off = 1 / 32.2;		// per second
-	float Sa_off = 1 / 683.0;		// per second
-	float L_off = 1 / 32.0;		// per second
-	float La_off = 1 / 851.0;	// per second
-	float H_off = 1 / 197.0;	// per second
-	float S_conc = par.S_conc;	// M
-	float L_conc = par.L_conc;	// M
-	float H_conc = par.H_conc;	// M
-	bool onlydimers = false;
+	const float S_on = 4.40e7;		// per M per second
+	const float L_on = 1.27e7;		// per M per second
+	const float H_on = 1e7;			// per M per second
+	const float S_change = 0.44; 		// per second
+	const float L_change = 1 / 8.0;		// per second
+	const float S_off = 1 / 32.2;		// per second
+	const float Sa_off = 1 / 683.0;		// per second
+	const float L_off = 1 / 32.0;		// per second
+	const float La_off = 1 / 851.0;	// per second
+	const float H_off = 1 / 197.0;	// per second
+	const float S_conc = par.S_conc;	// M
+	const float L_conc = par.L_conc;	// M
+	const float H_conc = par.H_conc;	// M
+	const bool onlydimers = false;
 
 	activationS = RateToProbability(S_change, dt_react);
 
@@ -65,6 +66,7 @@ void NetworkArray::assign(ParameterObj par) {
 
 	float i_next, j_next;
 	int i,j;
+	// Iterate over all states
 	for (int l = 0; l < numstates*numstates; l++) {
 		i = l / numstates;
 		j = l % numstates;
@@ -80,7 +82,7 @@ void NetworkArray::assign(ParameterObj par) {
 			diffusion.at(l) = pow(pow(single_diff.at(i), -1) + pow(single_diff.at(j), -1), -1);
 		}
 
-		// Add transitions for unbinding first, so zeroes can be overwritten by next-state transitions
+		// Add transitions for unbinding of a protein. Zeroes can be overwritten by next-state transitions
 		transitions.at(l).at(j) = transition_Soff.at(i);
 		transitions.at(l).at(i * numstates) = transition_Soff.at(j);
 		transitions.at(l).at(2 * numstates + j) = transition_Loff.at(i);
@@ -88,9 +90,8 @@ void NetworkArray::assign(ParameterObj par) {
 		transitions.at(l).at(4 * numstates + j) = transition_Hoff.at(i);
 		transitions.at(l).at(i * numstates + 4) = transition_Hoff.at(j);
 
-		/* Add transitions for going to the next state
-		 * Only one dimer can go to the next state. Both happening is not allowed, so don't add transition and ignore.
-		 */
+		// Add transitions for going to the next state. Only one dimer can go to the next state.
+		// Both happening is not allowed, so don't add transition and ignore.
 		i_next = i < numstates - 1 ? (1 - nextstate.at(i)) : 1;    // if not at SLH, p of not going to the next state
 		j_next = j < numstates - 1 ? (1 - nextstate.at(j)) : 1;
 

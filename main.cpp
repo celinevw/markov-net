@@ -8,7 +8,7 @@ int main(int argc, char ** arg) {
 	ParameterObj myparameters = myIO.read(argc, arg);
 
 	NetworkArray network(myparameters);		// Set up the network
-	const int num_sims = 1;
+	const int num_sims = 1000;
 	bool multiple_loading = true;
 
 	UniformDistribution unif(0,1);

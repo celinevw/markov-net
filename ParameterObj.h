@@ -7,7 +7,10 @@
 
 #include <string>
 
+// Enum indicating the type of substrate
 enum Substrate_type {GT1A, GT2A, GT2B};
+
+// Enum indicating the substrate topology
 enum Topology {circular, linear, endblocked};
 
 struct ParameterObj {

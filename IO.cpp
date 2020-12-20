@@ -44,6 +44,7 @@ void IO::momentsNicking(std::vector<Substrate *> sims, std::string filename) {
 	for (Substrate* model:sims) {
 		outstream << model->nick1 << "\t" << model->nick2 << std::endl;
 	}
+	outstream.close();
 }
 
 void IO::momentsActive(std::vector<ModelInstance*> sims, std::string filename){
