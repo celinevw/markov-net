@@ -115,6 +115,9 @@ bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, i
 	// Iterate over all complexes, check whether taking the step does not bring them too close to each other.
 	// If passing an edge on circular susbtrate, check both low and high positions of the substrate.
 	for (int i = 0; i < positions.size(); i++) {
+		if (positions.at(i) < 0 ){
+			continue;
+		}
 		if (edge == 0 && i!= my_index && ((newposition + mutS_footprint <= positions.at(i) && positions.at(i) < position)
 			|| (position < positions.at(i) && positions.at(i) <= newposition - mutS_footprint))) {
 			return false;
