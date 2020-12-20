@@ -76,11 +76,15 @@ void Substrate::bindComplex(float bindingchance, int footprint) {
 }
 
 std::vector<std::vector<int>> Substrate::main() {
-	// If no multiple loading, all complexes start at the mismatch. Otherwise rnadomly choose a position
+	// If no multiple loading, all complexes start at the mismatch. Otherwise randomly choose a position.
+	// If MutS concentration is 0, don't add any complexes
+	if (parameters.S_conc < 0){
+		return std::vector<std::vector<int>> {};
+	}
 	if (mult_loading) {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, int_dist(gen));
 	}
-	else {
+	else if (parameters.S_conc > 0){
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, network.mismatchsite);
 	}
 
