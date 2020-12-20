@@ -26,7 +26,7 @@ int main(int argc, char ** arg) {
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
-			allpositions.push_back(sims.at(i)->main());
+			sims.at(i)->main();
 			done += 1;
 			if (done % 10 == 0) {
 				std::cout << done << std::endl;
@@ -137,9 +137,6 @@ int main(int argc, char ** arg) {
 			states_arr.at(i).at(currentstate) += 1;
 		}
 	}
-	*/
-
-	std::ofstream out;
 
 	// Save nicking moments
 	std::string nickingmoment_file = "nicking_moments.tsv";
@@ -147,15 +144,21 @@ int main(int argc, char ** arg) {
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
 	out.close();
 	myIO.momentsNicking(sims, nickingmoment_file);
+	*/
 
+	std::ofstream out;
 	// Save nicking fractions over time
-	std::string nicking_file = "nicking.tsv";
+	std::string S = std::to_string(int(myparameters.S_conc * 1e9));
+	std::string L = std::to_string(int(myparameters.L_conc * 1e9));
+	std::string H = std::to_string(int(myparameters.H_conc * 1e9));
+	std::string nicking_file = "nicking"+S+"_"+L+"_"+H+".tsv";
 	out.open(nicking_file);
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
 	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << "\t" << multiple_loading << std::endl;
 	out.close();
 	myIO.writeNicking(nicking_arr, nicking_file);
 
+	/*
 	// Save all positions over time
 	std::string allpos_file = "allpositions.tsv";
 	out.open(allpos_file);
@@ -163,7 +166,7 @@ int main(int argc, char ** arg) {
 	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << "\t" << multiple_loading << std::endl;
 	out.close();
 	myIO.writeAllPositions(allpositions, allpos_file, totaltime/dt_reaction);
-	/*
+
 	std::string singleState_file = "statesSingle.tsv";
 	out.open(singleState_file);
 	out.close();

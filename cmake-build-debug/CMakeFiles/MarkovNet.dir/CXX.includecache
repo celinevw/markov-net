@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Celly/CLionProjects/MarkovNet/Distribution.cpp
-Distribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
 random
 -
@@ -28,10 +24,6 @@ map
 Substrate.h
 C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
 
-C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.cpp
-ModelInstance.h
-C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
 NetworkArray.h
 C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
@@ -48,10 +40,6 @@ cmath
 iostream
 -
 
-C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.cpp
-NetworkArray.h
-C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/NetworkArray.h
 array
 -
@@ -64,12 +52,6 @@ C:/Users/Celly/CLionProjects/MarkovNet/ParameterObj.h
 string
 -
 
-C:/Users/Celly/CLionProjects/MarkovNet/Substrate.cpp
-fstream
--
-Substrate.h
-C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
-
 C:/Users/Celly/CLionProjects/MarkovNet/Substrate.h
 vector
 -
@@ -79,22 +61,6 @@ algorithm
 -
 ModelInstance.h
 C:/Users/Celly/CLionProjects/MarkovNet/ModelInstance.h
-
-C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.cpp
-TestingDistributions.h
-C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
-
-C:/Users/Celly/CLionProjects/MarkovNet/TestingDistributions.h
-Distribution.h
-C:/Users/Celly/CLionProjects/MarkovNet/Distribution.h
-vector
--
-numeric
--
-algorithm
--
-tuple
--
 
 C:/Users/Celly/CLionProjects/MarkovNet/XoshiroCpp.hpp
 cstdint

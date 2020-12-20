@@ -18,7 +18,8 @@ ParameterObj IO::read(int argc, char **arg) {
 	parameters.H_conc = std::stof(arg[3]);
 
 	std::map<std::string, Topology> str_enum_top {
-			{"circular", circular}, {"linear", linear}, {"endblocked", endblocked}
+			{"circular", circular}, {"linear", linear}, {"endblocked", endblocked},
+			{"Circular", circular}, {"Linear", linear}, {"Endblocked", endblocked}
 	};
 	parameters.top = str_enum_top[arg[4]];
 

@@ -131,7 +131,7 @@ std::vector<std::vector<int>> Substrate::main() {
 			}
 
 			// Save all positions
-			positions_vec.push_back(positions);
+			// positions_vec.push_back(positions);
 		}
 
 		// Iterate over proteins for diffusion and nicking
