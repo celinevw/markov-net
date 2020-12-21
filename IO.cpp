@@ -10,8 +10,8 @@ ParameterObj IO::read(int argc, char **arg) {
 		return parameters;
 	}
 
-	if (argc != 6){
-		std::cerr << "usage: " << arg[0] << " Sconc Lconc Hconc topology substrate" << std::endl;
+	if (argc != 7){
+		std::cerr << "usage: " << arg[0] << " Sconc Lconc Hconc topology substrate multipleloading" << std::endl;
 	}
 	parameters.S_conc = std::stof(arg[1]);
 	parameters.L_conc = std::stof(arg[2]);
@@ -24,9 +24,10 @@ ParameterObj IO::read(int argc, char **arg) {
 	parameters.top = str_enum_top[arg[4]];
 
 	std::map<std::string, Substrate_type> str_enum_subs {
-			{"GT1A", GT1A}, {"GT2A", GT2A}, {"GT2B", GT2B}
+			{"GT1A", GT1A}, {"GT2A", GT2A}, {"GT2B", GT2B}, {"AT1A", AT1A}
 	};
 	parameters.subs = str_enum_subs[arg[5]];
+	parameters.multipleloading = std::string(arg[6]).std::string::compare("True") == 0;
 	return parameters;
 }
 

@@ -26,6 +26,11 @@ void NetworkArray::assign(ParameterObj par) {
 		nickingsite1 = 690;
 		nickingsite2 = 1760;
 	}
+	else if (par.subs == AT1A){
+		mismatchsite = -200;	// never reached
+		nickingsite1 = 690;		// far site
+		nickingsite2 = -200;	// never reached
+	}
 
 	dt_react = 0.025;				// seconds, Check with modelinstance and number of random numbers in main!
 	const float S_on = 4.40e7;		// per M per second

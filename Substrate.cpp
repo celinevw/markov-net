@@ -78,13 +78,13 @@ void Substrate::bindComplex(float bindingchance, int footprint) {
 std::vector<std::vector<int>> Substrate::main() {
 	// If no multiple loading, all complexes start at the mismatch. Otherwise randomly choose a position.
 	// If MutS concentration is 0, don't add any complexes
-	if (parameters.S_conc < 0){
+	if (parameters.S_conc <= 0){
 		return std::vector<std::vector<int>> {};
 	}
-	if (mult_loading) {
+	if (mult_loading || network.mismatchsite < 0) {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, int_dist(gen));
 	}
-	else if (parameters.S_conc > 0){
+	else {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, network.mismatchsite);
 	}
 
@@ -95,6 +95,10 @@ std::vector<std::vector<int>> Substrate::main() {
 	float bindingchance = network.transitions.at(1).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int footprint = complexes.at(0).mutS_footprint;
+
+	int numGATC = 0;
+	numGATC = parameters.subs == GT2A || parameters.subs == GT2B ? 2 : 1;
+
 	numcomplexes = 1;
 	std::array<float, 2> nickingmoments{-1, -1};
 	std::vector<std::vector<int>> positions_vec;
@@ -120,7 +124,7 @@ std::vector<std::vector<int>> Substrate::main() {
 		// Reaction step occurs once in stepsperreaction diffusion steps
 		if(i % stepsperreaction == 0) {
 			nickingmoments = findNickingmoments();
-			if (std::none_of(nickingmoments.begin(), nickingmoments.end(), [](float i){ return i < 0; })) {
+			if (std::count_if(nickingmoments.begin(), nickingmoments.end(), [](float i){ return i >= 0; }) == numGATC) {
 				break;
 			}
 			bindComplex(bindingchance, footprint);

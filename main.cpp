@@ -9,7 +9,7 @@ int main(int argc, char ** arg) {
 
 	NetworkArray network(myparameters);		// Set up the network
 	const int num_sims = 1000;
-	bool multiple_loading = true;
+	bool multiple_loading = myparameters.multipleloading;
 
 	UniformDistribution unif(0,1);
 	std::uint64_t sd;

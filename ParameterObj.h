@@ -8,7 +8,7 @@
 #include <string>
 
 // Enum indicating the type of substrate
-enum Substrate_type {GT1A, GT2A, GT2B};
+enum Substrate_type {GT1A, GT2A, GT2B, AT1A};
 
 // Enum indicating the substrate topology
 enum Topology {circular, linear, endblocked};
@@ -19,6 +19,7 @@ struct ParameterObj {
 	float H_conc = 100e-9;
 	Topology top = endblocked;
 	Substrate_type subs = GT2A;
+	bool multipleloading = false;
 };
 
 #endif //MARKOVNET_PARAMETEROBJ_H
