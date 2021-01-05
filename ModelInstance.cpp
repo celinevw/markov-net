@@ -118,16 +118,19 @@ bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, i
 		if (positions.at(i) < 0 ){
 			continue;
 		}
-		if (edge == 0 && i!= my_index && ((newposition + mutS_footprint <= positions.at(i) && positions.at(i) < position)
-			|| (position < positions.at(i) && positions.at(i) <= newposition - mutS_footprint))) {
+		if (i != my_index && std::abs(newposition - positions.at(i)) < mutS_footprint){
+			return false;
+		}
+		if (edge == 0 && i!= my_index && ((newposition  <= positions.at(i) && positions.at(i) < position)
+			|| (position < positions.at(i) && positions.at(i) <= newposition))) {
 			return false;
 		}
 		else if (edge == -1 && i != my_index &&
-		((positions.at(i)>=0 && positions.at(i) <= position) || positions.at(i) >= newposition - mutS_footprint)) {
+		((positions.at(i)>=0 && positions.at(i) <= position) || positions.at(i) >= newposition)) {
 			return false;
 		}
 		else if (edge == 1 && i != my_index &&
-		(positions.at(i) > position || (positions.at(i) >=0 && positions.at(i) <= newposition + mutS_footprint))) {
+		(positions.at(i) > position || (positions.at(i) >=0 && positions.at(i) <= newposition))) {
 			return false;
 		}
 	}
