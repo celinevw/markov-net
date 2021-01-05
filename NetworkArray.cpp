@@ -48,14 +48,14 @@ void NetworkArray::assign(ParameterObj par) {
 	const float H_conc = par.H_conc;	// M
 	const bool onlydimers = false;
 
-	activationS = RateToProbability(S_change, dt_react);
+	activationS = S_change * dt_react;
 
 	//D in micrometer^2/s
 	std::array<float, 6> single_diff {0, 0.036, 0.043, 0.005, 0.005, 0.005};
 
 	const int numstates = 6;
 	std::array<float,numstates-1> nextstate {S_on * S_conc * dt_react, 0, L_on * L_conc * dt_react,
-											 RateToProbability(L_change, dt_react), H_on * H_conc * dt_react};
+											 L_change * dt_react, H_on * H_conc * dt_react};
 
 	std::array<float, numstates> transition_Soff {0.0, S_off * dt_react,
 												  Sa_off * dt_react, Sa_off * dt_react,

@@ -20,7 +20,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	p_nick = 1;
 	topology = par.top;
 	my_index = ind;
-	mutS_footprint = 10;
+	mutS_footprint = 13;
 
 	dimersactive = std::array<std::vector<float>, 2> {};
 	homotetramer = std::vector<float>{};
@@ -187,13 +187,13 @@ void ModelInstance::activateS(){
 	// if only complex 1 can activate, or choose randomly between the two
 	if ((state / 6 != 1) || (state % 6 == 1 && x < (p_activate / 2))) {
 		state = state + 1;
-		dimersactive.at(0).push_back(currenttime);
+		// dimersactive.at(0).push_back(currenttime);
 		updateStep();
 		// std::cout << my_index << " activate complex 1 " << currenttime << std::endl;
 	}
 	else { // if only complex 2 can activate, or choose randomly
 		state = state + 6;
-		dimersactive.at(1).push_back(currenttime);
+		// dimersactive.at(1).push_back(currenttime);
 		updateStep();
 		// std::cout << my_index << " activate complex 2 " << currenttime << std::endl;
 	}
@@ -226,7 +226,7 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 	int stepsperreaction = roundf(dt_react / dt_diff);
 
 	// Save states over time
-	states.at(timeindex/stepsperreaction) = state;
+	// states.at(timeindex/stepsperreaction) = state;
 
 	// Always check transitions, even if bound to mismatch
 	transition(positions);
@@ -238,13 +238,14 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 		passed_mismatch = false;
 	}
 
+	/*
 	// Save moments when becoming homo/hetero-type complex
 	if (state / 6 == state % 6 ^ oldstate / 6 == oldstate % 6) {
 		homotetramer.push_back(currenttime);
 	}
 	if (oldstate / 6 == oldstate % 6 && state == 0) {
 		homotetramer.push_back(currenttime);
-	}
+	}*/
 }
 
 /* main method, one run of a model instance
