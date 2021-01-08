@@ -79,6 +79,7 @@ std::vector<std::vector<int>> Substrate::main() {
 	// If no multiple loading, all complexes start at the mismatch. Otherwise randomly choose a position.
 	// If MutS concentration is 0, don't add any complexes
 	if (parameters.S_conc <= 0){
+		complexes.emplace_back(network, parameters, gen, 0, currenttime, network.mismatchsite);
 		return std::vector<std::vector<int>> {};
 	}
 	if (mult_loading || network.mismatchsite < 0) {
@@ -92,7 +93,7 @@ std::vector<std::vector<int>> Substrate::main() {
 
 	float dt_react = complexes.at(0).dt_react;
 	float dt_diff = complexes.at(0).dt_diff;
-	float bindingchance = network.transitions.at(1).at(7);
+	float bindingchance = network.transitions.at(6).at(7);
 	int stepsperreaction = roundf(dt_react / dt_diff);
 	int footprint = complexes.at(0).mutS_footprint;
 

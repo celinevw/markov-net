@@ -27,10 +27,12 @@ int main(int argc, char ** arg) {
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
 			sims.at(i)->main();
+			/*
 			done += 1;
 			if (done % 10 == 0) {
 				std::cout << done << std::endl;
 			}
+			*/
 		}
 	}
 
@@ -39,7 +41,7 @@ int main(int argc, char ** arg) {
 	float dt_plot = 0.1;
 
 	int numtimesteps = totaltime/dt_plot;
-	std::vector<std::array<float, 4>> nicking_arr(numtimesteps, std::array<float, 4>{});
+	std::vector<std::array<float, 4>> nicking_arr(numtimesteps, std::array<float, 4>{0, 0, 0, 0});
 	bool nicked1;
 	bool nicked2;
 

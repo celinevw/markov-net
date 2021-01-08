@@ -10,7 +10,7 @@ void ModelInstance::assign(NetworkArray &net, ParameterObj &par, XoshiroCpp::Xos
 	state = 1;						// graph is symmetric, so let all start in state 1
 	dt_react = net.dt_react; 						// for reaction, check dt with networkarray for probabilities
 	dt_diff = 100e-6;				// for diffusion
-	totaltime = 90;
+	totaltime = 300;
 	updateStep();
 	nick1 = -1;
 	nick2 = -1;
@@ -211,7 +211,7 @@ void ModelInstance::nicking(){
 			nick1 = currenttime;
 			// std::cout << my_index << "\t" << currenttime << "\t" << 1 << std::endl;
 		}
-		// Nicking site 2 if close enough and not nicked yet and allowed by p_nick
+			// Nicking site 2 if close enough and not nicked yet and allowed by p_nick
 		else if (std::abs((position - network.nickingsite2)) < stepsize && nick2 < 0 && x < p_nick){
 			nick2 = currenttime;
 			// std::cout << my_index << "\t" << currenttime << "\t" << 2 << std::endl;
