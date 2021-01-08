@@ -29,7 +29,7 @@ ParameterObj IO::read(int argc, char **arg) {
 	parameters.subs = str_enum_subs[arg[5]];
 	parameters.multipleloading = std::string(arg[6]).std::string::compare("True") == 0;
 
-	if (std::string(arg[6]).std::string::compare("Tetramer") == 0){
+	if (std::string(arg[7]).std::string::compare("Tetramer") == 0){
 		parameters.tetramer = true;
 	}
 	else {
