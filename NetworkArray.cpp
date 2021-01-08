@@ -109,7 +109,7 @@ void NetworkArray::assign(ParameterObj par) {
 		}
 
 		//state2 goes to the next state, if tetramer. only one can transition.
-		if (!onlydimers) {
+		if (tetramers) {
 			if (l != 0 && i < numstates - 1) {
 				transitions.at(l).at(l + numstates) = nextstate.at(i) * j_next;
 			}

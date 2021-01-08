@@ -13,9 +13,9 @@ ParameterObj IO::read(int argc, char **arg) {
 	if (argc != 8){
 		std::cerr << "usage: " << arg[0] << " Sconc Lconc Hconc topology substrate multipleloading" << std::endl;
 	}
-	parameters.S_conc = std::stof(arg[1]);
-	parameters.L_conc = std::stof(arg[2]);
-	parameters.H_conc = std::stof(arg[3]);
+	parameters.S_conc = std::stof(arg[1])*1e-9;
+	parameters.L_conc = std::stof(arg[2])*1e-9;
+	parameters.H_conc = std::stof(arg[3])*1e-9;
 
 	std::map<std::string, Topology> str_enum_top {
 			{"circular", circular}, {"linear", linear}, {"endblocked", endblocked},
