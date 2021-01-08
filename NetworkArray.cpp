@@ -46,7 +46,7 @@ void NetworkArray::assign(ParameterObj par) {
 	const float S_conc = par.S_conc;	// M
 	const float L_conc = par.L_conc;	// M
 	const float H_conc = par.H_conc;	// M
-	const bool onlydimers = false;
+	const bool tetramers = par.tetramer;
 
 	activationS = S_change * dt_react;
 
@@ -106,7 +106,7 @@ void NetworkArray::assign(ParameterObj par) {
 		}
 
 		//state2 goes to the next state, if tetramer. only one can transition.
-		if (!onlydimers) {
+		if (tetramers) {
 			if (l != 0 && i < numstates - 1) {
 				transitions.at(l).at(l + numstates) = nextstate.at(i) * j_next;
 			}

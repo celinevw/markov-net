@@ -20,6 +20,7 @@ struct ParameterObj {
 	Topology top = endblocked;
 	Substrate_type subs = GT2A;
 	bool multipleloading = false;
+	bool tetramer = true;
 };
 
 #endif //MARKOVNET_PARAMETEROBJ_H

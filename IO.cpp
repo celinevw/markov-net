@@ -10,12 +10,12 @@ ParameterObj IO::read(int argc, char **arg) {
 		return parameters;
 	}
 
-	if (argc != 7){
+	if (argc != 8){
 		std::cerr << "usage: " << arg[0] << " Sconc Lconc Hconc topology substrate multipleloading" << std::endl;
 	}
-	parameters.S_conc = std::stof(arg[1]);
-	parameters.L_conc = std::stof(arg[2]);
-	parameters.H_conc = std::stof(arg[3]);
+	parameters.S_conc = std::stof(arg[1])*1e-9;
+	parameters.L_conc = std::stof(arg[2])*1e-9;
+	parameters.H_conc = std::stof(arg[3])*1e-9;
 
 	std::map<std::string, Topology> str_enum_top {
 			{"circular", circular}, {"linear", linear}, {"endblocked", endblocked},
@@ -28,6 +28,13 @@ ParameterObj IO::read(int argc, char **arg) {
 	};
 	parameters.subs = str_enum_subs[arg[5]];
 	parameters.multipleloading = std::string(arg[6]).std::string::compare("True") == 0;
+
+	if (std::string(arg[6]).std::string::compare("Tetramer") == 0){
+		parameters.tetramer = true;
+	}
+	else {
+		parameters.tetramer = false;
+	}
 	return parameters;
 }
 
