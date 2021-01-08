@@ -46,7 +46,7 @@ void NetworkArray::assign(ParameterObj par) {
 	const float S_conc = par.S_conc;	// M
 	const float L_conc = par.L_conc;	// M
 	const float H_conc = par.H_conc;	// M
-	const bool onlydimers = false;
+	const bool tetramers = par.tetramer;
 
 	activationS = S_change * dt_react;
 

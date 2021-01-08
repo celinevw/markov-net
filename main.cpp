@@ -151,7 +151,8 @@ int main(int argc, char ** arg) {
 	std::string S = std::to_string(int(round(myparameters.S_conc * 1e9)));
 	std::string L = std::to_string(int(round(myparameters.L_conc * 1e9)));
 	std::string H = std::to_string(int(round(myparameters.H_conc * 1e9)));
-	std::string nicking_file = "nicking"+S+"_"+L+"_"+H+"_"+std::to_string(myparameters.top)+"_"+std::to_string(myparameters.subs)+".tsv";
+	std::string Smutant = myparameters.tetramer ? "Tetramer" : "Dimer";
+	std::string nicking_file = "nicking"+Smutant+S+"_"+L+"_"+H+"_"+std::to_string(myparameters.top)+"_"+std::to_string(myparameters.subs)+".tsv";
 	out.open(nicking_file);
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
 	out << myparameters.S_conc << "\t" << myparameters.L_conc << "\t" << myparameters.H_conc << "\t" << myparameters.top << "\t" << myparameters.subs << "\t" << multiple_loading << std::endl;
