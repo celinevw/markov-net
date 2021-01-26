@@ -116,8 +116,8 @@ std::vector<std::vector<int>> Substrate::main(int i) {
 	// Keep iterating until total time is reached
 	for (int i = 1; i < (complexes.at(0).totaltime / dt_diff); i++) {
 		/*
-		for (int &protein : positions) {
-			pos_str << protein << "\t";
+		for (auto &protein : complexes) {
+			pos_str << protein.getPosition() << "\t";
 		}
 		pos_str << std::endl;
 		*/

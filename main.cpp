@@ -36,6 +36,13 @@ int main(int argc, char ** arg) {
 		}
 	}
 
+	for (auto substrate : sims){
+		for (auto protein : substrate->complexes){
+			std::cout << protein.getState() << " ";
+		}
+		std::cout << std::endl;
+	}
+
 	float totaltime = sims.at(0)->complexes.at(0).totaltime;
 	float dt_reaction = sims.at(0)->complexes.at(0).dt_react;
 	float dt_plot = 0.1;

@@ -209,12 +209,12 @@ void ModelInstance::nicking(int substrate_id){
 		// Nicking site 1 if close enough and not nicked yet and allowed by p_nick
 		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
 			nick1 = currenttime;
-			std::cout << substrate_id << " " << "nick 1" << " " << state << std::endl;
+			//std::cout << substrate_id << " " << "nick 1" << " " << state << std::endl;
 		}
 			// Nicking site 2 if close enough and not nicked yet and allowed by p_nick
 		else if (std::abs((position - network.nickingsite2)) < stepsize && nick2 < 0 && x < p_nick){
 			nick2 = currenttime;
-			std::cout << substrate_id << " " << "nick 2" << " " << state << std::endl;
+			//std::cout << substrate_id << " " << "nick 2" << " " << state << std::endl;
 		}
 	}
 }
