@@ -75,7 +75,9 @@ void Substrate::bindComplex(float bindingchance, int footprint) {
 	}
 }
 
-std::vector<std::vector<int>> Substrate::main() {
+std::vector<std::vector<int>> Substrate::main(int i) {
+	id = i;
+
 	// If no multiple loading, all complexes start at the mismatch. Otherwise randomly choose a position.
 	// If MutS concentration is 0, don't add any complexes
 	if (parameters.S_conc <= 0){
@@ -143,7 +145,7 @@ std::vector<std::vector<int>> Substrate::main() {
 		for (auto &protein: complexes) {
 			if(protein.getState() != 0) {
 				protein.setStep(positions);
-				protein.nicking();
+				protein.nicking(id);
 				protein.currenttime = currenttime;
 			}
 		}

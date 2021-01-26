@@ -26,7 +26,7 @@ int main(int argc, char ** arg) {
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
-			sims.at(i)->main();
+			sims.at(i)->main(int(i));
 			/*
 			done += 1;
 			if (done % 10 == 0) {

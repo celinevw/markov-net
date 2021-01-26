@@ -12,6 +12,7 @@
 
 class Substrate{
 private:
+	int id = 0;
 	NetworkArray network;
 	ParameterObj parameters;
 	XoshiroCpp::Xoshiro128PlusPlus gen;
@@ -38,7 +39,7 @@ public:
 	// Adds a complex to the substrate with probability of bindingchance
 	void bindComplex(float bindingchance, int footprint);
 
-	std::vector<std::vector<int>> main();
+	std::vector<std::vector<int>> main(int i);
 };
 
 #endif //MARKOVNET_SUBSTRATE_H

@@ -202,19 +202,19 @@ void ModelInstance::activateS(){
 	}
 }
 
-void ModelInstance::nicking(){
+void ModelInstance::nicking(int substrate_id){
 	float x = dist(gen);
 	// If one complex is SLH, possible nicking if not nicked yet
 	if (state > 29 || state % 6 == 5){
 		// Nicking site 1 if close enough and not nicked yet and allowed by p_nick
 		if (std::abs((position - network.nickingsite1)) < stepsize && nick1 < 0 && x < p_nick){
 			nick1 = currenttime;
-			// std::cout << my_index << "\t" << currenttime << "\t" << 1 << std::endl;
+			std::cout << substrate_id << " " << "nick 1" << " " << state << std::endl;
 		}
 			// Nicking site 2 if close enough and not nicked yet and allowed by p_nick
 		else if (std::abs((position - network.nickingsite2)) < stepsize && nick2 < 0 && x < p_nick){
 			nick2 = currenttime;
-			// std::cout << my_index << "\t" << currenttime << "\t" << 2 << std::endl;
+			std::cout << substrate_id << " " << "nick 2" << " " << state << std::endl;
 		}
 	}
 }
@@ -261,7 +261,7 @@ void ModelInstance::main(std::vector<int> &positions) {
 	while (dt_diff * i < totaltime && (nick1<0 || nick2<0) && state != 0) { //
 		currenttime = dt_diff * i; //update only needed when time may be used
 		setStep(positions);
-		nicking();
+		nicking(0);
 
 		if(i % stepsperreaction == 0) {
 			reactionStep(i, positions);

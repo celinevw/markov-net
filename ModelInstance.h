@@ -54,7 +54,7 @@ public:
 	void activateS();
 
 	// Checks whether MutSLH is at a nicking site and this site is not nicked yet, and if so stores currenttime in corresponding field
-	void nicking();
+	void nicking(int substrate_id);
 
 	// Updates the stepsize based on diffusion constant in this state
 	void updateStep();
