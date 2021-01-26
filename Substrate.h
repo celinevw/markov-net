@@ -30,6 +30,9 @@ public:
 	Substrate();
 	void assign(NetworkArray &net, ParameterObj &par, bool allow_loading, std::uint64_t seed);
 
+	float getRandomXoshiro();
+	int getRandomIntXoshiro();
+
 	// Returns true if there are no complexes within footprint steps of pos, false otherwise
 	bool positionFree(int pos, int footprint);
 

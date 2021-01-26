@@ -48,6 +48,10 @@ int ModelInstance::getPosition() const {
 	return position;
 }
 
+float ModelInstance::getRandomXoshiro() {
+	float x = dist(gen);
+	return x;
+}
 /* Randomly decide direction. Check whether new position lies within boundaries
  * If so, update step, else don't.
  */
@@ -55,7 +59,7 @@ void ModelInstance::setStep(std::vector<int> &positions) {
 	if (stepsize == 0) {
 		return;
 	}
-	float x = dist(gen);
+	float x = getRandomXoshiro();
 	// Choose direction
 	int direction;
 	int edge = 0;
@@ -140,7 +144,7 @@ bool ModelInstance::stepPossible(std::vector<int> &positions, int newposition, i
 /* Choose transition to follow based on random number x.
  */
 void ModelInstance::transition(std::vector<int> &positions) {
-	float x = dist(gen);
+	float x = getRandomXoshiro();
 	// If there are no outgoing edges, then stay in this state
 	if (std::accumulate(network.transitions.at(state).begin(), network.transitions.at(state).end(), 0.0) == 0){
 		return;
@@ -182,7 +186,7 @@ void ModelInstance::transition(std::vector<int> &positions) {
 }
 
 void ModelInstance::activateS(){
-	float x = dist(gen);
+	float x = getRandomXoshiro();
 	if (x >= p_activate){ // clamp failure
 		return;
 	}
@@ -203,7 +207,7 @@ void ModelInstance::activateS(){
 }
 
 void ModelInstance::nicking(int substrate_id){
-	float x = dist(gen);
+	float x = getRandomXoshiro();
 	// If one complex is SLH, possible nicking if not nicked yet
 	if (state > 29 || state % 6 == 5){
 		// Nicking site 1 if close enough and not nicked yet and allowed by p_nick
@@ -235,7 +239,8 @@ void ModelInstance::reactionStep(int timeindex, std::vector<int> &positions) {
 	transition(positions);
 
 	// If bound at the mismatch, possibly activate inactive MutS dimer
-	if (passed_mismatch && dist(gen) < network.activationS) {
+	float x = getRandomXoshiro();
+	if (passed_mismatch && x < network.activationS) {
 		activateS();
 		// std::cout << "activated S " << currenttime << std::endl;
 		passed_mismatch = false;

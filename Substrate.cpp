@@ -29,6 +29,16 @@ Substrate::Substrate() {
 	assign(mynet, myparameters, sd, false);
 }
 
+float Substrate::getRandomXoshiro() {
+	float x = dist(gen);
+	return x;
+}
+
+int Substrate::getRandomIntXoshiro() {
+	int x = int_dist(gen);
+	return x;
+}
+
 bool Substrate::positionFree(int pos, int footprint) {
 	// Returns true if no complexes are within footprint bp of position pos on the substrate
 	return std::none_of(positions.begin(), positions.end(), [pos, footprint](int complex){
@@ -63,8 +73,8 @@ void Substrate::bindComplex(float bindingchance, int footprint) {
 	if (!mult_loading){
 		return;
 	}
-	float x = dist(gen);
-	int binding_position = int_dist(gen);
+	float x = getRandomXoshiro();
+	int binding_position = getRandomIntXoshiro();
 
 	// If x is smaller than the chance of binding and the position is free, bind a complex
 	if (x < bindingchance && positionFree(binding_position, footprint)) {
@@ -85,7 +95,8 @@ std::vector<std::vector<int>> Substrate::main(int i) {
 		return std::vector<std::vector<int>> {};
 	}
 	if (mult_loading || network.mismatchsite < 0) {
-		complexes.emplace_back(network, parameters, gen, 0, currenttime, int_dist(gen));
+		float newposition = getRandomIntXoshiro();
+		complexes.emplace_back(network, parameters, gen, 0, currenttime, newposition);
 	}
 	else {
 		complexes.emplace_back(network, parameters, gen, 0, currenttime, network.mismatchsite);

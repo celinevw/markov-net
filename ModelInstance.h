@@ -42,6 +42,9 @@ public:
 	ModelInstance();
 	int getState() const;
 	int getPosition() const;
+
+	float getRandomXoshiro();
+
 	void setStep(std::vector<int> &positions);
 
 	// Returns true if going to newposition is possible, false else

@@ -22,7 +22,7 @@ int main(int argc, char ** arg) {
 	int done = 0;
 	std::vector<std::vector<std::vector<int>>> allpositions;
 
-#pragma omp parallel num_threads(30)
+#pragma omp parallel num_threads(40)
 	{
 #pragma omp for
 		for (size_t i = 0; i < num_sims; i++){
