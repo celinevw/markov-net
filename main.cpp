@@ -146,16 +146,17 @@ int main(int argc, char ** arg) {
 			states_arr.at(i).at(currentstate) += 1;
 		}
 	}
+	*/
 
 	// Save nicking moments
+	std::ofstream out;
 	std::string nickingmoment_file = "nicking_moments.tsv";
 	out.open(nickingmoment_file);
 	out << totaltime << "\t" << dt_plot << "\t" << num_sims << std::endl;
 	out.close();
 	myIO.momentsNicking(sims, nickingmoment_file);
-	*/
 
-	std::ofstream out;
+
 	// Save nicking fractions over time
 	std::string S = std::to_string(int(round(myparameters.S_conc * 1e9)));
 	std::string L = std::to_string(int(round(myparameters.L_conc * 1e9)));
